@@ -1,7 +1,12 @@
 ---
 import ResponsiveImage from '../ResponsiveImage.astro';
 import type { FragPunkScreenshot } from '../../data/fragpunk/media';
-import { CARD_IMAGE_SIZES, DEFAULT_IMAGE_WIDTHS, HERO_IMAGE_WIDTHS } from '../../utils/responsiveImage';
+import {
+  CONTENT_IMAGE_SIZES,
+  CONTENT_IMAGE_WIDTHS,
+  HERO_IMAGE_SIZES,
+  HERO_IMAGE_WIDTHS,
+} from '../../utils/responsiveImage';
 
 interface Props {
   image: FragPunkScreenshot;
@@ -21,11 +26,8 @@ const {
   class: className,
 } = Astro.props;
 
-const widths = variant === 'hero' ? HERO_IMAGE_WIDTHS : DEFAULT_IMAGE_WIDTHS;
-const sizes =
-  variant === 'hero'
-    ? '(min-width: 768px) 720px, 100vw'
-    : CARD_IMAGE_SIZES;
+const widths = variant === 'hero' ? HERO_IMAGE_WIDTHS : CONTENT_IMAGE_WIDTHS;
+const sizes = variant === 'hero' ? HERO_IMAGE_SIZES : CONTENT_IMAGE_SIZES;
 const resolvedLoading = variant === 'hero' ? 'eager' : loading;
 const resolvedPriority = fetchPriority ?? (variant === 'hero' ? 'high' : undefined);
 ---

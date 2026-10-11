@@ -1,6 +1,11 @@
 ---
 import ResponsiveImage from './ResponsiveImage.astro';
-import { HERO_IMAGE_SIZES, HERO_IMAGE_WIDTHS } from '../utils/responsiveImage';
+import {
+  CONTENT_IMAGE_SIZES,
+  CONTENT_IMAGE_WIDTHS,
+  HERO_IMAGE_SIZES,
+  HERO_IMAGE_WIDTHS,
+} from '../utils/responsiveImage';
 import {
   Carousel,
   CarouselContent,
@@ -25,8 +30,8 @@ interface Props {
 
 const { images, id, variant = 'default', desktopOnly = false } = Astro.props;
 const isHero = variant === 'hero';
-const imageSizes = isHero ? HERO_IMAGE_SIZES : '(min-width: 1024px) 640px, 100vw';
-const imageWidths = isHero ? HERO_IMAGE_WIDTHS : undefined;
+const imageSizes = isHero ? HERO_IMAGE_SIZES : CONTENT_IMAGE_SIZES;
+const imageWidths = isHero ? HERO_IMAGE_WIDTHS : CONTENT_IMAGE_WIDTHS;
 ---
 
 <div

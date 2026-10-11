@@ -1,8 +1,8 @@
 ---
 import { SITE_HERO_BACKGROUND } from '../../data/fragpunk/media';
-import { defaultWebpSrc, HERO_IMAGE_WIDTHS } from '../../utils/responsiveImage';
+import { heroLcpWebpSrc } from '../../utils/responsiveImage';
 
-const href = defaultWebpSrc(SITE_HERO_BACKGROUND.src, HERO_IMAGE_WIDTHS);
+const href = heroLcpWebpSrc(SITE_HERO_BACKGROUND.src);
 ---
 
 <Fragment slot="head">

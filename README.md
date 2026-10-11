@@ -57,7 +57,7 @@ npm run seo:audit
 ## Images
 
 - Gameplay shots live under `public/images/fragpunk/`.
-- Run `npm run optimize:images` to regenerate WebP sizes and OG crops.
+- Run `npm run optimize:images` to upscale masters (1536px content / 1920px hero), regenerate WebP variants (480–1920w), and OG crops.
 - Run `npm run generate:icons` after changing `public/brand/fragpunk-logo-source.jpg`.
 
 ## Checkout redirects

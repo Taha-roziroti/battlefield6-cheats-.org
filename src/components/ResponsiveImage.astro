@@ -1,6 +1,7 @@
 ---
 import {
-  DEFAULT_IMAGE_WIDTHS,
+  CONTENT_IMAGE_SIZES,
+  CONTENT_IMAGE_WIDTHS,
   defaultWebpSrc,
   responsiveSrcSet,
 } from '../utils/responsiveImage';
@@ -25,8 +26,8 @@ const {
   height,
   loading = 'lazy',
   fetchPriority,
-  sizes = '(min-width: 1024px) 640px, 100vw',
-  widths = DEFAULT_IMAGE_WIDTHS,
+  sizes = CONTENT_IMAGE_SIZES,
+  widths = CONTENT_IMAGE_WIDTHS,
   class: className,
   desktopOnly = false,
 } = Astro.props;

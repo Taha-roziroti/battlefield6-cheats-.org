@@ -183,3 +183,11 @@
   max-width: none;
   margin-inline: 0;
 }
+
+.guide-page-shell img,
+.carousel-3d-slide img,
+.site-hero__img {
+  max-width: 100%;
+  height: auto;
+  image-rendering: auto;
+}

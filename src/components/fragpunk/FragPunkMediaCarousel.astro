@@ -12,7 +12,7 @@ import {
   HOME_GALLERY_IDS,
   type FragPunkScreenshotId,
 } from '../../data/fragpunk/media';
-import { CARD_IMAGE_SIZES, DEFAULT_IMAGE_WIDTHS } from '../../utils/responsiveImage';
+import { CARD_IMAGE_SIZES, CONTENT_IMAGE_WIDTHS } from '../../utils/responsiveImage';
 
 interface Props {
   ids?: FragPunkScreenshotId[];
@@ -46,7 +46,7 @@ const {
           {
             ids.map((id, i) => {
               const image = FRAGPUNK_SCREENSHOTS[id];
-              const srcSet = DEFAULT_IMAGE_WIDTHS;
+              const srcSet = CONTENT_IMAGE_WIDTHS;
               return (
                 <CarouselItem class="basis-[88%] pl-3 sm:basis-[72%] md:basis-[58%] md:pl-5">
                   <figure

@@ -1,5 +1,5 @@
 ---
-import { defaultWebpSrc, HERO_IMAGE_WIDTHS } from '../../utils/responsiveImage';
+import { CONTENT_IMAGE_WIDTHS, defaultWebpSrc } from '../../utils/responsiveImage';
 import type { FragPunkScreenshot } from '../../data/fragpunk/media';
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { image } = Astro.props;
-const href = defaultWebpSrc(image.src, HERO_IMAGE_WIDTHS);
+const href = defaultWebpSrc(image.src, CONTENT_IMAGE_WIDTHS);
 ---
 
 <Fragment slot="head">

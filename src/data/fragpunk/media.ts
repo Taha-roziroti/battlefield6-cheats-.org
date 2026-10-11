@@ -85,6 +85,38 @@ export const FRAGPUNK_SCREENSHOTS = {
     alt: 'FragPunk firefight showing red enemy boxes, snap lines, and a large aim FOV circle.',
     caption: 'Combined ESP lines/boxes with a visible aim FOV circle.',
   },
+  matchIndustrialHallway: {
+    id: 'match-industrial-hallway',
+    src: `${base}/match-industrial-hallway.jpg`,
+    width: 1024,
+    height: 576,
+    alt: 'FragPunk industrial hallway with a red aim ring on an enemy highlighted in yellow through cover.',
+    caption: 'Aim ring and target highlight in a bright hangar-style map.',
+  },
+  matchToxicGasRoom: {
+    id: 'match-toxic-gas-room',
+    src: `${base}/match-toxic-gas-room.jpg`,
+    width: 1024,
+    height: 576,
+    alt: 'FragPunk indoor site with green toxic gas and a pistol aimed at a distant highlighted enemy.',
+    caption: 'Objective-site fight with heavy VFX—overlays still show target position.',
+  },
+  matchDarkCorridor: {
+    id: 'match-dark-corridor',
+    src: `${base}/match-dark-corridor.jpg`,
+    width: 1024,
+    height: 576,
+    alt: 'FragPunk dark warehouse corridor with purple HUD banners and a scoped rifle aimed downrange.',
+    caption: 'Ranked-style corridor with the game’s purple UI chrome visible.',
+  },
+  matchReloadingCorridor: {
+    id: 'match-reloading-corridor',
+    src: `${base}/match-reloading-corridor.jpg`,
+    width: 1024,
+    height: 576,
+    alt: 'FragPunk corridor view with a glowing pistol, yellow target marker, and ability cards on the HUD.',
+    caption: 'Close-quarters pistol fight with target marker and ability HUD.',
+  },
 } as const satisfies Record<string, FragPunkScreenshot>;
 
 export type FragPunkScreenshotId = keyof typeof FRAGPUNK_SCREENSHOTS;
@@ -110,9 +142,13 @@ export function fragpunkOgImage(key: FragPunkOgKey): string {
 
 /** Homepage gallery — distinct from the home hero still. */
 export const HOME_GALLERY_IDS: FragPunkScreenshotId[] = [
+  'matchIndustrialHallway',
+  'matchToxicGasRoom',
+  'matchDarkCorridor',
+  'matchReloadingCorridor',
   'trainingAimbotScope',
-  'trainingEspIndicators',
   'matchEspSilhouette',
+  'matchEspSkeleton',
   'matchEspFovRadar',
 ];
 
@@ -121,7 +157,7 @@ export const PAGE_HERO: Partial<Record<string, FragPunkScreenshotId>> = {
   '/fragpunk-aimbot/': 'trainingAimbotScope',
   '/fragpunk-esp/': 'matchEspSilhouette',
   '/fragpunk-cheats-pricing/': 'trainingEspIndicators',
-  '/fragpunk-cheats-review/': 'matchEspFovRadar',
+  '/fragpunk-cheats-review/': 'matchDarkCorridor',
 };
 
 export const PAGE_SECTION_IMAGES: Partial<Record<string, Partial<Record<string, FragPunkScreenshotId>>>> = {
@@ -130,11 +166,20 @@ export const PAGE_SECTION_IMAGES: Partial<Record<string, Partial<Record<string, 
     aimbot: 'matchAimbotFov',
   },
   '/fragpunk-aimbot/': {
+    'features-controls': 'matchIndustrialHallway',
     'fov-smoothing': 'matchAimbotFov',
   },
   '/fragpunk-esp/': {
     'player-esp': 'matchEspSkeletonClose',
     indicators: 'matchEspSkeleton',
+    terminology: 'matchToxicGasRoom',
+  },
+  '/fragpunk-cheats-pricing/': {
+    'monthly-vs-lifetime': 'matchReloadingCorridor',
+  },
+  '/fragpunk-cheats-review/': {
+    'compare-features': 'matchEspFovRadar',
+    included: 'matchIndustrialHallway',
   },
 };
 

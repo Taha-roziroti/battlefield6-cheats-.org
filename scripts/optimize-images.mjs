@@ -43,7 +43,7 @@ const ogSources = [
   { out: 'aimbot.webp', src: 'training-aimbot-scope.png' },
   { out: 'esp.webp', src: 'match-esp-silhouette.jpg' },
   { out: 'pricing.webp', src: 'training-esp-indicators.png' },
-  { out: 'review.webp', src: 'match-esp-fov-radar.jpg' },
+  { out: 'review.webp', src: 'match-dark-corridor.jpg' },
 ];
 
 async function writeOgImages() {

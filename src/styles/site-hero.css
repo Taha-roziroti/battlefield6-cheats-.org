@@ -4,6 +4,7 @@
   overflow: hidden;
   border-bottom: 1px solid color-mix(in oklab, var(--primary) 18%, var(--border));
   padding-top: calc(var(--floating-nav-clearance) + 0.75rem);
+  min-height: clamp(16rem, 42vw, 22rem);
 }
 
 .site-hero__media {
@@ -17,33 +18,59 @@
   height: 100%;
   width: 100%;
   object-fit: cover;
-  object-position: 72% 28%;
+  object-position: 78% 30%;
 }
 
 .site-hero__scrim {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    105deg,
-    color-mix(in oklab, var(--background) 94%, transparent) 0%,
-    color-mix(in oklab, var(--background) 82%, transparent) 42%,
-    color-mix(in oklab, var(--background) 55%, transparent) 72%,
-    color-mix(in oklab, var(--background) 35%, transparent) 100%
+    90deg,
+    color-mix(in oklab, #0a0d10 94%, transparent) 0%,
+    color-mix(in oklab, #0a0d10 78%, transparent) 28%,
+    color-mix(in oklab, #0a0d10 42%, transparent) 46%,
+    transparent 58%,
+    transparent 100%
   );
 }
 
 .dark .site-hero__scrim {
   background: linear-gradient(
-    105deg,
-    color-mix(in oklab, var(--background) 96%, transparent) 0%,
-    color-mix(in oklab, var(--background) 88%, transparent) 40%,
-    color-mix(in oklab, var(--background) 62%, transparent) 70%,
-    color-mix(in oklab, var(--background) 42%, transparent) 100%
+    90deg,
+    color-mix(in oklab, #0a0d10 96%, transparent) 0%,
+    color-mix(in oklab, #0a0d10 82%, transparent) 30%,
+    color-mix(in oklab, #0a0d10 48%, transparent) 48%,
+    transparent 60%,
+    transparent 100%
   );
 }
 
 .site-hero__content {
   position: relative;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.site-hero__copy {
+  width: 100%;
+  max-width: 36rem;
+  text-align: left;
+}
+
+@media (min-width: 768px) {
+  .site-hero__copy {
+    max-width: min(34rem, 48vw);
+  }
+
+  .site-hero__img {
+    object-position: 74% 26%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-hero__copy {
+    max-width: min(38rem, 44vw);
+  }
 }
 
 .site-hero__breadcrumbs {
@@ -66,23 +93,17 @@
   line-height: 1.1;
   text-transform: none;
   color: var(--foreground);
-  text-shadow: 0 1px 24px color-mix(in oklab, var(--background) 70%, transparent);
+  text-shadow: 0 1px 20px color-mix(in oklab, #0a0d10 85%, transparent);
 }
 
 .site-hero__lead {
-  max-width: 42rem;
+  max-width: 36rem;
   font-size: 1.0625rem;
   line-height: 1.65;
   color: var(--muted-foreground);
-  text-shadow: 0 1px 16px color-mix(in oklab, var(--background) 65%, transparent);
+  text-shadow: 0 1px 14px color-mix(in oklab, #0a0d10 80%, transparent);
 }
 
 .site-hero__actions {
   margin-top: 1.75rem;
-}
-
-@media (min-width: 768px) {
-  .site-hero__img {
-    object-position: 68% 24%;
-  }
 }

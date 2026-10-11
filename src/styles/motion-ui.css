@@ -80,14 +80,14 @@
 
 .flip-card__face--front {
   position: relative;
-  background: var(--glass-bg);
+  background: var(--glass-card-fill);
   border: 1px solid color-mix(in oklab, var(--primary) 28%, var(--border));
 }
 
 .flip-card__face--back {
   position: absolute;
   transform: rotateY(180deg);
-  background: color-mix(in oklab, var(--primary) 14%, var(--glass-bg));
+  background: var(--glass-card-fill-accent);
   border: 1px solid color-mix(in oklab, var(--primary) 40%, var(--border));
 }
 

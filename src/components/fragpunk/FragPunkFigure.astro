@@ -8,6 +8,7 @@ interface Props {
   variant?: 'inline' | 'hero';
   loading?: 'lazy' | 'eager';
   fetchPriority?: 'high' | 'low' | 'auto';
+  framed?: boolean;
   class?: string;
 }
 
@@ -16,6 +17,7 @@ const {
   variant = 'inline',
   loading = 'lazy',
   fetchPriority,
+  framed = true,
   class: className,
 } = Astro.props;
 
@@ -28,25 +30,59 @@ const resolvedLoading = variant === 'hero' ? 'eager' : loading;
 const resolvedPriority = fetchPriority ?? (variant === 'hero' ? 'high' : undefined);
 ---
 
-<figure class:list={['glass-border-animated not-prose my-8 overflow-hidden', className]} data-reveal data-scroll-tilt>
-  <div class="glass-border-animated__inner overflow-hidden">
-  <ResponsiveImage
-    src={image.src}
-    alt={image.alt}
-    width={image.width}
-    height={image.height}
-    widths={widths}
-    sizes={sizes}
-    loading={resolvedLoading}
-    fetchPriority={resolvedPriority}
-    class="h-auto w-full"
-  />
-  {
-    image.caption && (
-      <figcaption class="border-t border-border/60 px-4 py-3 text-sm leading-relaxed text-muted-foreground">
-        {image.caption}
-      </figcaption>
-    )
-  }
-  </div>
-</figure>
+{
+  framed ? (
+    <figure
+      class:list={['glass-border-animated not-prose my-8 overflow-hidden', className]}
+      data-reveal
+    >
+      <div class="glass-border-animated__inner overflow-hidden">
+        <ResponsiveImage
+          src={image.src}
+          alt={image.alt}
+          width={image.width}
+          height={image.height}
+          widths={widths}
+          sizes={sizes}
+          loading={resolvedLoading}
+          fetchPriority={resolvedPriority}
+          class="h-auto w-full"
+        />
+        {
+          image.caption && (
+            <figcaption class="border-t border-border/60 px-4 py-3 text-sm leading-relaxed text-muted-foreground">
+              {image.caption}
+            </figcaption>
+          )
+        }
+      </div>
+    </figure>
+  ) : (
+    <figure
+      class:list={[
+        'not-prose my-8 overflow-hidden rounded-[calc(var(--radius)+2px)] border border-border/70 bg-card/40',
+        className,
+      ]}
+      data-reveal
+    >
+      <ResponsiveImage
+        src={image.src}
+        alt={image.alt}
+        width={image.width}
+        height={image.height}
+        widths={widths}
+        sizes={sizes}
+        loading={resolvedLoading}
+        fetchPriority={resolvedPriority}
+        class="h-auto w-full"
+      />
+      {
+        image.caption && (
+          <figcaption class="border-t border-border/60 px-4 py-3 text-sm leading-relaxed text-muted-foreground">
+            {image.caption}
+          </figcaption>
+        )
+      }
+    </figure>
+  )
+}

@@ -25,22 +25,25 @@ const { title, description, breadcrumbLabel, sections } = Astro.props;
 />
 <article class="glass-section py-8 md:py-12">
   <div class="mx-auto max-w-3xl px-5">
-    <div class="glass-border-animated" data-reveal data-scroll-tilt>
-      <div class="glass-border-animated__inner p-6 md:p-8">
-    <Prose class="prose-glass max-w-none text-left">
-      {sections.map((section) => (
-        <section class="mt-8 first:mt-0">
-          <h2 class="text-fx-heading">{section.heading}</h2>
-          {section.paragraphs.map((paragraph) => (
-            <p>{paragraph}</p>
-          ))}
+    {
+      sections.map((section, index) => (
+        <section
+          class:list={[
+            'content-block content-block--plain',
+            index % 3 === 1 && 'content-block--glass mx-0 rounded-xl border border-border/50 bg-card/20 p-6 md:p-7',
+          ]}
+        >
+          <Prose class="prose-glass max-w-none text-left">
+            <h2 class="text-fx-heading">{section.heading}</h2>
+            {section.paragraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </Prose>
         </section>
-      ))}
-    </Prose>
-      </div>
-    </div>
+      ))
+    }
 
-    <div class="mt-12 flex flex-wrap justify-center gap-3 border-t border-border pt-8">
+    <div class="mt-12 flex flex-wrap justify-start gap-3 border-t border-border pt-8">
       <Button as="a" href={ROUTES.support} variant="primary" size="sm">
         Contact support
         <Icon name="mail" size={16} />

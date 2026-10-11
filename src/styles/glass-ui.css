@@ -24,10 +24,12 @@
 .site-shell {
   position: relative;
   min-height: 100vh;
-  background:
-    radial-gradient(1200px 600px at 10% -10%, color-mix(in oklab, var(--primary) 18%, transparent), transparent 55%),
-    radial-gradient(900px 500px at 95% 20%, color-mix(in oklab, var(--primary-accent) 12%, transparent), transparent 50%),
-    var(--background);
+  background-color: #0a0d10;
+  background-image:
+    radial-gradient(1100px 520px at 8% -8%, color-mix(in oklab, var(--primary) 14%, transparent), transparent 58%),
+    radial-gradient(880px 480px at 92% 18%, color-mix(in oklab, var(--primary-accent) 9%, transparent), transparent 52%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 .scroll-depth-scene {
@@ -41,9 +43,8 @@
 .scroll-depth-scene__layer {
   position: absolute;
   border-radius: 999px;
-  filter: blur(64px);
-  opacity: 0.45;
-  will-change: transform;
+  filter: blur(72px);
+  opacity: 0.32;
 }
 
 .dark .scroll-depth-scene__layer {
@@ -101,7 +102,7 @@
     filter: drop-shadow(0 0 0 transparent);
   }
   50% {
-    filter: drop-shadow(0 0 14px color-mix(in oklab, var(--primary) 55%, transparent));
+    filter: drop-shadow(0 0 6px color-mix(in oklab, var(--primary) 28%, transparent));
   }
 }
 
@@ -127,7 +128,7 @@
     var(--primary) 300deg,
     transparent 360deg
   );
-  animation: glass-border-spin 5s linear infinite;
+  animation: glass-border-spin 16s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -177,7 +178,7 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: text-shimmer 8s linear infinite;
+  animation: text-shimmer 18s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -212,7 +213,7 @@
 }
 
 .text-fx-glow {
-  animation: text-glow-pulse 4s ease-in-out infinite;
+  animation: text-glow-pulse 12s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -238,15 +239,15 @@
 
 [data-reveal] {
   opacity: 0;
-  transform: translate3d(0, 24px, 0) scale(0.98);
+  transform: translate3d(0, 12px, 0);
   transition:
-    opacity 0.55s ease,
-    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.85s ease,
+    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 [data-reveal].is-revealed {
   opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1);
+  transform: translate3d(0, 0, 0);
 }
 
 @media (prefers-reduced-motion: reduce) {

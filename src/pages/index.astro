@@ -1,11 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CheckoutCta from '../components/fragpunk/CheckoutCta.astro';
-import FragPunkFigure from '../components/fragpunk/FragPunkFigure.astro';
-import FragPunkGallery from '../components/fragpunk/FragPunkGallery.astro';
+import GuideSectionBlock from '../components/fragpunk/GuideSectionBlock.astro';
+import HomeQuickFlips from '../components/fragpunk/HomeQuickFlips.astro';
+import FragPunkMediaCarousel from '../components/fragpunk/FragPunkMediaCarousel.astro';
 import SiteHeroBanner from '../components/fragpunk/SiteHeroBanner.astro';
 import SiteHeroPreload from '../components/fragpunk/SiteHeroPreload.astro';
-import { Prose } from '@/components/starwind/prose';
 import { resolvePageSeo } from '../config/seo';
 import { homeCopy } from '../data/fragpunk/copy';
 import { FRAGPUNK_MAIN_PLANS } from '../data/fragpunk/pricing';
@@ -26,6 +26,21 @@ const seo = resolvePageSeo('/');
 const monthly = FRAGPUNK_MAIN_PLANS[0]!;
 const pageMedia = resolveFragpunkPageMedia('/');
 const og = resolveFragpunkOg('/');
+
+const sectionVariant = (id?: string) => {
+  switch (id) {
+    case 'features-glance':
+      return 'plain' as const;
+    case 'player-esp':
+      return 'split' as const;
+    case 'aimbot':
+      return 'glass' as const;
+    case 'plans':
+      return 'flip' as const;
+    default:
+      return 'plain' as const;
+  }
+};
 ---
 
 <BaseLayout
@@ -58,37 +73,21 @@ const og = resolveFragpunkOg('/');
 
   <section class="glass-section py-10 md:py-12">
     <div class="mx-auto max-w-3xl px-5">
-      <div class="glass-border-animated" data-reveal data-scroll-tilt>
-        <div class="glass-border-animated__inner p-6 md:p-8">
-      <Prose class="prose-glass max-w-none text-left">
-        {
-          homeCopy.sections.map((section) => (
-            <>
-              <h2 id={section.id} class="text-fx-heading">{section.heading}</h2>
-              {section.paragraphs.map((paragraph) => (
-                <p>{paragraph}</p>
-              ))}
-              {
-                section.id &&
-                  pageMedia.sectionImages[section.id] && (
-                    <FragPunkFigure image={fragpunkScreenshot(pageMedia.sectionImages[section.id]!)} />
-                  )
-              }
-              {
-                section.links?.map((link) => (
-                  <p>
-                    <a href={link.href}>{link.text}</a>
-                  </p>
-                ))
-              }
-            </>
-          ))
-        }
-      </Prose>
-        </div>
-      </div>
+      {
+        homeCopy.sections.map((section) => {
+          const imageId = section.id ? pageMedia.sectionImages[section.id] : undefined;
+          const image = imageId ? fragpunkScreenshot(imageId) : undefined;
+          const variant = sectionVariant(section.id);
+          return (
+            <div class="home-section-wrap">
+              <GuideSectionBlock section={section} variant={variant} image={image} />
+              {section.id === 'features-glance' && <HomeQuickFlips />}
+            </div>
+          );
+        })
+      }
     </div>
   </section>
 
-  <FragPunkGallery />
+  <FragPunkMediaCarousel />
 </BaseLayout>

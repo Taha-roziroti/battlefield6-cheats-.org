@@ -53,7 +53,7 @@ const hasActions = Astro.slots.has('default');
     <div class="site-hero__scrim"></div>
   </div>
   <div class:list={['site-hero__content mx-auto max-w-3xl px-5 py-10 md:py-14 lg:py-16', contentClass]}>
-    <div class="glass-border-animated" data-scroll-tilt>
+    <div class="glass-border-animated">
       <div class="glass-border-animated__inner glass-panel--strong p-6 md:p-8">
         {
           breadcrumbs && breadcrumbs.length > 0 && (
@@ -64,7 +64,7 @@ const hasActions = Astro.slots.has('default');
         }
         {eyebrow && <p class="site-hero__eyebrow text-fx-eyebrow">{eyebrow}</p>}
         <header class:list={['space-y-4 text-left', breadcrumbs?.length ? 'mt-4 md:mt-6' : 'mt-0']}>
-          <h1 id="site-hero-title" class="site-hero__title text-fx-brand text-fx-glow">{title}</h1>
+          <h1 id="site-hero-title" class="site-hero__title text-fx-brand">{title}</h1>
           {lead && <p class="site-hero__lead">{lead}</p>}
         </header>
         {hasActions && <div class="site-hero__actions"><slot /></div>}

@@ -35,7 +35,7 @@ const {
   showFilters = false,
   filterTopics,
   centered = false,
-  contentAlign = 'center',
+  contentAlign = 'left',
   id: sectionId,
   class: className,
   titleTag = 'h1',
@@ -69,7 +69,6 @@ const filters = filterTopics ?? (['all', 'plans', 'esp', 'scripts', 'safety', 'p
         contentAlign === 'left' && 'product-detail__narrow max-w-3xl',
       ]}
       data-reveal
-      data-scroll-tilt
     >
       <div class="glass-border-animated__inner p-6 md:p-10">
     <SectionHeader

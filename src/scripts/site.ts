@@ -109,6 +109,10 @@ function bootSite() {
   initSkipLink();
   initThemeMetaColor();
   import('./scroll-scene.ts').then(({ setupScrollScene }) => setupScrollScene());
+  import('./carousel-3d.ts').then(({ setupCarousel3d }) => {
+    setupCarousel3d();
+    document.addEventListener('astro:page-load', () => setupCarousel3d());
+  });
 }
 
 if (document.readyState === 'loading') {

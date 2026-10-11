@@ -1,6 +1,6 @@
 ---
 import SiteHeroBanner from './SiteHeroBanner.astro';
-import { Prose } from '@/components/starwind/prose';
+import GuideSectionBlock from './GuideSectionBlock.astro';
 import type { BreadcrumbItem } from '../../utils/schema';
 import FragPunkFigure from './FragPunkFigure.astro';
 import {
@@ -16,6 +16,8 @@ export interface GuideSection {
   links?: { href: string; text: string }[];
 }
 
+export type GuideSectionVariant = 'plain' | 'glass' | 'flip' | 'split';
+
 interface Props {
   h1: string;
   lead?: string;
@@ -27,40 +29,33 @@ interface Props {
 
 const { h1, lead, breadcrumbs, sections, heroImageId, sectionImages = {} } = Astro.props;
 const heroImage = heroImageId ? fragpunkScreenshot(heroImageId) : undefined;
+
+const VARIANT_CYCLE: GuideSectionVariant[] = ['plain', 'split', 'glass', 'flip'];
+
+function resolveVariant(index: number, hasImage: boolean): GuideSectionVariant {
+  const base = VARIANT_CYCLE[index % VARIANT_CYCLE.length]!;
+  if (hasImage && base === 'plain') return 'split';
+  return base;
+}
 ---
 
 <SiteHeroBanner title={h1} lead={lead} breadcrumbs={breadcrumbs} />
 <section class="glass-section py-8 md:py-12">
   <div class="mx-auto max-w-3xl px-5">
     {heroImage && <FragPunkFigure class="mb-10" image={heroImage} />}
-    <div class="glass-border-animated" data-reveal data-scroll-tilt>
-      <div class="glass-border-animated__inner p-6 md:p-8">
-    <Prose class="prose-glass max-w-none text-left">
-      {
-        sections.map((section) => (
-          <section class="mt-8 scroll-mt-24 first:mt-0">
-            <h2 id={section.id} class="text-fx-heading">{section.heading}</h2>
-            {section.paragraphs.map((paragraph) => (
-              <p>{paragraph}</p>
-            ))}
-            {
-              section.id &&
-                sectionImages[section.id] && (
-                  <FragPunkFigure image={FRAGPUNK_SCREENSHOTS[sectionImages[section.id]!]} />
-                )
-            }
-            {
-              section.links?.map((link) => (
-                <p>
-                  <a href={link.href}>{link.text}</a>
-                </p>
-              ))
-            }
-          </section>
-        ))
-      }
-    </Prose>
-      </div>
-    </div>
+    {
+      sections.map((section, index) => {
+        const imageId = section.id ? sectionImages[section.id] : undefined;
+        const image = imageId ? FRAGPUNK_SCREENSHOTS[imageId] : undefined;
+        const variant = resolveVariant(index, Boolean(image));
+        return (
+          <GuideSectionBlock
+            section={section}
+            variant={variant}
+            image={image}
+          />
+        );
+      })
+    }
   </div>
 </section>

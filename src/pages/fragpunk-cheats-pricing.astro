@@ -51,20 +51,18 @@ const planList = [
 
   <section class="glass-section border-t border-border/60 py-10">
     <div class="mx-auto max-w-3xl px-5 text-left">
-      <div class="glass-border-animated" data-reveal data-scroll-tilt>
-        <div class="glass-border-animated__inner p-6 md:p-8">
-      <h2 class="text-fx-heading text-xl font-semibold">Quick pricing questions</h2>
-      <dl class="mt-6 space-y-6">
-        {
-          pricingFaqs.map((item) => (
-            <div>
-              <dt class="font-medium">{item.q}</dt>
-              <dd class="mt-2 text-muted-foreground">{item.a}</dd>
-            </div>
-          ))
-        }
-      </dl>
-        </div>
+      <div class="content-block content-block--plain" data-reveal>
+        <h2 class="text-fx-heading text-xl font-semibold">Quick pricing questions</h2>
+        <dl class="mt-6 space-y-6">
+          {
+            pricingFaqs.map((item) => (
+              <div>
+                <dt class="font-medium">{item.q}</dt>
+                <dd class="mt-2 text-muted-foreground">{item.a}</dd>
+              </div>
+            ))
+          }
+        </dl>
       </div>
     </div>
   </section>

@@ -1,0 +1,38 @@
+---
+import FlipCard from './FlipCard.astro';
+import { FRAGPUNK_ROUTES } from '../../utils/path';
+import { FRAGPUNK_MAIN_PLANS } from '../../data/fragpunk/pricing';
+
+const monthly = FRAGPUNK_MAIN_PLANS[0]!;
+const lifetime = FRAGPUNK_MAIN_PLANS[1]!;
+---
+
+<ul class="home-flip-grid" aria-label="Quick topic cards">
+  <li>
+    <FlipCard
+      title="Aim assistance"
+      front="FOV, smoothing, and hold-to-aim toggles—the knobs sellers mention for FragPunk."
+      back="We decode the listing; you confirm sliders on checkout before buying."
+      href={FRAGPUNK_ROUTES.aimbot}
+      linkLabel="Aimbot guide"
+    />
+  </li>
+  <li>
+    <FlipCard
+      title="ESP visuals"
+      front="Boxes, skeletons, and wallhack-style overlays explained without the buzzwords."
+      back="Match menu names to screenshots—marketing labels rarely match the loader 1:1."
+      href={FRAGPUNK_ROUTES.esp}
+      linkLabel="ESP guide"
+    />
+  </li>
+  <li>
+    <FlipCard
+      title="Plans"
+      front={`$${monthly.priceUsd} for ${monthly.term} or $${lifetime.priceUsd} ${lifetime.term.toLowerCase()} on the main cheat.`}
+      back="Cloud DMA is separate if your setup needs Hyper-V—do not mix those totals by accident."
+      href={FRAGPUNK_ROUTES.pricing}
+      linkLabel="See pricing notes"
+    />
+  </li>
+</ul>

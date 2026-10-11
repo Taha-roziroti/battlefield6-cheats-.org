@@ -1,0 +1,82 @@
+---
+import ResponsiveImage from '../ResponsiveImage.astro';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/starwind/carousel';
+import {
+  FRAGPUNK_SCREENSHOTS,
+  HOME_GALLERY_IDS,
+  type FragPunkScreenshotId,
+} from '../../data/fragpunk/media';
+import { CARD_IMAGE_SIZES, DEFAULT_IMAGE_WIDTHS } from '../../utils/responsiveImage';
+
+interface Props {
+  ids?: FragPunkScreenshotId[];
+  heading?: string;
+  intro?: string;
+}
+
+const {
+  ids = HOME_GALLERY_IDS,
+  heading = 'In-game overlay examples',
+  intro = 'Swipe through captures of ESP, aim rings, and HUD overlays. Your loader may look different—confirm on the seller page before you buy.',
+} = Astro.props;
+---
+
+<section
+  class="carousel-3d-section glass-section border-t border-border/40 py-12 md:py-16"
+  aria-labelledby="fragpunk-carousel-heading"
+>
+  <div class="mx-auto max-w-6xl px-5">
+    <header class="max-w-2xl text-left">
+      <p class="text-fx-eyebrow">Screenshot tour</p>
+      <h2 id="fragpunk-carousel-heading" class="mt-2 text-2xl font-semibold normal-case md:text-3xl text-fx-heading">
+        {heading}
+      </h2>
+      <p class="mt-3 leading-relaxed text-muted-foreground">{intro}</p>
+    </header>
+
+    <div class="carousel-3d-wrap" data-carousel-3d>
+      <Carousel autoInit opts={{ loop: true, align: 'center', skipSnaps: false }} class="w-full">
+        <CarouselContent class="-ml-3 md:-ml-5">
+          {
+            ids.map((id, i) => {
+              const image = FRAGPUNK_SCREENSHOTS[id];
+              const srcSet = DEFAULT_IMAGE_WIDTHS;
+              return (
+                <CarouselItem class="basis-[88%] pl-3 sm:basis-[72%] md:basis-[58%] md:pl-5">
+                  <figure
+                    class:list={['carousel-3d-slide glass-panel overflow-hidden', i === 0 && 'is-active']}
+                    data-carousel-3d-slide
+                  >
+                    <ResponsiveImage
+                      src={image.src}
+                      alt={image.alt}
+                      width={image.width}
+                      height={image.height}
+                      widths={srcSet}
+                      sizes={CARD_IMAGE_SIZES}
+                      loading={i === 0 ? 'eager' : 'lazy'}
+                      class="h-auto w-full"
+                    />
+                    {image.caption && (
+                      <figcaption class="border-t border-border/50 px-4 py-3 text-left text-sm text-muted-foreground">
+                        {image.caption}
+                      </figcaption>
+                    )}
+                  </figure>
+                </CarouselItem>
+              );
+            })
+          }
+        </CarouselContent>
+        <CarouselPrevious class="left-1 md:left-3" />
+        <CarouselNext class="right-1 md:right-3" />
+      </Carousel>
+    </div>
+  </div>
+</section>

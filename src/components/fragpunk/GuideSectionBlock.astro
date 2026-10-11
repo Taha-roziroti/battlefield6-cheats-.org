@@ -1,0 +1,107 @@
+---
+import { Prose } from '@/components/starwind/prose';
+import FragPunkFigure from './FragPunkFigure.astro';
+import FlipCard from './FlipCard.astro';
+import type { GuideSection } from './GuideArticle.astro';
+import type { FragPunkScreenshot } from '../../data/fragpunk/media';
+
+interface Props {
+  section: GuideSection;
+  variant: 'plain' | 'glass' | 'flip' | 'split';
+  image?: FragPunkScreenshot;
+  flipBack?: string;
+}
+
+const { section, variant, image, flipBack } = Astro.props;
+const backText =
+  flipBack ?? (section.paragraphs[1] ?? section.paragraphs[0] ?? '');
+---
+
+{
+  variant === 'plain' && (
+    <section id={section.id} class="content-block content-block--plain">
+      <Prose class="max-w-none text-left">
+        <h2 class="text-fx-heading">{section.heading}</h2>
+        {section.paragraphs.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+        {image && <FragPunkFigure image={image} framed={false} />}
+        {section.links?.map((link) => (
+          <p>
+            <a href={link.href}>{link.text}</a>
+          </p>
+        ))}
+      </Prose>
+    </section>
+  )
+}
+
+{
+  variant === 'glass' && (
+    <section id={section.id} class="content-block content-block--glass scroll-mt-24">
+      <div class="glass-border-animated" data-reveal>
+        <div class="glass-border-animated__inner p-6 md:p-7">
+          <Prose class="max-w-none text-left">
+            <h2 class="text-fx-heading">{section.heading}</h2>
+            {section.paragraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+            {image && <FragPunkFigure image={image} class="my-6" framed={false} />}
+            {section.links?.map((link) => (
+              <p>
+                <a href={link.href}>{link.text}</a>
+              </p>
+            ))}
+          </Prose>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+{
+  variant === 'flip' && (
+    <section id={section.id} class="content-block content-block--plain scroll-mt-24">
+      <Prose class="max-w-none text-left">
+        <h2 class="text-fx-heading">{section.heading}</h2>
+        {section.paragraphs[0] && <p>{section.paragraphs[0]}</p>}
+      </Prose>
+      <FlipCard
+        class="mt-5 max-w-xl"
+        title={section.heading}
+        front={section.paragraphs[0] ?? ''}
+        back={backText}
+        href={section.links?.[0]?.href}
+        linkLabel={section.links?.[0]?.text ?? 'Read more'}
+      />
+      {section.paragraphs.slice(1).map((paragraph) => (
+        <p class="mt-4 text-muted-foreground leading-relaxed">{paragraph}</p>
+      ))}
+    </section>
+  )
+}
+
+{
+  variant === 'split' && (
+    <section id={section.id} class="content-block content-block--plain scroll-mt-24">
+      <div class="content-split content-split--reverse">
+        <Prose class="max-w-none text-left">
+          <h2 class="text-fx-heading">{section.heading}</h2>
+          {section.paragraphs.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+          {section.links?.map((link) => (
+            <p>
+              <a href={link.href}>{link.text}</a>
+            </p>
+          ))}
+        </Prose>
+        {image && (
+          <div class="content-split__media">
+            <FragPunkFigure image={image} class="my-0" />
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}

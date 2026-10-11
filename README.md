@@ -22,7 +22,23 @@ Open [http://localhost:4321/](http://localhost:4321/).
 npm run build
 ```
 
-Output is written to **`dist/`** (plain HTML, assets, sitemap). Upload **`dist`** to any static host (Cloudflare Pages, Netlify, Vercel static, S3 + CDN, etc.).
+Output is written to **`dist/`** (plain HTML, assets, sitemap).
+
+### Auto deploy (GitHub Pages)
+
+Pushes to **`main`** run [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml): `npm ci`, `npm run build`, then publish **`dist/`** to GitHub Pages.
+
+**One-time setup** (repo owner, on GitHub):
+
+1. **Settings → Pages → Build and deployment** → Source: **GitHub Actions**.
+2. **Settings → Pages → Custom domain** → `fragpunk-cheat.org` (matches `public/CNAME`).
+3. DNS at your registrar: **A** records to GitHub Pages (`185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`) or **CNAME** `www` → `<user>.github.io` if using the default Pages hostname first.
+
+After that, every **`git push origin main`** updates the live site within a few minutes. You can also run **Actions → Deploy site → Run workflow** manually.
+
+### Manual / other hosts
+
+Upload **`dist`** to Cloudflare Pages, Netlify, Vercel static, S3 + CDN, etc.
 
 ### Checks before deploy
 

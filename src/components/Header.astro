@@ -1,7 +1,5 @@
 ---
 import { t } from '../i18n';
-import { checkoutPath } from '../config/checkout';
-import { AFFILIATE_LINK_REL } from '../config/affiliate';
 import { Button } from '@/components/starwind/button';
 import {
   Sheet,
@@ -22,11 +20,11 @@ const navIcons: Record<string, IconName> = {
   Pricing: 'acqPackage',
   Review: 'navBlog',
   'Cloud DMA': 'layers',
+  'HWID Spoofer': 'sidebarHwid',
   FAQ: 'navFaq',
   Support: 'navSupport',
 };
 
-const purchaseUrl = checkoutPath('fragpunk');
 ---
 
 <header class="pointer-events-none fixed inset-x-0 top-0 z-50">
@@ -54,13 +52,21 @@ const purchaseUrl = checkoutPath('fragpunk');
     </nav>
 
     <div class="flex items-center gap-2">
-      <div class="hidden items-center sm:flex">
+      <Button
+        type="button"
+        variant="primary"
+        size="sm"
+        class="inline-flex shrink-0 lg:hidden"
+        aria-label={t.ui.checkoutAria}
+        data-checkout-chooser
+      >
+        {t.ui.browseCheatsMobile}
+      </Button>
+      <div class="hidden items-center lg:flex">
         <SlideRevealButton
-          href={purchaseUrl}
-          class="hidden sm:inline-flex"
+          openCheckoutPicker
+          class="inline-flex"
           ariaLabel={t.ui.checkoutAria}
-          rel={AFFILIATE_LINK_REL}
-          target="_self"
         >
           {t.ui.browseCheats}
         </SlideRevealButton>
@@ -91,13 +97,11 @@ const purchaseUrl = checkoutPath('fragpunk');
             ))}
           </nav>
           <Button
-            as="a"
-            href={purchaseUrl}
+            type="button"
             variant="primary"
             class="w-full justify-center"
             aria-label={t.ui.checkoutAria}
-            rel={AFFILIATE_LINK_REL}
-            target="_self"
+            data-checkout-chooser
           >
             {t.ui.browseCheatsMobile}
           </Button>

@@ -43,8 +43,11 @@ for (const file of files) {
   const mainHtml = extract(html, /<main[^>]*id=["']main-content["'][^>]*>([\s\S]*?)<\/main>/i) || html;
   const h1Count = (mainHtml.match(/<h1[\s>]/gi) ?? []).length;
   const lang = extract(html, /<html[^>]+lang=["']([^"']*)["']/i);
-  const isRedirectStub =
-    html.includes('http-equiv="refresh"') && html.includes('name="robots" content="noindex"');
+  const isCheckoutRedirect =
+    urlPath.startsWith('/go/') ||
+    (html.includes('http-equiv="refresh"') &&
+      html.includes('name="robots"') &&
+      html.includes('noindex'));
   const goLinks = [...html.matchAll(/href=["']([^"']*\/go\/[^"']*)["']/gi)].map((m) => m[1]);
   const goMissingRel = goLinks.filter((href) => {
     const idx = html.indexOf(`href="${href}"`);
@@ -53,7 +56,7 @@ for (const file of files) {
     return !chunk.includes('sponsored');
   });
 
-  if (isRedirectStub) continue;
+  if (isCheckoutRedirect) continue;
 
   if (!title) errors++;
   if (!description) errors++;

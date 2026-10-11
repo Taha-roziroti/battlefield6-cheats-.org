@@ -10,6 +10,10 @@ export const CONTENT_IMAGE_WIDTHS = [640, 960, 1280, 1536, 1920] as const;
 export const CONTENT_IMAGE_SIZES =
   '(min-width: 1280px) min(1024px, 72vw), (min-width: 768px) 90vw, 100vw';
 
+/** ~half of guide-page-shell in split layouts. */
+export const SPLIT_IMAGE_SIZES =
+  '(min-width: 960px) min(34rem, 46vw), (min-width: 768px) 88vw, 100vw';
+
 /** @deprecated use CONTENT_IMAGE_WIDTHS */
 export const DEFAULT_IMAGE_WIDTHS = CONTENT_IMAGE_WIDTHS;
 

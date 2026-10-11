@@ -4,7 +4,7 @@ import GuideArticle from '../components/fragpunk/GuideArticle.astro';
 import CheckoutCta from '../components/fragpunk/CheckoutCta.astro';
 import { resolvePageSeo } from '../config/seo';
 import { pricingCopy, pricingFaqs } from '../data/fragpunk/copy';
-import { CLOUD_DMA_PLAN, FRAGPUNK_MAIN_PLANS } from '../data/fragpunk/pricing';
+import { CLOUD_DMA_PLAN, FRAGPUNK_MAIN_PLANS, HWID_SPOOFER_PLAN } from '../data/fragpunk/pricing';
 import { FRAGPUNK_ROUTES } from '../utils/path';
 import { resolveFragpunkOg, resolveFragpunkPageMedia } from '../data/fragpunk/media';
 import { breadcrumbSchema, itemListSchema, webPageSchema } from '../utils/schema';
@@ -25,6 +25,10 @@ const planList = [
   {
     name: `${CLOUD_DMA_PLAN.name} — $${CLOUD_DMA_PLAN.priceUsd}`,
     url: FRAGPUNK_ROUTES.cloudDma,
+  },
+  {
+    name: HWID_SPOOFER_PLAN.name,
+    url: FRAGPUNK_ROUTES.hwidSpoofer,
   },
 ];
 ---
@@ -68,7 +72,8 @@ const planList = [
   </section>
 
   <div class="guide-page-shell space-y-4 pb-12">
-    <CheckoutCta label="Open main FragPunk checkout" product="fragpunk" />
-    <CheckoutCta label="Open Cloud DMA checkout" product="cloudDma" />
+    <CheckoutCta label="Checkout — main FragPunk plan" product="fragpunk" picker={false} />
+    <CheckoutCta label="Checkout — Cloud DMA" product="cloudDma" picker={false} />
+    <CheckoutCta label="Checkout — HWID Spoofer" product="hwidSpoofer" picker={false} />
   </div>
 </BaseLayout>

@@ -3,7 +3,43 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import { sitemapSerialize } from './src/config/sitemap.ts';
 import { SITE_URL } from './src/config/site.ts';
-import { CHECKOUT_URLS } from './src/config/checkout-redirects.mjs';
+import {
+  CHECKOUT_URLS,
+  resolveCheckoutPathRedirect,
+} from './src/config/checkout-redirects.mjs';
+
+/** Dev/preview: real 302 for /go/* — production static host uses write-checkout-redirects.mjs + click intercept. */
+function checkoutRedirectDevMiddleware() {
+  return {
+    name: 'checkout-go-redirect',
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const pathname = (req.url ?? '/').split('?')[0]?.split('#')[0] ?? '/';
+        const destination = resolveCheckoutPathRedirect(pathname);
+        if (!destination) {
+          next();
+          return;
+        }
+        res.statusCode = 302;
+        res.setHeader('Location', destination);
+        res.end();
+      });
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const pathname = (req.url ?? '/').split('?')[0]?.split('#')[0] ?? '/';
+        const destination = resolveCheckoutPathRedirect(pathname);
+        if (!destination) {
+          next();
+          return;
+        }
+        res.statusCode = 302;
+        res.setHeader('Location', destination);
+        res.end();
+      });
+    },
+  };
+}
 
 export default defineConfig({
   site: SITE_URL,
@@ -45,7 +81,7 @@ export default defineConfig({
     }),
   ],
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(), checkoutRedirectDevMiddleware()],
     build: {
       cssMinify: true,
       minify: 'esbuild',

@@ -4,6 +4,7 @@ import type { FragPunkScreenshot } from '../../data/fragpunk/media';
 import {
   CONTENT_IMAGE_SIZES,
   CONTENT_IMAGE_WIDTHS,
+  SPLIT_IMAGE_SIZES,
   HERO_IMAGE_SIZES,
   HERO_IMAGE_WIDTHS,
 } from '../../utils/responsiveImage';
@@ -14,6 +15,8 @@ interface Props {
   loading?: 'lazy' | 'eager';
   fetchPriority?: 'high' | 'low' | 'auto';
   framed?: boolean;
+  /** Tighter srcset sizes when the figure sits in a split column. */
+  splitColumn?: boolean;
   class?: string;
 }
 
@@ -23,11 +26,17 @@ const {
   loading = 'lazy',
   fetchPriority,
   framed = true,
+  splitColumn = false,
   class: className,
 } = Astro.props;
 
 const widths = variant === 'hero' ? HERO_IMAGE_WIDTHS : CONTENT_IMAGE_WIDTHS;
-const sizes = variant === 'hero' ? HERO_IMAGE_SIZES : CONTENT_IMAGE_SIZES;
+const sizes =
+  variant === 'hero'
+    ? HERO_IMAGE_SIZES
+    : splitColumn
+      ? SPLIT_IMAGE_SIZES
+      : CONTENT_IMAGE_SIZES;
 const resolvedLoading = variant === 'hero' ? 'eager' : loading;
 const resolvedPriority = fetchPriority ?? (variant === 'hero' ? 'high' : undefined);
 ---

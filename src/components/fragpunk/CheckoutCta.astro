@@ -10,6 +10,8 @@ interface Props {
   class?: string;
   /** Avoid nested animated borders inside the site hero panel. */
   frame?: 'glass' | 'plain';
+  /** When false, link straight to `product` checkout. Default true opens the product picker. */
+  picker?: boolean;
 }
 
 const {
@@ -17,25 +19,41 @@ const {
   label = 'Check availability',
   class: className,
   frame = 'glass',
+  picker = true,
 } = Astro.props;
-const href = checkoutPath(product);
+
+const directHref = checkoutPath(product);
 ---
 
 {
   frame === 'plain' ? (
     <div class:list={['not-prose', className]}>
-      <Button as="a" href={href} variant="primary" rel={AFFILIATE_LINK_REL} target="_self">
-        {label}
-        <Icon name="arrowRight" size={17} />
-      </Button>
+      {picker ? (
+        <Button type="button" variant="primary" data-checkout-chooser>
+          {label}
+          <Icon name="arrowRight" size={17} />
+        </Button>
+      ) : (
+        <Button as="a" href={directHref} variant="primary" rel={AFFILIATE_LINK_REL} target="_self">
+          {label}
+          <Icon name="arrowRight" size={17} />
+        </Button>
+      )}
     </div>
   ) : (
     <div class:list={['glass-border-animated not-prose w-fit max-w-full', className]} data-reveal>
       <div class="glass-border-animated__inner p-4">
-        <Button as="a" href={href} variant="primary" rel={AFFILIATE_LINK_REL} target="_self">
-          {label}
-          <Icon name="arrowRight" size={17} />
-        </Button>
+        {picker ? (
+          <Button type="button" variant="primary" data-checkout-chooser>
+            {label}
+            <Icon name="arrowRight" size={17} />
+          </Button>
+        ) : (
+          <Button as="a" href={directHref} variant="primary" rel={AFFILIATE_LINK_REL} target="_self">
+            {label}
+            <Icon name="arrowRight" size={17} />
+          </Button>
+        )}
       </div>
     </div>
   )

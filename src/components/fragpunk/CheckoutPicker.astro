@@ -1,0 +1,82 @@
+---
+import Icon from '../icons/Icon.astro';
+import { AFFILIATE_LINK_REL } from '../../config/affiliate';
+import { checkoutPath } from '../../config/checkout';
+import {
+  CLOUD_DMA_PLAN,
+  FRAGPUNK_MAIN_PLANS,
+  HWID_SPOOFER_PLAN,
+} from '../../data/fragpunk/pricing';
+import { t } from '../../i18n';
+
+const monthly = FRAGPUNK_MAIN_PLANS[0]!;
+const lifetime = FRAGPUNK_MAIN_PLANS[1]!;
+const affiliate = { rel: AFFILIATE_LINK_REL, target: '_self' as const };
+const p = t.ui.checkoutPicker;
+
+const options = [
+  {
+    id: 'fragpunk',
+    href: checkoutPath('fragpunk'),
+    icon: 'acqPackage' as const,
+    title: p.mainTitle,
+    detail: p.mainDetail
+      .replace('{monthly}', `$${monthly.priceUsd}`)
+      .replace('{lifetime}', `$${lifetime.priceUsd}`)
+      .replace('{term}', monthly.term),
+  },
+  {
+    id: 'cloud-dma',
+    href: checkoutPath('cloudDma'),
+    icon: 'layers' as const,
+    title: p.cloudTitle,
+    detail: p.cloudDetail.replace('{price}', `$${CLOUD_DMA_PLAN.priceUsd}`),
+  },
+  {
+    id: 'hwid',
+    href: checkoutPath('hwidSpoofer'),
+    icon: 'sidebarHwid' as const,
+    title: p.hwidTitle,
+    detail: p.hwidDetail,
+  },
+];
+---
+
+<dialog id="checkout-picker" class="checkout-picker" aria-labelledby="checkout-picker-title">
+  <div class="checkout-picker__panel glass-border-animated">
+    <div class="glass-border-animated__inner checkout-picker__inner">
+      <header class="checkout-picker__header">
+        <p class="checkout-picker__eyebrow">{p.eyebrow}</p>
+        <h2 id="checkout-picker-title" class="checkout-picker__title text-fx-heading">{p.title}</h2>
+        <p class="checkout-picker__subtitle">{p.subtitle}</p>
+      </header>
+
+      <ul class="checkout-picker__list" role="list">
+        {
+          options.map((option) => (
+            <li>
+              <a class="checkout-picker__option" href={option.href} {...affiliate}>
+                <span class="checkout-picker__option-icon" aria-hidden="true">
+                  <Icon name={option.icon} size={22} />
+                </span>
+                <span class="checkout-picker__option-copy">
+                  <span class="checkout-picker__option-title">{option.title}</span>
+                  <span class="checkout-picker__option-detail">{option.detail}</span>
+                </span>
+                <Icon name="arrowRight" size={18} class="checkout-picker__option-arrow" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <form method="dialog" class="checkout-picker__footer">
+        <button type="submit" class="checkout-picker__cancel">{p.cancel}</button>
+      </form>
+
+      <button type="button" class="checkout-picker__close" data-checkout-picker-close aria-label={p.close}>
+        <Icon name="x" size={20} />
+      </button>
+    </div>
+  </div>
+</dialog>

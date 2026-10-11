@@ -101,6 +101,8 @@ function bootSite() {
   initInPageScroll();
   initSkipLink();
   initThemeMetaColor();
+  import('./checkout-nav.ts').then(({ initCheckoutLinkNavigation }) => initCheckoutLinkNavigation());
+  import('./checkout-picker.ts').then(({ initCheckoutPicker }) => initCheckoutPicker());
   import('./scroll-scene.ts').then(({ setupScrollScene }) => setupScrollScene());
   import('./carousel-3d.ts').then(({ setupCarousel3d }) => {
     setupCarousel3d();

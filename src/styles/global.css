@@ -509,6 +509,179 @@ html:not(.dark) .slide-reveal-btn .slide-reveal-btn__icon .icon-app:hover {
   background-color: color-mix(in oklch, var(--primary) 72%, black);
 }
 
+button.slide-reveal-btn {
+  cursor: pointer;
+  font: inherit;
+  appearance: none;
+}
+
+/* Checkout product picker (dialog) */
+.checkout-picker {
+  margin: auto;
+  max-width: min(100vw - 2rem, 28rem);
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+}
+
+.checkout-picker::backdrop {
+  background: color-mix(in oklch, var(--background) 20%, black);
+  backdrop-filter: blur(6px);
+}
+
+.checkout-picker__panel {
+  width: 100%;
+}
+
+.checkout-picker__inner {
+  position: relative;
+  padding: 1.5rem 1.25rem 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .checkout-picker__inner {
+    padding: 1.75rem 1.5rem 1.5rem;
+  }
+}
+
+.checkout-picker__header {
+  text-align: left;
+  padding-right: 2rem;
+}
+
+.checkout-picker__eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.checkout-picker__title {
+  margin-top: 0.35rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.checkout-picker__subtitle {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+.checkout-picker__list {
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.checkout-picker__option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-lg, 0.75rem);
+  border: 1px solid color-mix(in oklch, var(--border) 80%, transparent);
+  background: color-mix(in oklch, var(--card) 90%, transparent);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.checkout-picker__option:hover {
+  border-color: color-mix(in oklch, var(--primary) 45%, var(--border));
+  background: color-mix(in oklch, var(--primary) 8%, var(--card));
+  transform: translateY(-1px);
+}
+
+.checkout-picker__option-icon {
+  display: inline-flex;
+  shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.65rem;
+  background: color-mix(in oklch, var(--primary) 14%, transparent);
+  color: var(--primary);
+}
+
+.checkout-picker__option-copy {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+.checkout-picker__option-title {
+  display: block;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.checkout-picker__option-detail {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--muted-foreground);
+}
+
+.checkout-picker__option-arrow {
+  shrink: 0;
+  opacity: 0.55;
+}
+
+.checkout-picker__footer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.checkout-picker__cancel {
+  padding: 0.45rem 0.85rem;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-md, 0.5rem);
+}
+
+.checkout-picker__cancel:hover {
+  color: var(--foreground);
+  background: color-mix(in oklch, var(--muted) 40%, transparent);
+}
+
+.checkout-picker__close {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: var(--radius-md, 0.5rem);
+  background: transparent;
+  color: var(--muted-foreground);
+  cursor: pointer;
+}
+
+.checkout-picker__close:hover {
+  color: var(--foreground);
+  background: color-mix(in oklch, var(--muted) 45%, transparent);
+}
+
 /* Deployment / setup guide (3-step cards — reference layout) */
 .deployment-section {
   background: var(--background);

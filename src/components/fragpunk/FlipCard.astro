@@ -1,4 +1,6 @@
 ---
+import { affiliateRelAttrs } from '../../config/affiliate';
+
 interface Props {
   title: string;
   front: string;
@@ -7,6 +9,7 @@ interface Props {
   linkLabel?: string;
   hideTitle?: boolean;
   class?: string;
+  openCheckoutPicker?: boolean;
 }
 
 const {
@@ -17,6 +20,7 @@ const {
   linkLabel = 'Learn more',
   hideTitle = false,
   class: className,
+  openCheckoutPicker = false,
 } = Astro.props;
 ---
 
@@ -28,10 +32,16 @@ const {
     </div>
     <div class="flip-card__face flip-card__face--back">
       <p class="flip-card__body">{back}</p>
-      {href && (
-        <a class="flip-card__link" href={href}>
+      {openCheckoutPicker ? (
+        <button type="button" class="flip-card__link" data-checkout-chooser>
           {linkLabel}
-        </a>
+        </button>
+      ) : (
+        href && (
+          <a class="flip-card__link" href={href} {...affiliateRelAttrs(href)}>
+            {linkLabel}
+          </a>
+        )
       )}
     </div>
   </div>

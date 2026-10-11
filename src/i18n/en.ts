@@ -526,7 +526,7 @@ export const en: Translations = {
   support: {
     eyebrow: 'Support',
     title: 'FragPunk Cheats support',
-    subtitle: 'Stuck on checkout, Cloud DMA, or something that does not match the product page? Reach out.',
+    subtitle: 'Stuck on checkout, Cloud DMA, HWID recovery, or loader setup? Reach out.',
     channels: [
       {
         icon: 'users',
@@ -550,16 +550,16 @@ export const en: Translations = {
         href: '/faq/',
       },
       {
-        icon: 'clock',
-        title: 'Operator support',
-        desc: 'Loader and license issues go to the seller after purchase—we do not run their portal.',
-        linkLabel: 'Support page',
-        href: '/support/',
+        icon: 'sidebarHwid',
+        title: 'HWID recovery',
+        desc: 'Hardware-banned PC? Read the HWID Spoofer guide before you buy the main plan again.',
+        linkLabel: 'HWID Spoofer',
+        href: FRAGPUNK_ROUTES.hwidSpoofer,
       },
     ],
     ticketTitle: 'Help us help you',
     ticketItems: [
-      { title: 'Order email', desc: 'The inbox you used on the operator checkout page.' },
+      { title: 'Order email', desc: 'The inbox you used at checkout.' },
       { title: 'Windows build', desc: 'Version number and whether Hyper-V is enabled.' },
       { title: 'What went wrong', desc: 'Exact error text or a screenshot beats “it broke.”' },
     ],
@@ -608,6 +608,7 @@ export const en: Translations = {
       { href: '/', label: 'Overview', ariaLabel: 'FragPunk overview' },
       { href: '/fragpunk-cheats-review/', label: 'Review', ariaLabel: 'FragPunk review' },
       { href: '/fragpunk-cheats-pricing/', label: 'Pricing', ariaLabel: 'Pricing' },
+      { href: FRAGPUNK_ROUTES.hwidSpoofer, label: 'HWID Spoofer', ariaLabel: 'HWID Spoofer' },
       { href: '/faq/', label: 'FAQ', ariaLabel: 'FAQ' },
     ],
     support: 'Support',
@@ -625,19 +626,19 @@ export const en: Translations = {
           heading: 'Who we are',
           paragraphs: [
             'We publish buyer-focused guides for FragPunk cheats—aimbot, ESP, pricing, and the Cloud DMA curveball—so you can read once and decide with eyes open.',
-            'Game names and trademarks belong to their owners; we use them only to describe what the seller offers.',
+            'Game names and trademarks belong to their owners; we use them only to describe what we sell and support.',
           ],
         },
         {
           heading: 'What we publish',
           paragraphs: [
-            'Feature pages, a pricing breakdown, an honest review, and Cloud DMA notes tied to the public product listings. When prices or requirements change, we update the site—checkout still wins if something drifts.',
+            'Feature pages, pricing, review notes, Cloud DMA, and HWID Spoofer guides tied to checkout. When prices or requirements change, we update the site to match.',
           ],
         },
         {
           heading: 'Support',
           paragraphs: [
-            'Site bugs and unclear copy: email us from the Support page. Loader problems after purchase: talk to the operator—you bought from them, not from this blog.',
+            'Site bugs and unclear copy: email us from the Support page. Loader and license help after purchase: use Support and Discord from your portal receipt.',
           ],
         },
       ],
@@ -649,7 +650,7 @@ export const en: Translations = {
         {
           heading: 'Information we collect',
           paragraphs: [
-            'Basic analytics—page views, browser, rough region—may run through Google Analytics when enabled. Checkout happens on the operator site; we never see your card number.',
+            'Basic analytics—page views, browser, rough region—may run through Google Analytics when enabled. Card payments run through our secure checkout; we do not store full card numbers on this site.',
           ],
         },
         {
@@ -674,7 +675,7 @@ export const en: Translations = {
     },
     terms: {
       title: 'Terms & Conditions',
-      description: `Rules for using ${SITE_DOMAIN} and following checkout links to third-party sellers.`,
+      description: `Rules for using ${SITE_DOMAIN}, checkout, and FragPunk cheat access.`,
       sections: [
         {
           heading: 'Agreement',
@@ -685,15 +686,15 @@ export const en: Translations = {
         {
           heading: 'What you purchase',
           paragraphs: [
-            'FragPunk cheat access and optional Cloud DMA are sold by third-party operators linked from this site—not by us directly.',
-            'Feature lists on the operator checkout describe what you get at purchase time. Game patches can change what still works.',
+            'FragPunk cheat access, Cloud DMA, and HWID Spoofer are sold through checkout on this site.',
+            'Feature lists at purchase time describe what you get. We ship maintenance updates for active plans when the game patches.',
           ],
         },
         {
           heading: 'Checkout and delivery',
           paragraphs: [
-            'Payment and delivery happen on external checkout pages. We do not store payment card numbers.',
-            'After purchase, use the operator portal from your receipt for downloads and setup steps.',
+            'Payment and delivery run through secure checkout. We do not store full payment card numbers on this site.',
+            'After purchase, use your portal from the receipt email for downloads and setup steps.',
           ],
         },
         {
@@ -705,7 +706,7 @@ export const en: Translations = {
         {
           heading: 'Refunds and purchases',
           paragraphs: [
-            'Refunds are handled by the operator you paid—not by this informational site. Read their refund policy on checkout before you buy.',
+            'Refunds follow the policy shown at checkout before you pay. Contact Support with your order email if you need help.',
             'If you emailed us about a site error, include the page URL and what you expected to see.',
           ],
         },
@@ -713,7 +714,7 @@ export const en: Translations = {
           heading: 'Availability and risk',
           paragraphs: [
             'Third-party cheats can break after game updates and may violate game terms. You assume account and PC risk.',
-            'We do not guarantee detection status, uptime, or compatibility.',
+            'Anti-cheat and detection status can change without notice. Active plans include update efforts, not a guarantee of undetected play.',
           ],
         },
         {
@@ -732,15 +733,28 @@ export const en: Translations = {
     },
     support: {
       title: 'FragPunk Cheats Support',
-      description: 'Contact us about the site; use the operator for loader and license help after purchase.',
+      description: 'Contact us for checkout, loader, license, and site questions.',
     },
   },
   ui: {
     skipLink: 'Skip to main content',
-    browseCheats: 'Check checkout',
-    browseCheatsMobile: 'Checkout',
+    browseCheats: 'Buy now',
+    browseCheatsMobile: 'Buy',
     homeAria: 'FragPunk Cheats home',
-    checkoutAria: 'Open FragPunk checkout',
+    checkoutAria: 'Buy FragPunk cheat access',
+    checkoutPicker: {
+      eyebrow: 'Checkout',
+      title: 'Choose what to buy',
+      subtitle: 'Pick a product — secure checkout opens in this tab.',
+      mainTitle: 'FragPunk main plan',
+      mainDetail: '{monthly} / {term} or {lifetime} lifetime · aimbot + ESP',
+      cloudTitle: 'Cloud DMA',
+      cloudDetail: '{price} lifetime · Hyper-V add-on for your PC',
+      hwidTitle: 'HWID Spoofer',
+      hwidDetail: 'Hardware ban recovery · cleaner included',
+      cancel: 'Not now',
+      close: 'Close checkout picker',
+    },
     discordAria: 'Open checkout',
     menuOpen: 'Open menu',
     menuClose: 'Close menu',

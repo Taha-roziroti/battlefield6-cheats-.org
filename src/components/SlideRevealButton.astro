@@ -3,28 +3,50 @@ import Icon from './icons/Icon.astro';
 import type { IconName } from './icons/types';
 
 interface Props {
-  href: string;
+  href?: string;
   class?: string;
   ariaLabel?: string;
   icon?: IconName;
   rel?: string;
   target?: string;
+  /** Opens the checkout product picker instead of navigating. */
+  openCheckoutPicker?: boolean;
 }
 
-const { href, class: className, ariaLabel, icon = 'arrowRight', rel, target } = Astro.props;
+const {
+  href,
+  class: className,
+  ariaLabel,
+  icon = 'arrowRight',
+  rel,
+  target,
+  openCheckoutPicker = false,
+} = Astro.props;
 ---
 
-<a
-  href={href}
-  class:list={['slide-reveal-btn', className]}
-  aria-label={ariaLabel}
-  rel={rel}
-  target={target}
->
-  <span class="slide-reveal-btn__icon" aria-hidden="true">
-    <Icon name={icon} size={18} class="slide-reveal-btn__svg" />
-  </span>
-  <span class="slide-reveal-btn__text">
-    <slot />
-  </span>
-</a>
+{
+  openCheckoutPicker ? (
+    <button
+      type="button"
+      class:list={['slide-reveal-btn', className]}
+      aria-label={ariaLabel}
+      data-checkout-chooser
+    >
+      <span class="slide-reveal-btn__icon" aria-hidden="true">
+        <Icon name={icon} size={18} class="slide-reveal-btn__svg" />
+      </span>
+      <span class="slide-reveal-btn__text">
+        <slot />
+      </span>
+    </button>
+  ) : (
+    <a href={href} class:list={['slide-reveal-btn', className]} aria-label={ariaLabel} rel={rel} target={target}>
+      <span class="slide-reveal-btn__icon" aria-hidden="true">
+        <Icon name={icon} size={18} class="slide-reveal-btn__svg" />
+      </span>
+      <span class="slide-reveal-btn__text">
+        <slot />
+      </span>
+    </a>
+  )
+}

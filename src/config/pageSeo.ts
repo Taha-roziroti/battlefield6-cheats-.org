@@ -11,7 +11,7 @@ export const PAGE_SEO: Record<string, PageSeoEntry> = {
   '/': {
     title: 'FragPunk Cheats for PC | Features & Pricing',
     description:
-      'FragPunk cheats explained in plain English—aimbot, ESP, plans, and PC notes. See listed prices, then confirm checkout before you buy.',
+      'FragPunk cheats explained in plain English—aimbot, ESP, plans, Cloud DMA, and HWID recovery. Listed prices and checkout on this site.',
   },
   '/fragpunk-aimbot/': {
     title: 'FragPunk Aimbot Features & Pricing',
@@ -21,12 +21,12 @@ export const PAGE_SEO: Record<string, PageSeoEntry> = {
   '/fragpunk-esp/': {
     title: 'FragPunk ESP & Wallhack Features',
     description:
-      'Player ESP, health bars, and wallhack jargon for FragPunk, translated into normal language. Confirm visuals on the seller page.',
+      'Player ESP, health bars, and wallhack jargon for FragPunk, translated into normal language. Included with the main plan.',
   },
   '/fragpunk-cheats-pricing/': {
     title: 'FragPunk Cheats Price | Monthly vs Lifetime',
     description:
-      '$35 for 31 days, $150 lifetime, Cloud DMA extra—last listed prices for FragPunk cheats. Reopen checkout before you pay.',
+      '$35 for 31 days, $150 lifetime, $50 Cloud DMA, plus HWID Spoofer—listed FragPunk cheat pricing and checkout links.',
   },
   '/fragpunk-cheats-review/': {
     title: 'FragPunk Cheats Review | Features & Alternatives',
@@ -37,6 +37,11 @@ export const PAGE_SEO: Record<string, PageSeoEntry> = {
     title: 'FragPunk Cloud DMA: Requirements & Pricing',
     description:
       'Cloud DMA for FragPunk is Hyper-V on one PC, not a hardware card. Requirements, separate $50 listing, and what to ask before buying.',
+  },
+  '/fragpunk-hwid-spoofer/': {
+    title: 'HWID Spoofer | Hardware Ban Recovery',
+    description:
+      'Reset hardware IDs after an HWID ban—cleaner included, major anti-cheat support. Checkout on fragpunk-cheat.org before you repurchase FragPunk access.',
   },
   '/faq/': {
     title: 'FAQ | FragPunk Cheats, Pricing & Setup',

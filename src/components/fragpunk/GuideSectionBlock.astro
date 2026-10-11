@@ -2,6 +2,7 @@
 import { Prose } from '@/components/starwind/prose';
 import FragPunkFigure from './FragPunkFigure.astro';
 import FlipCard from './FlipCard.astro';
+import { affiliateRelAttrs } from '../../config/affiliate';
 import type { GuideSection } from './GuideArticle.astro';
 import type { FragPunkScreenshot } from '../../data/fragpunk/media';
 
@@ -13,8 +14,10 @@ interface Props {
 }
 
 const { section, variant, image, flipBack } = Astro.props;
+const flipRest = section.paragraphs.slice(1);
 const backText =
-  flipBack ?? (section.paragraphs[1] ?? section.paragraphs[0] ?? '');
+  flipBack ?? (flipRest.length > 0 ? flipRest.join(' ') : (section.paragraphs[0] ?? ''));
+const tailLinks = section.links?.slice(1) ?? [];
 ---
 
 {
@@ -26,11 +29,13 @@ const backText =
           <p>{paragraph}</p>
         ))}
         {image && <FragPunkFigure image={image} framed={false} />}
-        {section.links?.map((link) => (
-          <p>
-            <a href={link.href}>{link.text}</a>
-          </p>
-        ))}
+        {section.links && section.links.length > 0 && (
+          <div class="guide-section-links">
+            {section.links.map((link) => (
+              <a href={link.href} {...affiliateRelAttrs(link.href)}>{link.text}</a>
+            ))}
+          </div>
+        )}
       </Prose>
     </section>
   )
@@ -40,18 +45,20 @@ const backText =
   variant === 'glass' && (
     <section id={section.id} class="content-block content-block--glass scroll-mt-24">
       <div class="glass-border-animated" data-reveal>
-        <div class="glass-border-animated__inner p-6 md:p-7">
+        <div class="glass-border-animated__inner">
           <Prose class="max-w-none text-left">
             <h2 class="text-fx-heading">{section.heading}</h2>
             {section.paragraphs.map((paragraph) => (
               <p>{paragraph}</p>
             ))}
             {image && <FragPunkFigure image={image} class="my-6" framed={false} />}
-            {section.links?.map((link) => (
-              <p>
-                <a href={link.href}>{link.text}</a>
-              </p>
-            ))}
+            {section.links && section.links.length > 0 && (
+              <div class="guide-section-links">
+                {section.links.map((link) => (
+                  <a href={link.href} {...affiliateRelAttrs(link.href)}>{link.text}</a>
+                ))}
+              </div>
+            )}
           </Prose>
         </div>
       </div>
@@ -61,10 +68,10 @@ const backText =
 
 {
   variant === 'flip' && (
-    <section id={section.id} class="content-block content-block--plain scroll-mt-24">
+    <section id={section.id} class="content-block content-block--plain content-block--flip scroll-mt-24">
       <h2 class="text-fx-heading text-xl font-semibold md:text-2xl">{section.heading}</h2>
       <FlipCard
-        class="mt-5"
+        class="guide-flip-card mt-4"
         hideTitle
         title={section.heading}
         front={section.paragraphs[0] ?? ''}
@@ -72,14 +79,13 @@ const backText =
         href={section.links?.[0]?.href}
         linkLabel={section.links?.[0]?.text ?? 'Read more'}
       />
-      {section.paragraphs.slice(1).map((paragraph) => (
-        <p class="mt-4 max-w-none leading-relaxed text-muted-foreground">{paragraph}</p>
-      ))}
-      {section.links?.slice(1).map((link) => (
-        <p class="mt-3">
-          <a href={link.href}>{link.text}</a>
-        </p>
-      ))}
+      {tailLinks.length > 0 && (
+        <div class="guide-section-links mt-4">
+          {tailLinks.map((link) => (
+            <a href={link.href} {...affiliateRelAttrs(link.href)}>{link.text}</a>
+          ))}
+        </div>
+      )}
     </section>
   )
 }
@@ -93,15 +99,17 @@ const backText =
           {section.paragraphs.map((paragraph) => (
             <p>{paragraph}</p>
           ))}
-          {section.links?.map((link) => (
-            <p>
-              <a href={link.href}>{link.text}</a>
-            </p>
-          ))}
+          {section.links && section.links.length > 0 && (
+            <div class="guide-section-links">
+              {section.links.map((link) => (
+                <a href={link.href} {...affiliateRelAttrs(link.href)}>{link.text}</a>
+              ))}
+            </div>
+          )}
         </Prose>
         {image && (
           <div class="content-split__media">
-            <FragPunkFigure image={image} class="my-0" />
+            <FragPunkFigure image={image} class="my-0" splitColumn />
           </div>
         )}
       </div>

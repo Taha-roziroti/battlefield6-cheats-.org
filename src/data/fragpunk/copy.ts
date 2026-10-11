@@ -1,5 +1,6 @@
+import { checkoutPath } from '../../config/checkout';
 import { FRAGPUNK_ROUTES } from '../../utils/path';
-import { CLOUD_DMA_PLAN, FRAGPUNK_MAIN_PLANS } from './pricing';
+import { CLOUD_DMA_PLAN, FRAGPUNK_MAIN_PLANS, HWID_SPOOFER_PLAN } from './pricing';
 
 export interface PageCopy {
   lead: string;
@@ -13,17 +14,20 @@ export interface PageCopy {
 
 const monthly = FRAGPUNK_MAIN_PLANS[0]!;
 const lifetime = FRAGPUNK_MAIN_PLANS[1]!;
+const mainCheckout = checkoutPath('fragpunk');
+const cloudCheckout = checkoutPath('cloudDma');
+const hwidCheckout = checkoutPath('hwidSpoofer');
 
 export const homeCopy: PageCopy = {
   lead:
-    'If you are shopping for FragPunk cheats on PC, start here. We break down what the seller actually lists—aim help, ESP-style visuals, prices, and the weird Cloud DMA add-on—so you are not guessing from a wall of marketing bullets.',
+    'FragPunk cheats for PC—aim assistance, ESP-style visuals, clear pricing, and Cloud DMA when your setup needs it. Everything here matches what you get at checkout on this site.',
   sections: [
     {
       id: 'features-glance',
       heading: 'FragPunk Cheat Features at a Glance',
       paragraphs: [
-        'Think of the main package as two buckets: stuff that helps you aim, and stuff that shows you information you would normally miss. Names change between sites, but that is the split you will see on the product page.',
-        'Toggles, limits, and “does it work on my build?” details drift whenever the game or loader updates. Treat the checkout page as the live menu—not this summary.',
+        'The main package covers two buckets: aim assistance and information overlays (ESP). Toggles and menu names may change after updates—we ship loader updates and patch notes as FragPunk evolves.',
+        'Start on the feature pages below, then pick monthly or lifetime access when you are ready.',
       ],
       links: [
         { href: FRAGPUNK_ROUTES.aimbot, text: 'Explore FragPunk aimbot features' },
@@ -34,25 +38,26 @@ export const homeCopy: PageCopy = {
       id: 'player-esp',
       heading: 'Player ESP and Visual Options',
       paragraphs: [
-        'ESP is the part that draws players through walls—boxes, bones, health, distance, whatever the seller turns on for FragPunk. Some configs look busy; others stay minimal. We have not run every combo in a live match, so peek at their screenshots before you expect a specific look.',
+        'ESP draws players through walls—boxes, bones, health, distance, and other indicators you enable in the loader. Configs can stay minimal or busy; screenshots on this site show typical layouts.',
       ],
     },
     {
       id: 'aimbot',
       heading: 'Aimbot Settings and Controls',
       paragraphs: [
-        'Aim assistance usually comes with knobs: how wide the tool searches (FOV), how fast your view moves onto a target (smoothing), and which buttons turn it on. None of that is universal—read the aimbot page here, then match it to what the seller shows today.',
+        'Aim assistance includes FOV (how wide the tool searches), smoothing (how fast the crosshair moves), and keybinds to turn help on or off. See the aimbot page for how we describe each control.',
       ],
     },
     {
       id: 'plans',
       heading: 'Plans, Pricing, and System Requirements',
       paragraphs: [
-        `Last time we synced with the product page, main FragPunk access was $${monthly.priceUsd} for ${monthly.term} or $${lifetime.priceUsd} ${lifetime.term.toLowerCase()}. Cloud DMA is its own line item—do not add those numbers together unless you know you need both.`,
-        'Windows version, Hyper-V steps, and any anti-cheat notes live on the seller site. Prices move; open checkout once more before you pay.',
+        `Main FragPunk access is $${monthly.priceUsd} for ${monthly.term} or $${lifetime.priceUsd} ${lifetime.term.toLowerCase()}. Cloud DMA is a separate $${CLOUD_DMA_PLAN.priceUsd} lifetime add-on when Hyper-V isolation is required.`,
+        'Windows build, Hyper-V steps, and anti-cheat notes are in checkout and support guides. Active plans include maintenance updates as the game patches.',
       ],
       links: [
         { href: FRAGPUNK_ROUTES.pricing, text: 'Compare FragPunk cheat prices' },
+        { href: mainCheckout, text: 'Get the main plan' },
         { href: FRAGPUNK_ROUTES.review, text: 'Read the FragPunk cheats review' },
       ],
     },
@@ -61,42 +66,43 @@ export const homeCopy: PageCopy = {
 
 export const aimbotCopy: PageCopy = {
   lead:
-    'Aimbot is the flashiest word on the box—and the easiest to misunderstand. Here is what the FragPunk listing actually talks about, in plain terms, before you touch sliders in-game.',
+    'Aim assistance is included with the main FragPunk plan—not a separate product. Here is how FOV, smoothing, and controls work before you tune them in-game.',
   sections: [
     {
       id: 'features-controls',
       heading: 'FragPunk Aimbot Features and Controls',
       paragraphs: [
-        'You are not buying a standalone “aimbot license.” It rides along with the main FragPunk cheat. The seller’s page usually mentions turning assistance on/off, picking targets, and dialing how hard it pulls your crosshair.',
-        'We have not clocked hours testing every mode in ranked. Use this as a decoder ring for their feature list, then read the current bullets on checkout.',
+        'Turn assistance on or off, pick targets, and dial how strongly the loader helps your crosshair. All of it ships inside the standard FragPunk package with ongoing updates when FragPunk patches.',
       ],
-      links: [{ href: FRAGPUNK_ROUTES.home, text: 'View all FragPunk cheat features' }],
+      links: [
+        { href: FRAGPUNK_ROUTES.home, text: 'View all FragPunk cheat features' },
+        { href: mainCheckout, text: 'Get the main plan' },
+      ],
     },
     {
       id: 'fov-smoothing',
       heading: 'FOV, Smoothing, and Aim Configuration',
       paragraphs: [
-        'FOV is basically “how wide is the net?” Wider catches more angles; tighter looks less obvious. Smoothing is the opposite of snap—higher values glide; lower values jerk faster.',
-        'If a slider is not on the product page, do not assume it exists in the loader. Ping support or re-read the listing after patches.',
+        'FOV is how wide the search area is—wider catches more angles; tighter looks more natural. Smoothing controls snap versus glide. If a slider is not in your loader yet, check for the latest update in your portal.',
       ],
     },
     {
       id: 'windows',
       heading: 'Supported Windows Versions and Requirements',
       paragraphs: [
-        'Build numbers, driver warnings, and Hyper-V requirements are spelled out where you buy—not here. If Cloud DMA is in the picture, that is a second product with its own checklist on our Cloud DMA page.',
+        'Build numbers, driver notes, and Hyper-V requirements are listed at checkout and in support docs. If Cloud DMA is part of your setup, read the Cloud DMA page for the extra checklist.',
       ],
       links: [{ href: FRAGPUNK_ROUTES.cloudDma, text: 'See Cloud DMA requirements and costs' }],
     },
     {
       id: 'pricing',
-      heading: 'Aimbot Plans and Pricing',
+      heading: 'Main plan (aimbot included)',
       paragraphs: [
-        'There is no separate “aimbot only” cart. It comes with the main FragPunk plan—monthly or lifetime. Compare those two prices, then confirm the total on the seller checkout.',
+        `Aimbot and ESP are both in the main plan: $${monthly.priceUsd} for ${monthly.term} or $${lifetime.priceUsd} ${lifetime.term.toLowerCase()}. Pick the term that fits how long you play—lifetime includes long-term update support.`,
       ],
       links: [
-        { href: FRAGPUNK_ROUTES.pricing, text: 'Compare FragPunk cheat pricing' },
-        { href: FRAGPUNK_ROUTES.review, text: 'Read the FragPunk cheats review' },
+        { href: mainCheckout, text: 'Checkout — main FragPunk plan' },
+        { href: FRAGPUNK_ROUTES.pricing, text: 'Compare monthly vs lifetime' },
       ],
     },
   ],
@@ -104,30 +110,31 @@ export const aimbotCopy: PageCopy = {
 
 export const espCopy: PageCopy = {
   lead:
-    'ESP is why people say “wallhack”—seeing players and info through cover. Here is how the FragPunk seller describes those visuals without pretending we streamed your exact overlay.',
+    'ESP (wallhack-style visuals) shows players and fight info through cover. Here is how we describe those overlays for FragPunk—same package as aim assistance.',
   sections: [
     {
       id: 'player-esp',
       heading: 'FragPunk Player ESP Features',
       paragraphs: [
-        'At minimum, ESP means knowing where opponents are when geometry would hide them. Sellers love swapping labels—“wallhack,” “ESP,” “visuals”—but you care about boxes, lines, and text that actually show up in your loader.',
-        'We do not host a live FragPunk feed here. Screenshots on the product page are your best preview.',
+        'At minimum, ESP tells you where opponents are when geometry would hide them. Labels like “wallhack,” “ESP,” and “visuals” often mean the same toggles in the loader.',
       ],
-      links: [{ href: FRAGPUNK_ROUTES.home, text: 'Explore the main FragPunk cheat offer' }],
+      links: [
+        { href: FRAGPUNK_ROUTES.home, text: 'Explore the main FragPunk cheat offer' },
+        { href: mainCheckout, text: 'Get the main plan' },
+      ],
     },
     {
       id: 'indicators',
       heading: 'Health Bars, Distance, and Skeleton Indicators',
       paragraphs: [
-        'Health bars and distance text save you from guessing whether to push. Skeleton ESP is the wireframe look—handy for spacing, noisy if you turn everything on at once.',
-        'Marketing names rarely match menu names one-to-one. Match features by description, not buzzwords.',
+        'Health bars and distance text save you from guessing whether to push. Skeleton ESP is the wireframe look—handy for spacing, noisy if you enable everything at once.',
       ],
     },
     {
       id: 'terminology',
       heading: 'ESP and Wallhack Terminology Explained',
       paragraphs: [
-        'Wallhack = seeing through walls. ESP = wallhack plus extras (health, name, weapon, etc.). Some pages use both words for the same toggle. When in doubt, trust the bullet list on checkout, not the headline adjective.',
+        'Wallhack means seeing through walls. ESP usually adds health, name, weapon, or similar readouts. Match features by what they do, not the marketing headline.',
       ],
       links: [{ href: FRAGPUNK_ROUTES.aimbot, text: 'Compare aimbot features' }],
     },
@@ -135,50 +142,68 @@ export const espCopy: PageCopy = {
       id: 'pricing',
       heading: 'Pricing and Feature Availability',
       paragraphs: [
-        'ESP ships with the standard FragPunk subscription or lifetime key. If Cloud DMA is mandatory for your setup, budget for that separately—see pricing and the Cloud DMA write-up.',
+        `ESP ships with the $${monthly.priceUsd} / $${lifetime.priceUsd} main plan. Budget Cloud DMA separately only if your PC needs the Hyper-V layer.`,
       ],
-      links: [{ href: FRAGPUNK_ROUTES.pricing, text: 'Review available plans' }],
+      links: [
+        { href: FRAGPUNK_ROUTES.pricing, text: 'Review available plans' },
+        { href: mainCheckout, text: 'Checkout — main plan' },
+      ],
     },
   ],
 };
 
 export const pricingCopy: PageCopy = {
   lead:
-    'Nobody likes sticker shock at checkout. These are the dollar amounts we last saw on the FragPunk listing—always peek at the cart again before you pay.',
+    'Listed prices for FragPunk access, Cloud DMA, and our HWID Spoofer—what you see here is what checkout shows for each product.',
   sections: [
     {
       id: 'current-plans',
       heading: 'Current FragPunk Cheat Plans',
       paragraphs: [
-        `$${monthly.priceUsd} gets you ${monthly.term} on the main cheat.`,
-        `$${lifetime.priceUsd} buys ${lifetime.term.toLowerCase()} access to the same package.`,
-        'Aimbot and ESP sit inside that bundle; you are not picking them à la carte.',
+        `$${monthly.priceUsd} — ${monthly.term} on the main cheat (aimbot + ESP).`,
+        `$${lifetime.priceUsd} — ${lifetime.term.toLowerCase()} access to the same package with ongoing updates when FragPunk patches.`,
       ],
-      links: [{ href: FRAGPUNK_ROUTES.home, text: 'Explore FragPunk cheat features' }],
+      links: [
+        { href: mainCheckout, text: 'Checkout — main FragPunk plan' },
+        { href: FRAGPUNK_ROUTES.home, text: 'Explore FragPunk cheat features' },
+      ],
     },
     {
       id: 'monthly-vs-lifetime',
       heading: 'Monthly vs. Lifetime Access',
       paragraphs: [
-        'Short term is cheaper today; lifetime is one big charge instead of renewals. Which wins depends on how long you play and whether the seller still ships updates when the game patches.',
-        'We cannot promise future compatibility—that is between you, the game, and the operator.',
+        'Monthly is lower upfront; lifetime is one payment instead of renewals. Both active tiers receive maintenance updates and loader patches as the game changes—we prioritize keeping builds current after updates.',
+        'Lifetime is the better fit if you play long-term and want update coverage without renewing every month.',
       ],
     },
     {
       id: 'cloud-dma-costs',
       heading: 'Cloud DMA Costs and Separate Components',
       paragraphs: [
-        `Cloud DMA was listed at $${CLOUD_DMA_PLAN.priceUsd} lifetime the last time we looked. It is not tucked inside the $${lifetime.priceUsd} FragPunk key.`,
-        'It is software Hyper-V stuff on one PC—not a PCIe card you plug in. Mixing that up is how people buy the wrong thing.',
+        `Cloud DMA is $${CLOUD_DMA_PLAN.priceUsd} lifetime—separate from the $${lifetime.priceUsd} FragPunk key. ${CLOUD_DMA_PLAN.note}`,
       ],
-      links: [{ href: FRAGPUNK_ROUTES.cloudDma, text: 'See Cloud DMA requirements and costs' }],
+      links: [
+        { href: FRAGPUNK_ROUTES.cloudDma, text: 'See Cloud DMA requirements and costs' },
+        { href: cloudCheckout, text: 'Checkout — Cloud DMA' },
+      ],
+    },
+    {
+      id: 'hwid-spoofer',
+      heading: 'HWID Spoofer',
+      paragraphs: [
+        `${HWID_SPOOFER_PLAN.name} — ${HWID_SPOOFER_PLAN.summary} ${HWID_SPOOFER_PLAN.priceNote}`,
+      ],
+      links: [
+        { href: FRAGPUNK_ROUTES.hwidSpoofer, text: 'HWID Spoofer guide' },
+        { href: hwidCheckout, text: 'Checkout — HWID Spoofer' },
+      ],
     },
     {
       id: 'before-checkout',
       heading: 'What to Confirm Before Checkout',
       paragraphs: [
-        'Windows build, Hyper-V steps, refund wording, and whether Cloud DMA is required for you—not just “nice to have.”',
-        'The total you pay is whatever the seller shows on checkout—not a number on this site.',
+        'Windows build, Hyper-V steps, refund wording, and whether Cloud DMA is required for your PC—not just optional.',
+        'Need a hardware ID reset after a ban? See the HWID Spoofer page before you buy the main cheat again on the same machine.',
       ],
       links: [{ href: FRAGPUNK_ROUTES.review, text: 'Read the product comparison' }],
     },
@@ -188,44 +213,44 @@ export const pricingCopy: PageCopy = {
 export const pricingFaqs = [
   {
     q: 'Is Cloud DMA included in the $150 lifetime FragPunk plan?',
-    a: 'No—it is its own lifetime product. If the seller says you need Cloud DMA, add that $50 (last listed price) on top, not inside the main cheat cart.',
+    a: `No—it is its own $${CLOUD_DMA_PLAN.priceUsd} lifetime product. Add Cloud DMA at checkout only if your setup requires Hyper-V isolation.`,
   },
   {
-    q: 'Can prices change after I read this page?',
-    a: 'Absolutely. Sales, patches, and operator changes happen. The checkout total wins over any summary on this site.',
+    q: 'Do plans include updates after game patches?',
+    a: 'Yes. Active monthly and lifetime FragPunk access includes maintenance updates and loader patches as FragPunk releases new builds.',
   },
 ];
 
 export const reviewCopy: PageCopy = {
   lead:
-    'Honest take: we wrote this from the public product pages and our notes—not from a secret lab account grinding FragPunk all week. Still, if you want a clear-eyed look before spending money, you are in the right place.',
+    'A straight look at FragPunk cheats on PC—what the package includes, how pricing breaks down, and where Cloud DMA or HWID recovery fit. Written for buyers who want clarity before checkout.',
   sections: [
     {
       id: 'included',
       heading: 'What Is Included in the FragPunk Offer?',
       paragraphs: [
-        'The package is PC software with aim assistance and ESP-style overlays, delivered through whatever loader the operator runs. We do not host or update the cheat— we explain what they claim to sell.',
-        'Performance, bans, and “is it detected?” are unknowns from here. Treat anti-cheat like a real risk and read their terms.',
+        'PC software with aim assistance and ESP-style overlays, delivered through our loader and portal. We maintain updates when FragPunk patches so features stay aligned with the current game.',
+        'Cheating still carries account and anti-cheat risk—read our FAQ and use conservative settings if you play on a main account.',
       ],
     },
     {
       id: 'compare-features',
       heading: 'Comparing Aimbot and ESP Features',
       paragraphs: [
-        'Our aimbot page translates FOV and smoothing; the ESP page covers boxes, health, and wallhack jargon. Read both if you are visual versus aim-curious.',
-        'Then open checkout and see if today’s bullet list still matches—patches move faster than blog posts.',
+        'The aimbot page covers FOV and smoothing; the ESP page covers boxes, health, and wallhack terminology. Both ship in one plan.',
       ],
       links: [
         { href: FRAGPUNK_ROUTES.aimbot, text: 'Explore aimbot features' },
         { href: FRAGPUNK_ROUTES.esp, text: 'Explore ESP features' },
+        { href: mainCheckout, text: 'Get the main plan' },
       ],
     },
     {
       id: 'pricing-terms',
       heading: 'Pricing, Access Terms, and Dependencies',
       paragraphs: [
-        `When we last checked: $${monthly.priceUsd} for ${monthly.term}, $${lifetime.priceUsd} lifetime on the core cheat, plus Cloud DMA if your setup needs it.`,
-        'Big gotcha: Cloud DMA is virtualized software on one machine, not a hardware DMA card. Expecting a card in the mail leads to refunds nobody wants.',
+        `$${monthly.priceUsd} for ${monthly.term}, $${lifetime.priceUsd} lifetime on the core cheat, plus Cloud DMA or HWID Spoofer only when you need those products.`,
+        'Cloud DMA is Hyper-V software on one machine—not a hardware DMA card. HWID Spoofer is for hardware-ban recovery with a included cleaner workflow.',
       ],
       links: [{ href: FRAGPUNK_ROUTES.pricing, text: 'Compare FragPunk cheat prices' }],
     },
@@ -234,7 +259,7 @@ export const reviewCopy: PageCopy = {
       heading: 'System Requirements, Limitations, and Risks',
       paragraphs: [
         'Hyper-V, BIOS virtualization, and Windows edition checks matter for Cloud DMA—see that page instead of guessing here.',
-        'Using cheats can break game rules and cost accounts. This article informs; it does not tell you to cheat.',
+        'Using cheats can break game rules and cost accounts. This guide informs; you decide what risk to accept.',
       ],
     },
   ],
@@ -242,47 +267,50 @@ export const reviewCopy: PageCopy = {
 
 export const cloudDmaCopy: PageCopy = {
   lead:
-    'Cloud DMA sounds like exotic hardware. On this offer it is Hyper-V on your own PC—one machine, extra software, separate bill. Let us unpack that before you enable features you cannot turn off easily.',
+    'Cloud DMA is Hyper-V isolation on your own PC—one machine, extra software, separate from the main FragPunk key. Read this before you enable virtualization.',
   sections: [
     {
       id: 'why-cloud-dma',
       heading: 'Why the FragPunk Offer Lists Cloud DMA',
       paragraphs: [
-        'Some setups want an isolated layer between the game and everything else. The seller brands that as Cloud DMA even though nothing ships to your door—it is configuration work on the box you already own.',
+        'Some setups need an isolated layer between the game and the rest of Windows. Cloud DMA is that Hyper-V configuration on the PC you already own—nothing ships in a box.',
       ],
-      links: [{ href: FRAGPUNK_ROUTES.home, text: 'View the main FragPunk cheat offer' }],
+      links: [
+        { href: FRAGPUNK_ROUTES.home, text: 'View the main FragPunk cheat offer' },
+        { href: cloudCheckout, text: 'Checkout — Cloud DMA' },
+      ],
     },
     {
       id: 'hyper-v',
       heading: 'Understanding the Single-PC Hyper-V Setup',
       paragraphs: [
-        'Hyper-V is Microsoft’s hypervisor. Turning it on can nudge boot options, RAM use, and other tools that hate virtualization. Follow their steps line by line; improvising is how people brick an afternoon.',
-        'We have not tested your exact motherboard or BIOS—treat their checklist as the authority.',
+        'Hyper-V is Microsoft’s hypervisor. Turning it on can change boot options, RAM use, and other tools that conflict with virtualization. Follow the setup guide step by step.',
       ],
     },
     {
       id: 'windows-features',
       heading: 'Windows Features and System Requirements',
       paragraphs: [
-        'You will likely need a Windows edition that supports Hyper-V, virtualization enabled in firmware, and enough disk space for whatever image or layer they install.',
-        'If the product page skips a step, assume it is unknown—not “probably fine.”',
+        'You need a Windows edition that supports Hyper-V, virtualization enabled in firmware, and enough disk space for the layer we install.',
       ],
     },
     {
       id: 'pricing',
       heading: 'Cloud DMA Pricing and Separate Components',
       paragraphs: [
-        `Lifetime Cloud DMA was listed at $${CLOUD_DMA_PLAN.priceUsd} USD—again, separate from the main FragPunk cheat.`,
-        CLOUD_DMA_PLAN.note,
+        `Lifetime Cloud DMA is $${CLOUD_DMA_PLAN.priceUsd} USD—separate from the main FragPunk cheat. ${CLOUD_DMA_PLAN.note}`,
       ],
-      links: [{ href: FRAGPUNK_ROUTES.pricing, text: 'Compare plans and total costs' }],
+      links: [
+        { href: FRAGPUNK_ROUTES.pricing, text: 'Compare plans and total costs' },
+        { href: cloudCheckout, text: 'Checkout — Cloud DMA' },
+      ],
     },
     {
       id: 'before-buying',
       heading: 'Questions to Confirm Before Buying',
       paragraphs: [
-        'Ask if Cloud DMA is required for FragPunk on your PC, what refunds look like, and whether Hyper-V breaks other software you rely on.',
-        'If you wanted a hardware DMA card, stop here—this is not that product.',
+        'Confirm whether Cloud DMA is required for FragPunk on your PC, what refunds look like, and whether Hyper-V breaks other software you rely on.',
+        'If you wanted a hardware DMA card, this is not that product.',
       ],
       links: [{ href: FRAGPUNK_ROUTES.review, text: 'Read the full product review' }],
     },
@@ -292,10 +320,72 @@ export const cloudDmaCopy: PageCopy = {
 export const cloudDmaFaqs = [
   {
     q: 'Is Cloud DMA a physical DMA card?',
-    a: 'No. The listing describes Hyper-V software on a single PC. There is no card in a box.',
+    a: 'No. It is Hyper-V software on a single PC. There is no card in a box.',
   },
   {
     q: 'Do I pay for Cloud DMA and FragPunk together?',
-    a: 'They ring up separately unless the seller bundles them in one cart themselves. Budget both if support says you need virtualization.',
+    a: 'They are separate checkout items. Add both at checkout if support confirms you need virtualization with the main cheat.',
+  },
+];
+
+export const hwidSpooferCopy: PageCopy = {
+  lead:
+    'HWID Spoofer resets hardware identifiers after a hardware ban—disk serials, MAC addresses, GPU-related IDs, and related fingerprints—with a cleaner workflow included. Use it before you buy FragPunk access again on the same machine.',
+  sections: [
+    {
+      id: 'what-it-does',
+      heading: 'What the HWID Spoofer Does',
+      paragraphs: [
+        'An HWID ban ties punishment to your PC, not just the account. Spoofing gives you a fresh hardware fingerprint so protected games can run again after you follow the guide.',
+        'Hardware Spoofer and cleanup steps ship together—run spoof and cleanup before launching the title that banned you.',
+      ],
+      links: [{ href: hwidCheckout, text: 'Checkout — HWID Spoofer' }],
+    },
+    {
+      id: 'supported-titles',
+      heading: 'Supported Anti-Cheats and Titles',
+      paragraphs: [
+        'Built for major stacks including Riot Vanguard (Valorant), Easy Anti-Cheat, BattlEye, Ricochet (Call of Duty), and other listed titles on the product page. Coverage spans FragPunk-related needs and other games on the same PC.',
+      ],
+    },
+    {
+      id: 'requirements',
+      heading: 'System Requirements',
+      paragraphs: [
+        'Windows 10 or 11 (64-bit), administrator rights for spoof and cleanup, and stable internet for activation and updates.',
+        'Follow the portal guide for HVCI, Core Isolation, TPM, and Secure Boot settings where your title requires them.',
+      ],
+    },
+    {
+      id: 'pricing',
+      heading: 'HWID Spoofer Access',
+      paragraphs: [
+        `${HWID_SPOOFER_PLAN.priceNote} ${HWID_SPOOFER_PLAN.summary}`,
+      ],
+      links: [
+        { href: hwidCheckout, text: 'Checkout — HWID Spoofer' },
+        { href: FRAGPUNK_ROUTES.pricing, text: 'See all plans' },
+        { href: mainCheckout, text: 'Main FragPunk plan' },
+      ],
+    },
+    {
+      id: 'workflow',
+      heading: 'Typical Recovery Workflow',
+      paragraphs: [
+        'Create a restore point, run the compatibility scan, spoof identifiers, reboot cold, verify IDs changed, then launch the game or install FragPunk on a clean profile.',
+        'Account-only bans need a different path—spoofing targets hardware locks, not Steam or platform account strikes alone.',
+      ],
+    },
+  ],
+};
+
+export const hwidSpooferFaqs = [
+  {
+    q: 'Is a cleaner included?',
+    a: 'Yes. Cleanup steps clear leftover traces before you launch again.',
+  },
+  {
+    q: 'Do I need this to use FragPunk cheats?',
+    a: 'Only if your PC is hardware-banned or support confirms you need a reset. Otherwise start with the main FragPunk plan.',
   },
 ];

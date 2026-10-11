@@ -2,6 +2,7 @@
 import '../styles/support-section.css';
 import { t } from '../i18n';
 import FlipCard from './fragpunk/FlipCard.astro';
+import { PRIMARY_CHECKOUT_PATH } from '../config/checkout';
 import { ROUTES } from '../utils/path';
 import { Button } from '@/components/starwind/button';
 import Icon from './icons/Icon.astro';
@@ -50,6 +51,7 @@ const c = t.support;
               back={`Open ${channel.linkLabel} with your order email and a short description of the loader or checkout issue.`}
               href={channel.href}
               linkLabel={channel.linkLabel}
+              openCheckoutPicker={channel.href === PRIMARY_CHECKOUT_PATH}
             />
           </li>
         ))

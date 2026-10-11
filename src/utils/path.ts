@@ -15,6 +15,7 @@ export const FRAGPUNK_ROUTES = {
   pricing: '/fragpunk-cheats-pricing/',
   review: '/fragpunk-cheats-review/',
   cloudDma: '/fragpunk-cloud-dma/',
+  hwidSpoofer: '/fragpunk-hwid-spoofer/',
   faq: '/faq/',
   support: '/support/',
   about: '/about/',

@@ -158,6 +158,8 @@ export const PAGE_HERO: Partial<Record<string, FragPunkScreenshotId>> = {
   '/fragpunk-esp/': 'matchEspSilhouette',
   '/fragpunk-cheats-pricing/': 'trainingEspIndicators',
   '/fragpunk-cheats-review/': 'matchDarkCorridor',
+  '/fragpunk-cloud-dma/': 'matchIndustrialHallway',
+  '/fragpunk-hwid-spoofer/': 'matchDarkCorridor',
 };
 
 export const PAGE_SECTION_IMAGES: Partial<Record<string, Partial<Record<string, FragPunkScreenshotId>>>> = {

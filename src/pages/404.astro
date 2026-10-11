@@ -19,10 +19,11 @@ import { ROUTES } from '../utils/path';
     lead="That URL does not exist or may have moved. Head back to the homepage or open pricing for current plans."
   >
     <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-      <Button as="a" href={ROUTES.home} variant="primary">
-        Back to home
+      <Button type="button" variant="primary" data-checkout-chooser>
+        Buy FragPunk
         <Icon name="arrowRight" size={17} />
       </Button>
+      <Button as="a" href={ROUTES.home} variant="outline">Back to home</Button>
       <Button as="a" href={ROUTES.pricing} variant="outline">View pricing</Button>
       <Button as="a" href={ROUTES.faq} variant="outline">Read FAQ</Button>
     </div>

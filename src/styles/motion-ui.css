@@ -20,7 +20,7 @@
 }
 
 .content-block--plain {
-  padding: 1.75rem 0;
+  padding: 1.25rem 0;
   border-bottom: 1px solid color-mix(in oklab, var(--border) 65%, transparent);
 }
 
@@ -29,7 +29,17 @@
 }
 
 .content-block--glass {
-  margin: 1.75rem 0;
+  margin: 1.25rem 0;
+}
+
+.content-block--glass .glass-border-animated__inner {
+  padding: 1.25rem 1.35rem;
+}
+
+@media (min-width: 768px) {
+  .content-block--glass .glass-border-animated__inner {
+    padding: 1.5rem 1.65rem;
+  }
 }
 
 .content-block--wide {
@@ -54,6 +64,14 @@
 .flip-card {
   perspective: 1200px;
   min-height: 11rem;
+}
+
+.guide-flip-card.flip-card {
+  max-width: 42rem;
+}
+
+.guide-flip-card .flip-card__inner {
+  min-height: 9rem;
 }
 
 .flip-card__inner {
@@ -128,6 +146,15 @@
   color: var(--primary-accent);
 }
 
+button.flip-card__link {
+  display: inline-block;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+}
+
 .carousel-3d-section {
   overflow: hidden;
 }
@@ -163,13 +190,41 @@
 
 .content-split {
   display: grid;
-  gap: 1.5rem;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.content-split [data-slot='prose'],
+.content-split .sw-prose {
+  max-width: none;
+}
+
+.content-split__media {
+  min-width: 0;
+}
+
+.guide-section-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1.25rem;
+  margin-top: 1rem;
+}
+
+.guide-section-links a {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--primary-accent);
+  text-decoration: none;
+}
+
+.guide-section-links a:hover {
+  text-decoration: underline;
 }
 
 @media (min-width: 960px) {
   .content-split--reverse {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-    align-items: start;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(1.25rem, 2.5vw, 2rem);
   }
 
   .content-split--reverse .content-split__media {

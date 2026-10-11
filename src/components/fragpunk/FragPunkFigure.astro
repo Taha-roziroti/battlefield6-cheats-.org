@@ -1,0 +1,52 @@
+---
+import ResponsiveImage from '../ResponsiveImage.astro';
+import type { FragPunkScreenshot } from '../../data/fragpunk/media';
+import { CARD_IMAGE_SIZES, DEFAULT_IMAGE_WIDTHS, HERO_IMAGE_WIDTHS } from '../../utils/responsiveImage';
+
+interface Props {
+  image: FragPunkScreenshot;
+  variant?: 'inline' | 'hero';
+  loading?: 'lazy' | 'eager';
+  fetchPriority?: 'high' | 'low' | 'auto';
+  class?: string;
+}
+
+const {
+  image,
+  variant = 'inline',
+  loading = 'lazy',
+  fetchPriority,
+  class: className,
+} = Astro.props;
+
+const widths = variant === 'hero' ? HERO_IMAGE_WIDTHS : DEFAULT_IMAGE_WIDTHS;
+const sizes =
+  variant === 'hero'
+    ? '(min-width: 768px) 720px, 100vw'
+    : CARD_IMAGE_SIZES;
+const resolvedLoading = variant === 'hero' ? 'eager' : loading;
+const resolvedPriority = fetchPriority ?? (variant === 'hero' ? 'high' : undefined);
+---
+
+<figure class:list={['glass-border-animated not-prose my-8 overflow-hidden', className]} data-reveal data-scroll-tilt>
+  <div class="glass-border-animated__inner overflow-hidden">
+  <ResponsiveImage
+    src={image.src}
+    alt={image.alt}
+    width={image.width}
+    height={image.height}
+    widths={widths}
+    sizes={sizes}
+    loading={resolvedLoading}
+    fetchPriority={resolvedPriority}
+    class="h-auto w-full"
+  />
+  {
+    image.caption && (
+      <figcaption class="border-t border-border/60 px-4 py-3 text-sm leading-relaxed text-muted-foreground">
+        {image.caption}
+      </figcaption>
+    )
+  }
+  </div>
+</figure>

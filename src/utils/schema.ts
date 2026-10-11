@@ -1,4 +1,5 @@
 import type { FaqItem } from '../i18n/types';
+import { BRAND_NAME } from '../config/brand';
 import { SUPPORT_EMAIL } from '../config/site';
 import { SITE_ORIGIN, absoluteAssetUrl, canonicalUrl, getOrganizationSameAs } from '../config/seo';
 
@@ -24,11 +25,10 @@ export function websiteSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'DotaCheats',
+    name: BRAND_NAME,
     url: `${SITE_ORIGIN}/`,
     inLanguage: 'en-US',
-    description:
-      'Dota 2 cheats with scripts, map hack, zoom hack, Skin Changer and ranked-safe tiers for PC.',
+    description: 'FragPunk cheats on PC—features, prices, and Cloud DMA explained in plain language.',
   };
 }
 
@@ -38,7 +38,7 @@ export function organizationSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'DotaCheats',
+    name: BRAND_NAME,
     url: `${SITE_ORIGIN}/`,
     logo: `${SITE_ORIGIN}/logo.svg`,
     email: SUPPORT_EMAIL,
@@ -66,7 +66,7 @@ export function collectionPageSchema(input: { name: string; description: string;
     inLanguage: 'en-US',
     isPartOf: {
       '@type': 'WebSite',
-      name: 'DotaCheats',
+      name: BRAND_NAME,
       url: `${SITE_ORIGIN}/`,
     },
   };
@@ -82,7 +82,7 @@ export function webPageSchema(input: { name: string; description: string; url: s
     inLanguage: 'en-US',
     isPartOf: {
       '@type': 'WebSite',
-      name: 'DotaCheats',
+      name: BRAND_NAME,
       url: `${SITE_ORIGIN}/`,
     },
   };
@@ -120,7 +120,6 @@ export function discussionForumPostingSchema(input: {
   name: string;
   text: string;
   url: string;
-  author: string;
   comments: number;
 }) {
   return {
@@ -129,9 +128,9 @@ export function discussionForumPostingSchema(input: {
     headline: input.name,
     articleBody: input.text,
     url: canonicalUrl(input.url),
-    author: { '@type': 'Person', name: input.author },
+    author: { '@type': 'Organization', name: BRAND_NAME },
     commentCount: input.comments,
-    isPartOf: { '@type': 'CollectionPage', name: 'DotaCheats Community Forum', url: canonicalUrl('/forum/') },
+    isPartOf: { '@type': 'CollectionPage', name: `${BRAND_NAME} Forum`, url: canonicalUrl('/forum/') },
   };
 }
 
@@ -147,6 +146,7 @@ export function productSchema(input: {
   offerUrl: string;
   image?: string;
   sku?: string;
+  priceUsd?: number;
 }) {
   return {
     '@context': 'https://schema.org',
@@ -156,17 +156,18 @@ export function productSchema(input: {
     sku: input.sku ?? input.url.replace(/\//g, '-'),
     brand: {
       '@type': 'Brand',
-      name: 'DotaCheats',
+      name: BRAND_NAME,
     },
     ...(input.image ? { image: absoluteAssetUrl(input.image) } : {}),
     offers: {
       '@type': 'Offer',
       url: offerUrl(input.offerUrl),
       priceCurrency: 'USD',
+      ...(input.priceUsd !== undefined ? { price: input.priceUsd.toFixed(2) } : {}),
       availability: 'https://schema.org/InStock',
       seller: {
         '@type': 'Organization',
-        name: 'DotaCheats',
+        name: BRAND_NAME,
       },
     },
   };
@@ -196,10 +197,11 @@ export function articleSchema(input: {
   image: string;
   datePublished: string;
   dateModified?: string;
+  schemaType?: 'Article' | 'BlogPosting';
 }) {
   return {
     '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
+    '@type': input.schemaType ?? 'BlogPosting',
     headline: input.name,
     description: input.description,
     url: canonicalUrl(input.url),
@@ -209,11 +211,11 @@ export function articleSchema(input: {
     inLanguage: 'en-US',
     author: {
       '@type': 'Organization',
-      name: 'DotaCheats',
+      name: BRAND_NAME,
     },
     publisher: {
       '@type': 'Organization',
-      name: 'DotaCheats',
+      name: BRAND_NAME,
       logo: {
         '@type': 'ImageObject',
         url: `${SITE_ORIGIN}/logo.svg`,

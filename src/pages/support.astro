@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { t } from '../i18n';
 import { resolvePageSeo } from '../config/seo';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
+import SiteHeroBanner from '../components/fragpunk/SiteHeroBanner.astro';
 import ContactSupportSection from '../components/ContactSupportSection.astro';
 import { breadcrumbSchema, webPageSchema } from '../utils/schema';
 
@@ -24,13 +24,15 @@ const seo = resolvePageSeo('/support/');
     ]),
   ]}
 >
-  <div class="mx-auto max-w-6xl px-5 pt-8 md:pt-10">
-    <Breadcrumbs
-      items={[
-        { name: 'Home', path: '/' },
-        { name: 'Support', path: '/support/' },
-      ]}
-    />
-  </div>
-  <ContactSupportSection titleId="support-page-title" showTicketTips />
+  <SiteHeroBanner
+    eyebrow={t.support.eyebrow}
+    title={t.support.title}
+    lead={t.support.subtitle}
+    breadcrumbs={[
+      { name: 'Home', path: '/' },
+      { name: 'Support', path: '/support/' },
+    ]}
+    contentClass="max-w-6xl"
+  />
+  <ContactSupportSection titleId="support-page-title" showTicketTips hideHeader />
 </BaseLayout>

@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GuideArticle from '../components/fragpunk/GuideArticle.astro';
+import CheckoutCta from '../components/fragpunk/CheckoutCta.astro';
+import { resolvePageSeo } from '../config/seo';
+import { aimbotCopy } from '../data/fragpunk/copy';
+import { resolveFragpunkOg, resolveFragpunkPageMedia } from '../data/fragpunk/media';
+import { breadcrumbSchema, webPageSchema } from '../utils/schema';
+
+const seo = resolvePageSeo('/fragpunk-aimbot/');
+const pageMedia = resolveFragpunkPageMedia('/fragpunk-aimbot/');
+const og = resolveFragpunkOg('/fragpunk-aimbot/');
+const breadcrumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Aimbot features', path: '/fragpunk-aimbot/' },
+];
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  ogImage={og.ogImage}
+  ogImageAlt={og.ogImageAlt ?? seo.title}
+  jsonLd={[webPageSchema({ name: seo.title, description: seo.description, url: '/fragpunk-aimbot/' }), breadcrumbSchema(breadcrumbs)]}
+>
+  <GuideArticle
+    h1="FragPunk Aimbot Features"
+    lead={aimbotCopy.lead}
+    breadcrumbs={breadcrumbs}
+    sections={aimbotCopy.sections}
+    heroImageId={pageMedia.heroId}
+    sectionImages={pageMedia.sectionImages}
+  />
+  <div class="mx-auto max-w-3xl px-5 pb-12">
+    <CheckoutCta label="See if checkout is open" />
+  </div>
+</BaseLayout>

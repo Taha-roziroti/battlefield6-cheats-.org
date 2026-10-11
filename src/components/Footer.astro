@@ -3,9 +3,10 @@ import { t } from '../i18n';
 import { Separator } from '@/components/starwind/separator';
 
 const resourceLinks = [
-  { href: '/blog/', label: 'Blog archive', ariaLabel: 'Blog' },
-  { href: '/products/dota-2-cheats/elite/', label: 'Elite cheats', ariaLabel: 'Elite cheats' },
-  { href: '/products/dota-2-cheats/', label: 'Products & utilities', ariaLabel: 'Products' },
+  { href: '/fragpunk-aimbot/', label: 'Aimbot features', ariaLabel: 'FragPunk aimbot' },
+  { href: '/fragpunk-esp/', label: 'ESP features', ariaLabel: 'FragPunk ESP' },
+  { href: '/fragpunk-cheats-pricing/', label: 'Pricing', ariaLabel: 'FragPunk cheats price' },
+  { href: '/fragpunk-cloud-dma/', label: 'Cloud DMA', ariaLabel: 'Cloud DMA requirements' },
   { href: '/support/', label: t.footer.support },
 ];
 
@@ -16,13 +17,14 @@ const legalLinks = [
 ];
 ---
 
-<footer class="border-t border-border bg-muted/30 py-16">
-  <div class="mx-auto max-w-6xl px-5">
+<footer class="glass-footer-wrap">
+  <div class="glass-border-animated mx-auto max-w-6xl">
+    <div class="glass-border-animated__inner">
     <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
       <div class="space-y-4">
         <a href="/" class="inline-flex items-center gap-2.5 font-[family-name:var(--font-heading)] text-lg font-bold" aria-label={t.ui.homeAria}>
           <img src="/logo.svg" alt="" width="32" height="32" class="rounded-md" />
-          <span aria-hidden="true">Dota<span class="text-primary">Cheats</span></span>
+          <span class="text-fx-brand" aria-hidden="true">FragPunk Cheats</span>
         </a>
         <p class="text-sm text-muted-foreground">{t.footer.tagline}</p>
       </div>
@@ -74,5 +76,6 @@ const legalLinks = [
     <p class="text-left text-sm text-muted-foreground">
       &copy; {new Date().getFullYear()} {t.site.name} · {t.site.domain}
     </p>
+    </div>
   </div>
 </footer>

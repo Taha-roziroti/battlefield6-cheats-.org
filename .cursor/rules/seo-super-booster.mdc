@@ -1,0 +1,31 @@
+---
+description: SEO SUPER BOOSTER — ranking, technical SEO, and content rules for this Astro site
+alwaysApply: true
+---
+
+# SEO SUPER BOOSTER (this project)
+
+Follow the full spec in **`SEO-SUPER-BOOSTER.md`** at the repo root. That file is the source of truth; this rule highlights how it maps here.
+
+## Stack
+
+- **Astro 7**, `output: 'static'`, HTML-first (no client-rendered indexable content).
+- **Single locale:** `en-US` only — no hreflang, no i18n routing.
+- **Domain & checkout:** `src/config/site.ts`, `astro.config.mjs` `site`, `src/config/checkout.ts` + `checkout-redirects.mjs`.
+- **Per-page SEO:** `src/config/pageSeo.ts` + `resolvePageSeo()` in `src/config/seo.ts`.
+- **Head / canonical / OG:** `src/layouts/BaseLayout.astro`.
+- **JSON-LD:** `src/utils/schema.ts` via `JsonLd.astro`.
+- **Commercial link attrs:** `src/config/affiliate.ts` (`rel="sponsored nofollow noopener"` on `/go/` links).
+- **Sitemap:** `@astrojs/sitemap` + `src/config/sitemap.ts` (no `priority` / `changefreq` in output).
+
+## Non‑negotiables
+
+- Never fabricate reviews, forum users, stats, or pricing; use `TODO:` + list in report if content is missing.
+- One primary keyword per URL; unique title, description, `<h1>`, canonical on every indexable page.
+- Affiliate/commercial links: `rel="sponsored nofollow noopener"`; visible disclosure from config before the first such link on the page.
+- Forum content is **editorial Q&A**, not fake users/posts (see SEO doc §5.1).
+- Multi-pass verify before calling work done (SEO doc §13); run `npm run build`, `npm run check`, `npm run seo:audit` when changing SEO-facing code.
+
+## Before large content or URL changes
+
+Use the required-inputs checklist in SEO doc §1 (keywords, domain, affiliate URL, product features). Do not invent keywords or merchant URLs.

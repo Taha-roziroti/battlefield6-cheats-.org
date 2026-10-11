@@ -3,6 +3,7 @@ import '../styles/blog-sidebar.css';
 import Icon from './icons/Icon.astro';
 import { blogPostPath, productPath, ROUTES } from '../utils/path';
 import { checkoutPath } from '../config/checkout';
+import { AFFILIATE_LINK_REL } from '../config/affiliate';
 import { t } from '../i18n';
 import type { BlogPostFull } from '../data/blog';
 import type { IconName } from './icons/types';
@@ -125,6 +126,7 @@ const productLinks: { label: string; href: string; icon: IconName }[] = [
       size="sm"
       class="blog-sidebar__cta mt-2.5 w-full min-w-0 justify-start"
       aria-label={t.ui.checkoutAria}
+      rel={AFFILIATE_LINK_REL}
     >
       <span class="truncate">Buy Dota 2 Cheats</span>
       <Icon name="arrowRight" size={16} class="shrink-0" />

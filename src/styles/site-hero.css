@@ -1,0 +1,88 @@
+.site-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-bottom: 1px solid color-mix(in oklab, var(--primary) 18%, var(--border));
+  padding-top: calc(var(--floating-nav-clearance) + 0.75rem);
+}
+
+.site-hero__media {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.site-hero__img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: 72% 28%;
+}
+
+.site-hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    color-mix(in oklab, var(--background) 94%, transparent) 0%,
+    color-mix(in oklab, var(--background) 82%, transparent) 42%,
+    color-mix(in oklab, var(--background) 55%, transparent) 72%,
+    color-mix(in oklab, var(--background) 35%, transparent) 100%
+  );
+}
+
+.dark .site-hero__scrim {
+  background: linear-gradient(
+    105deg,
+    color-mix(in oklab, var(--background) 96%, transparent) 0%,
+    color-mix(in oklab, var(--background) 88%, transparent) 40%,
+    color-mix(in oklab, var(--background) 62%, transparent) 70%,
+    color-mix(in oklab, var(--background) 42%, transparent) 100%
+  );
+}
+
+.site-hero__content {
+  position: relative;
+}
+
+.site-hero__breadcrumbs {
+  opacity: 0.92;
+}
+
+.site-hero__eyebrow {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.site-hero__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.875rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  text-transform: none;
+  color: var(--foreground);
+  text-shadow: 0 1px 24px color-mix(in oklab, var(--background) 70%, transparent);
+}
+
+.site-hero__lead {
+  max-width: 42rem;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--muted-foreground);
+  text-shadow: 0 1px 16px color-mix(in oklab, var(--background) 65%, transparent);
+}
+
+.site-hero__actions {
+  margin-top: 1.75rem;
+}
+
+@media (min-width: 768px) {
+  .site-hero__img {
+    object-position: 68% 24%;
+  }
+}

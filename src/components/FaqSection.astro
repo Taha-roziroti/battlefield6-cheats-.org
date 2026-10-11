@@ -22,6 +22,8 @@ interface Props {
   contentAlign?: 'left' | 'center';
   id?: string;
   class?: string;
+  /** When the page already has a hero H1, render this block’s title as H2. */
+  titleTag?: 'h1' | 'h2';
 }
 
 const {
@@ -36,6 +38,7 @@ const {
   contentAlign = 'center',
   id: sectionId,
   class: className,
+  titleTag = 'h1',
 } = Astro.props;
 
 const topicLabels: Record<FaqTopic, string> = {
@@ -59,12 +62,22 @@ const filters = filterTopics ?? (['all', 'plans', 'esp', 'scripts', 'safety', 'p
   data-faq-section={showFilters ? '' : undefined}
 >
   <div class="mx-auto max-w-6xl px-5">
-    <div class:list={[contentAlign === 'center' && 'mx-auto max-w-3xl', contentAlign === 'left' && 'product-detail__narrow max-w-3xl']}>
+    <div
+      class:list={[
+        'glass-border-animated',
+        contentAlign === 'center' && 'mx-auto max-w-3xl',
+        contentAlign === 'left' && 'product-detail__narrow max-w-3xl',
+      ]}
+      data-reveal
+      data-scroll-tilt
+    >
+      <div class="glass-border-animated__inner p-6 md:p-10">
     <SectionHeader
       eyebrow={eyebrow}
       title={title}
       desc={subtitle}
       titleId={titleId}
+      titleTag={titleTag}
       centered={centered}
     />
 
@@ -110,6 +123,7 @@ const filters = filterTopics ?? (['all', 'plans', 'esp', 'scripts', 'safety', 'p
         </div>
       ))}
     </Accordion>
+      </div>
     </div>
   </div>
 </section>

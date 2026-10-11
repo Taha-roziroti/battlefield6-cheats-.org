@@ -1,6 +1,5 @@
 /**
- * Central titles/descriptions for high-traffic routes.
- * After Search Console shows impressions, edit the matching path here and redeploy.
+ * Central titles/descriptions for indexable routes (keyword map source of truth).
  */
 
 export interface PageSeoEntry {
@@ -10,59 +9,55 @@ export interface PageSeoEntry {
 
 export const PAGE_SEO: Record<string, PageSeoEntry> = {
   '/': {
-    // gscNote: Keep primary keyword "dota 2 cheats" near front; trim if title truncates in SERP.
-    title: 'Dota 2 Cheats & Hacks | Scripts, Map Hack & ESP',
+    title: 'FragPunk Cheats for PC | Features & Pricing',
     description:
-      'Dota 2 cheats for PC ranked: scripts, map hack, zoom hack, and skin changer tiers updated every patch at dotacheats.com.',
+      'FragPunk cheats explained in plain English—aimbot, ESP, plans, and PC notes. See listed prices, then confirm checkout before you buy.',
   },
-  '/products/dota-2-cheats/': {
-    title: 'Dota 2 Elite Cheats & Utility Products',
+  '/fragpunk-aimbot/': {
+    title: 'FragPunk Aimbot Features & Pricing',
     description:
-      'Elite dota 2 cheats plus HWID spoofer, UGC tools, and Skin Changer utilities for Steam ranked on dotacheats.com.',
+      'What the FragPunk listing says about aimbot controls, FOV, and smoothing—without the hype. Check pricing on the main plans page.',
   },
-  '/products/dota-2-cheats/elite/': {
-    title: 'Dota 2 Elite Cheats | Bots & Full Map Hack',
+  '/fragpunk-esp/': {
+    title: 'FragPunk ESP & Wallhack Features',
     description:
-      'Elite tier: auto farm bot, kill steal, skin changer, full map hack suite, and priority patch delivery.',
+      'Player ESP, health bars, and wallhack jargon for FragPunk, translated into normal language. Confirm visuals on the seller page.',
   },
-  '/products/dota-2-cheats/utilities/': {
-    title: 'Dota 2 Utilities | HWID, UGC & Skin Changer',
+  '/fragpunk-cheats-pricing/': {
+    title: 'FragPunk Cheats Price | Monthly vs Lifetime',
     description:
-      'Choose HWID Spoofer, UGC, or Skin Changer—when each utility fits and links to full product pages.',
+      '$35 for 31 days, $150 lifetime, Cloud DMA extra—last listed prices for FragPunk cheats. Reopen checkout before you pay.',
   },
-  '/blog/': {
-    title: 'Dota 2 Cheats Guides & Patch Notes',
+  '/fragpunk-cheats-review/': {
+    title: 'FragPunk Cheats Review | Features & Alternatives',
     description:
-      'Setup guides, Lite vs Pro comparisons, VAC patch checklists, and ranked config tips for dota cheats.',
+      'A straight FragPunk cheats review from public product info: features, costs, Cloud DMA quirks, and risks—no fake playtime claims.',
   },
-  '/forum/': {
-    title: 'Dota 2 Community Forum | DotaCheats',
-    description: 'Join Dota players to discuss heroes, builds, patch changes, guides, and community moments.',
+  '/fragpunk-cloud-dma/': {
+    title: 'FragPunk Cloud DMA: Requirements & Pricing',
+    description:
+      'Cloud DMA for FragPunk is Hyper-V on one PC, not a hardware card. Requirements, separate $50 listing, and what to ask before buying.',
   },
   '/faq/': {
-    title: 'FAQ | Dota 2 Cheats, Products & Setup',
+    title: 'FAQ | FragPunk Cheats, Pricing & Setup',
     description:
-      'Answers on cheat tiers, map hack, scripts, HWID tools, checkout, and blog guides at dotacheats.com.',
+      'Answers on FragPunk cheat features, Cloud DMA, listed pricing, checkout, and PC requirements at fragpunk-cheat.org.',
   },
   '/terms/': {
-    title: 'Terms & Conditions | DotaCheats',
-    description:
-      'Purchase terms, license use, and refund policy for DotaCheats products sold through dotacheats.com.',
+    title: 'Terms & Conditions | FragPunk Cheats',
+    description: 'Terms of use for information and checkout links published on fragpunk-cheat.org.',
   },
   '/privacy/': {
-    title: 'Privacy Policy | DotaCheats',
-    description:
-      'How dotacheats.com uses analytics, cookies, and contact data when you browse or request support.',
+    title: 'Privacy Policy | FragPunk Cheats',
+    description: 'How fragpunk-cheat.org uses analytics, cookies, and contact data when you browse or request support.',
   },
   '/about/': {
-    title: 'About DotaCheats',
-    description:
-      'What DotaCheats publishes: Dota 2 cheat tiers, utilities, guides, and status notes at dotacheats.com.',
+    title: 'About FragPunk Cheats',
+    description: 'What this site publishes about FragPunk cheat features, pricing, and setup notes.',
   },
   '/support/': {
-    title: 'Support | DotaCheats',
-    description:
-      'Get help with loader setup, HWID, and checkout for Dota 2 cheat tiers and utilities.',
+    title: 'Support | FragPunk Cheats',
+    description: 'Get help with checkout, listed requirements, and product questions for FragPunk cheats.',
   },
 };
 

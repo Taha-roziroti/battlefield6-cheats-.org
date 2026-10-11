@@ -1,19 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getAllFaqs } from '../data/faq';
+import { FRAGPUNK_FAQS } from '../data/fragpunk/faq';
 import { resolvePageSeo } from '../config/seo';
-import { breadcrumbSchema, faqPageSchema, webPageSchema } from '../utils/schema';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { breadcrumbSchema, webPageSchema } from '../utils/schema';
+import SiteHeroBanner from '../components/fragpunk/SiteHeroBanner.astro';
 import SiteFaqSection from '../components/SiteFaqSection.astro';
-import SectionHeader from '../components/SectionHeader.astro';
 
 const seo = resolvePageSeo('/faq/');
 const breadcrumbs = [
   { name: 'Home', path: '/' },
   { name: 'FAQ', path: '/faq/' },
 ];
-
-const faqs = getAllFaqs();
 ---
 
 <BaseLayout
@@ -21,28 +18,19 @@ const faqs = getAllFaqs();
   description={seo.description}
   jsonLd={[
     webPageSchema({
-      name: 'FAQ — Dota 2 Cheats & Products',
-      description:
-        'Answers about Dota 2 cheat tiers, map hack, scripts, HWID tools, blog guides and checkout at dotacheats.com.',
+      name: 'FragPunk Cheats FAQ',
+      description: seo.description,
       url: '/faq/',
     }),
-    faqPageSchema(faqs.map((f, i) => ({ num: String(i + 1).padStart(2, '0'), q: f.q, a: f.a.replace(/<[^>]+>/g, '') }))),
     breadcrumbSchema(breadcrumbs),
   ]}
 >
-  <section class="border-b border-border bg-muted/10 py-8 md:py-12">
-    <div class="mx-auto max-w-6xl px-5">
-      <Breadcrumbs items={breadcrumbs} />
-      <div class="mt-6">
-        <SectionHeader
-          eyebrow="Help center"
-          title="FAQ for cheats, products & guides"
-          desc="Everything about Lite, Pro, Elite tiers, utilities, safety and blog topics—in one place."
-          titleId="faq-page-title"
-        />
-      </div>
-    </div>
-  </section>
-
-  <SiteFaqSection items={faqs} variant="full" titleId="faq-page-list" />
+  <SiteHeroBanner
+    eyebrow="Help center"
+    title="FragPunk cheats FAQ"
+    lead="Short answers on money, Cloud DMA, and what we actually know (versus what we read on the product page)."
+    breadcrumbs={breadcrumbs}
+    contentClass="max-w-6xl"
+  />
+  <SiteFaqSection items={FRAGPUNK_FAQS} variant="full" titleTag="h2" titleId="faq-topic-heading" />
 </BaseLayout>

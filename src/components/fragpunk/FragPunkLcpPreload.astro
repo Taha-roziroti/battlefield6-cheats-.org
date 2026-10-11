@@ -1,0 +1,15 @@
+---
+import { defaultWebpSrc, HERO_IMAGE_WIDTHS } from '../../utils/responsiveImage';
+import type { FragPunkScreenshot } from '../../data/fragpunk/media';
+
+interface Props {
+  image: FragPunkScreenshot;
+}
+
+const { image } = Astro.props;
+const href = defaultWebpSrc(image.src, HERO_IMAGE_WIDTHS);
+---
+
+<Fragment slot="head">
+  <link rel="preload" as="image" href={href} type="image/webp" fetchpriority="high" />
+</Fragment>

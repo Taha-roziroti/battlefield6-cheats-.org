@@ -2,17 +2,28 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import { sitemapSerialize } from './src/config/sitemap.ts';
+import { SITE_URL } from './src/config/site.ts';
+import { CHECKOUT_URLS } from './src/config/checkout-redirects.mjs';
 
 export default defineConfig({
-  site: 'https://dotacheats.com',
+  site: SITE_URL,
+  output: 'static',
   trailingSlash: 'always',
   redirects: {
-    '/cheats/': '/products/dota-2-cheats/',
-    '/cheats/lite/': '/products/dota-2-cheats/',
-    '/cheats/pro/': '/products/dota-2-cheats/',
-    '/cheats/elite/': '/products/dota-2-cheats/elite/',
-    '/cheats/compare/': '/blog/dota-2-lite-vs-pro/',
+    '/cheats/': '/',
+    '/cheats/lite/': '/',
+    '/cheats/pro/': '/',
+    '/cheats/elite/': '/',
+    '/cheats/compare/': '/fragpunk-cheats-review/',
     '/contact/': '/support/',
+    '/blog/': '/fragpunk-cheats-review/',
+    '/forum/': '/',
+    '/products/dota-2-cheats/': '/',
+    '/products/dota-2-cheats/elite/': '/',
+    '/products/dota-2-cheats/utilities/': '/fragpunk-cloud-dma/',
+    '/go/fragpunk/': CHECKOUT_URLS.fragpunk,
+    '/go/cloud-dma/': CHECKOUT_URLS.cloudDma,
+    '/go/hwid-spoofer/': CHECKOUT_URLS.hwidSpoofer,
   },
   compressHTML: true,
   prefetch: {
@@ -24,7 +35,12 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/404') && !page.includes('/go/'),
+      filter: (page) =>
+        !page.includes('/404') &&
+        !page.includes('/go/') &&
+        !page.includes('/blog/') &&
+        !page.includes('/forum/') &&
+        !page.includes('/products/'),
       serialize: sitemapSerialize,
     }),
   ],

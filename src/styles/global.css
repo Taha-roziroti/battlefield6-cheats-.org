@@ -108,7 +108,7 @@ html::-webkit-scrollbar,
   -ms-overflow-style: none;
 }
 
-#main-content > :first-child:not(#hero) {
+#main-content > :first-child:not(#hero):not(.site-hero) {
   padding-top: var(--floating-nav-clearance);
 }
 

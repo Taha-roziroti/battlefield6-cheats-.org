@@ -1,5 +1,6 @@
 ---
 import Icon from './icons/Icon.astro';
+import { AFFILIATE_LINK_REL } from '../config/affiliate';
 import { Button } from '@/components/starwind/button';
 
 interface Props {
@@ -18,7 +19,7 @@ const { title, html, href } = Astro.props;
   <div class="blog-post-cta__body">
     <h3 class="blog-post-cta__title">{title}</h3>
     <div class="blog-post-cta__text" set:html={html} />
-    <Button as="a" href={href} variant="primary" size="sm" class="blog-post-cta__btn justify-start">
+    <Button as="a" href={href} variant="primary" size="sm" class="blog-post-cta__btn justify-start" rel={AFFILIATE_LINK_REL}>
       Buy now
       <Icon name="arrowRight" size={16} />
     </Button>

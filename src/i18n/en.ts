@@ -1,25 +1,25 @@
 import type { Translations } from './types';
 import { PRIMARY_CHECKOUT_PATH } from '../config/checkout';
-import { PRODUCT_BASE } from '../config/site';
+import { SITE_DOMAIN } from '../config/site';
+import { FRAGPUNK_NAV } from '../data/fragpunk/nav';
+import { FRAGPUNK_ROUTES } from '../utils/path';
 
-const productBase = PRODUCT_BASE;
+const productBase = FRAGPUNK_ROUTES.pricing;
 
 export const en: Translations = {
   site: {
-    name: 'DotaCheats',
-    domain: 'dotacheats.com',
-    title: 'Dota Cheats & Hacks | Dota 2 Scripts, Map Hack & ESP',
+    name: 'FragPunk Cheats',
+    domain: SITE_DOMAIN,
+    title: 'FragPunk Cheats for PC | Features & Pricing',
     description:
-      'Undetected dota 2 cheats with scripts, map hack, zoom hack and skin changer for PC ranked—updated every patch at dotacheats.com.',
+      'Compare FragPunk cheat features, listed pricing, and PC requirements before you check availability.',
     discord: PRIMARY_CHECKOUT_PATH,
   },
-  nav: [
-    { href: `${productBase}`, label: 'Products' },
-    { href: '/blog/', label: 'Blog' },
-    { href: '/forum/', label: 'Forum' },
-    { href: '/faq/', label: 'FAQ' },
-    { href: '/support/', label: 'Support' },
-  ],
+  nav: FRAGPUNK_NAV.map((link) => ({
+    href: link.href,
+    label: link.label,
+    ariaLabel: link.ariaLabel,
+  })),
   hero: {
     status: 'Dota 2 — patch build online',
     eyebrow: '#1 Undetected Provider',
@@ -525,43 +525,43 @@ export const en: Translations = {
   },
   support: {
     eyebrow: 'Support',
-    title: 'DotaCheats support',
-    subtitle: 'Let us know how we can help.',
+    title: 'FragPunk Cheats support',
+    subtitle: 'Stuck on checkout, Cloud DMA, or something that does not match the product page? Reach out.',
     channels: [
       {
         icon: 'users',
-        title: 'Chat before checkout',
-        desc: 'Speak to our team about tiers and access.',
-        linkLabel: 'Start checkout',
+        title: 'Before you buy',
+        desc: 'Read pricing and Cloud DMA notes, then open checkout when you are ready.',
+        linkLabel: 'Go to checkout',
         href: PRIMARY_CHECKOUT_PATH,
       },
       {
         icon: 'headphones',
-        title: 'Chat to support',
-        desc: "We're here for loader, HWID and account issues.",
-        linkLabel: 'support@dotacheats.com',
-        href: 'mailto:support@dotacheats.com',
+        title: 'Email us',
+        desc: 'Site questions, broken links, or unclear copy—we reply when we can.',
+        linkLabel: `support@${SITE_DOMAIN}`,
+        href: `mailto:support@${SITE_DOMAIN}`,
       },
       {
         icon: 'navFaq',
-        title: 'Read the FAQ',
-        desc: 'Compatibility, bans and setup—before you buy.',
-        linkLabel: 'View all FAQ',
+        title: 'FAQ first',
+        desc: 'Plans, Hyper-V, and checkout—answered in one place.',
+        linkLabel: 'Open FAQ',
         href: '/faq/',
       },
       {
         icon: 'clock',
-        title: 'Live operators',
-        desc: 'Discord engineers on shift 24/7.',
-        linkLabel: 'Open contact page',
+        title: 'Operator support',
+        desc: 'Loader and license issues go to the seller after purchase—we do not run their portal.',
+        linkLabel: 'Support page',
         href: '/support/',
       },
     ],
-    ticketTitle: 'Include in your ticket',
+    ticketTitle: 'Help us help you',
     ticketItems: [
-      { title: 'Order email', desc: 'The address used at checkout on dotacheats.com or via our secure checkout.' },
-      { title: 'Platform', desc: 'Steam on Windows 10 or 11—and your Dota 2 client version.' },
-      { title: 'Error detail', desc: 'Screenshot or exact message from the loader or Steam.' },
+      { title: 'Order email', desc: 'The inbox you used on the operator checkout page.' },
+      { title: 'Windows build', desc: 'Version number and whether Hyper-V is enabled.' },
+      { title: 'What went wrong', desc: 'Exact error text or a screenshot beats “it broke.”' },
     ],
   },
   faq: {
@@ -602,14 +602,13 @@ export const en: Translations = {
     ],
   },
   footer: {
-    tagline: 'Dota 2 cheats — scripts, map hack and tools for PC. dotacheats.com',
+    tagline: 'FragPunk cheats on PC—features, prices, and Cloud DMA explained without the sales fog.',
     explore: 'Explore',
     exploreLinks: [
-      { href: '/', label: 'Feature overview', ariaLabel: 'Features', scrollTarget: 'features' },
-      { href: '/products/dota-2-cheats/elite/', label: 'Elite dota cheats', ariaLabel: 'Elite cheats' },
-      { href: '/products/dota-2-cheats/', label: 'All products & utilities', ariaLabel: 'Products' },
-      { href: '/blog/', label: 'Read patch guides', ariaLabel: 'Blog' },
-      { href: '/faq/', label: 'Pre-purchase FAQ', ariaLabel: 'FAQ' },
+      { href: '/', label: 'Overview', ariaLabel: 'FragPunk overview' },
+      { href: '/fragpunk-cheats-review/', label: 'Review', ariaLabel: 'FragPunk review' },
+      { href: '/fragpunk-cheats-pricing/', label: 'Pricing', ariaLabel: 'Pricing' },
+      { href: '/faq/', label: 'FAQ', ariaLabel: 'FAQ' },
     ],
     support: 'Support',
     legal: 'Legal',
@@ -619,41 +618,38 @@ export const en: Translations = {
   },
   legalPages: {
     about: {
-      title: 'About DotaCheats',
-      description:
-        'DotaCheats provides Dota 2 cheat tiers, utility tools and PC support resources at dotacheats.com.',
+      title: 'About FragPunk Cheats',
+      description: 'Who runs this site and how we write about FragPunk cheats on PC.',
       sections: [
         {
           heading: 'Who we are',
           paragraphs: [
-            'DotaCheats is a PC-focused resource for Dota 2 players exploring scripts, map hack, zoom hack and Skin Changer workflows. We publish tier comparisons, setup guides, and live status notes so you can evaluate dota cheats before checkout.',
-            'All product names are used for identification only.',
+            'We publish buyer-focused guides for FragPunk cheats—aimbot, ESP, pricing, and the Cloud DMA curveball—so you can read once and decide with eyes open.',
+            'Game names and trademarks belong to their owners; we use them only to describe what the seller offers.',
           ],
         },
         {
           heading: 'What we publish',
           paragraphs: [
-            'Our site covers Lite, Pro, and Elite cheat tiers, HWID utilities, Skin Changer and account recovery workflows. Blog articles explain ranked-safe configs, patch-day checks, and VAC update behavior.',
-            'Content is updated when patches land or when loader modules shift. Check the homepage status banner and Discord #status before every session.',
+            'Feature pages, a pricing breakdown, an honest review, and Cloud DMA notes tied to the public product listings. When prices or requirements change, we update the site—checkout still wins if something drifts.',
           ],
         },
         {
           heading: 'Support',
           paragraphs: [
-            'Questions about compatibility, loader errors, or checkout are handled through Discord and email support. Include your order email, Steam account, and Windows version when opening a ticket.',
+            'Site bugs and unclear copy: email us from the Support page. Loader problems after purchase: talk to the operator—you bought from them, not from this blog.',
           ],
         },
       ],
     },
     privacy: {
       title: 'Privacy Policy',
-      description:
-        'How DotaCheats handles analytics, cookies, and contact data when you use dotacheats.com.',
+      description: `How ${SITE_DOMAIN} handles analytics, cookies, and emails you send us.`,
       sections: [
         {
           heading: 'Information we collect',
           paragraphs: [
-            'We may collect standard web analytics such as page views, device type, browser, and approximate region through Google Analytics when enabled. Checkout and license delivery happen on external checkout pages—we do not store payment card data on dotacheats.com.',
+            'Basic analytics—page views, browser, rough region—may run through Google Analytics when enabled. Checkout happens on the operator site; we never see your card number.',
           ],
         },
         {
@@ -678,27 +674,26 @@ export const en: Translations = {
     },
     terms: {
       title: 'Terms & Conditions',
-      description:
-        'Purchase, license, refund, and use terms for DotaCheats products and dotacheats.com.',
+      description: `Rules for using ${SITE_DOMAIN} and following checkout links to third-party sellers.`,
       sections: [
         {
           heading: 'Agreement',
           paragraphs: [
-            'Last updated: September 2026. By using dotacheats.com or completing checkout for any product listed here, you agree to these Terms & Conditions and our Privacy Policy.',
+            'Last updated: October 2026. By browsing this site or clicking checkout links, you agree to these Terms and our Privacy Policy.',
           ],
         },
         {
           heading: 'What you purchase',
           paragraphs: [
-            'We sell access to Dota 2 cheat tiers (Lite, Pro, Elite) and utility tools (HWID Spoofer, UGC, Skin Changer / Unlock All) delivered through an operator portal and loader for Steam on Windows.',
-            'Feature lists on each product page describe what is included at the time of purchase. Modules can change when Dota 2 or anti-cheat systems update.',
+            'FragPunk cheat access and optional Cloud DMA are sold by third-party operators linked from this site—not by us directly.',
+            'Feature lists on the operator checkout describe what you get at purchase time. Game patches can change what still works.',
           ],
         },
         {
           heading: 'Checkout and delivery',
           paragraphs: [
-            'Payment and license delivery run on external checkout pages. dotacheats.com does not process or store payment card numbers.',
-            'After purchase, use the operator portal linked from your order flow to download the current loader and setup guide before launching Dota 2.',
+            'Payment and delivery happen on external checkout pages. We do not store payment card numbers.',
+            'After purchase, use the operator portal from your receipt for downloads and setup steps.',
           ],
         },
         {
@@ -710,16 +705,15 @@ export const en: Translations = {
         {
           heading: 'Refunds and purchases',
           paragraphs: [
-            'All sales are final once checkout completes. We do not refund change-of-mind purchases, account bans, VAC penalties, or issues caused by ignoring setup guides or running modules while the status banner shows offline.',
-            'If the product does not work as described on a supported setup—Steam Dota 2 on Windows 10/11, current loader from the portal, and the live status banner showing online when you started—contact us through the Support page. Include your order email, Windows version, Dota 2 build, and screenshots or exact error text from the loader.',
-            'We may, at our discretion, offer a fix, replacement access, or partial/full refund when we confirm a fault on our side. We are not obligated to approve every request.',
+            'Refunds are handled by the operator you paid—not by this informational site. Read their refund policy on checkout before you buy.',
+            'If you emailed us about a site error, include the page URL and what you expected to see.',
           ],
         },
         {
           heading: 'Availability and risk',
           paragraphs: [
-            'Third-party tools for Dota 2 can conflict with game updates and anti-cheat systems. You use this software at your own risk, including possible account action.',
-            'Check the homepage status banner before every session. Do not queue ranked while modules are offline or misaligned after a patch.',
+            'Third-party cheats can break after game updates and may violate game terms. You assume account and PC risk.',
+            'We do not guarantee detection status, uptime, or compatibility.',
           ],
         },
         {
@@ -737,18 +731,17 @@ export const en: Translations = {
       ],
     },
     support: {
-      title: 'DotaCheats Support',
-      description:
-        'Get support for loader, HWID, and checkout questions at dotacheats.com.',
+      title: 'FragPunk Cheats Support',
+      description: 'Contact us about the site; use the operator for loader and license help after purchase.',
     },
   },
   ui: {
     skipLink: 'Skip to main content',
-    browseCheats: 'Try Now',
-    browseCheatsMobile: 'Start checkout',
-    homeAria: 'DotaCheats home',
-    checkoutAria: 'Start checkout',
-    discordAria: 'Join DotaCheats on Discord',
+    browseCheats: 'Check checkout',
+    browseCheatsMobile: 'Checkout',
+    homeAria: 'FragPunk Cheats home',
+    checkoutAria: 'Open FragPunk checkout',
+    discordAria: 'Open checkout',
     menuOpen: 'Open menu',
     menuClose: 'Close menu',
     themeLight: 'Switch to light mode',

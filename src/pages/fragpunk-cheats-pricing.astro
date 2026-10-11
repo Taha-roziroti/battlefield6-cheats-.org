@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import GuideArticle from '../components/fragpunk/GuideArticle.astro';
+import CheckoutCta from '../components/fragpunk/CheckoutCta.astro';
+import { resolvePageSeo } from '../config/seo';
+import { pricingCopy, pricingFaqs } from '../data/fragpunk/copy';
+import { CLOUD_DMA_PLAN, FRAGPUNK_MAIN_PLANS } from '../data/fragpunk/pricing';
+import { FRAGPUNK_ROUTES } from '../utils/path';
+import { resolveFragpunkOg, resolveFragpunkPageMedia } from '../data/fragpunk/media';
+import { breadcrumbSchema, itemListSchema, webPageSchema } from '../utils/schema';
+
+const seo = resolvePageSeo('/fragpunk-cheats-pricing/');
+const pageMedia = resolveFragpunkPageMedia('/fragpunk-cheats-pricing/');
+const og = resolveFragpunkOg('/fragpunk-cheats-pricing/');
+const breadcrumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Pricing', path: '/fragpunk-cheats-pricing/' },
+];
+
+const planList = [
+  ...FRAGPUNK_MAIN_PLANS.map((plan) => ({
+    name: `FragPunk ${plan.name} — $${plan.priceUsd}`,
+    url: FRAGPUNK_ROUTES.pricing,
+  })),
+  {
+    name: `${CLOUD_DMA_PLAN.name} — $${CLOUD_DMA_PLAN.priceUsd}`,
+    url: FRAGPUNK_ROUTES.cloudDma,
+  },
+];
+---
+
+<BaseLayout
+  title={seo.title}
+  description={seo.description}
+  ogImage={og.ogImage}
+  ogImageAlt={og.ogImageAlt ?? seo.title}
+  jsonLd={[
+    webPageSchema({ name: seo.title, description: seo.description, url: '/fragpunk-cheats-pricing/' }),
+    breadcrumbSchema(breadcrumbs),
+    itemListSchema(planList),
+  ]}
+>
+  <GuideArticle
+    h1="FragPunk Cheats Price and Plans"
+    lead={pricingCopy.lead}
+    breadcrumbs={breadcrumbs}
+    sections={pricingCopy.sections}
+    heroImageId={pageMedia.heroId}
+    sectionImages={pageMedia.sectionImages}
+  />
+
+  <section class="glass-section border-t border-border/60 py-10">
+    <div class="mx-auto max-w-3xl px-5 text-left">
+      <div class="glass-border-animated" data-reveal data-scroll-tilt>
+        <div class="glass-border-animated__inner p-6 md:p-8">
+      <h2 class="text-fx-heading text-xl font-semibold">Quick pricing questions</h2>
+      <dl class="mt-6 space-y-6">
+        {
+          pricingFaqs.map((item) => (
+            <div>
+              <dt class="font-medium">{item.q}</dt>
+              <dd class="mt-2 text-muted-foreground">{item.a}</dd>
+            </div>
+          ))
+        }
+      </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-3xl space-y-4 px-5 pb-12">
+    <CheckoutCta label="Open main FragPunk checkout" product="fragpunk" />
+    <CheckoutCta label="Open Cloud DMA checkout" product="cloudDma" />
+  </div>
+</BaseLayout>

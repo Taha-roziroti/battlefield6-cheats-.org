@@ -1,0 +1,312 @@
+/* Glassmorphism + animated brand borders + scroll-driven motion (FragPunk Cheats) */
+
+@property --glass-border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+:root {
+  --glass-bg: color-mix(in oklab, var(--background) 72%, transparent);
+  --glass-bg-strong: color-mix(in oklab, var(--background) 88%, transparent);
+  --glass-border: color-mix(in oklab, var(--primary) 35%, transparent);
+  --glass-blur: 18px;
+  --glass-shadow: 0 18px 48px -24px color-mix(in oklab, var(--primary) 45%, transparent);
+}
+
+.dark {
+  --glass-bg: color-mix(in oklab, var(--background) 55%, transparent);
+  --glass-bg-strong: color-mix(in oklab, var(--background) 78%, transparent);
+  --glass-border: color-mix(in oklab, var(--primary) 55%, transparent);
+  --glass-shadow: 0 22px 56px -20px color-mix(in oklab, #000 65%, var(--primary) 35%);
+}
+
+.site-shell {
+  position: relative;
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, color-mix(in oklab, var(--primary) 18%, transparent), transparent 55%),
+    radial-gradient(900px 500px at 95% 20%, color-mix(in oklab, var(--primary-accent) 12%, transparent), transparent 50%),
+    var(--background);
+}
+
+.scroll-depth-scene {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.scroll-depth-scene__layer {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(64px);
+  opacity: 0.45;
+  will-change: transform;
+}
+
+.dark .scroll-depth-scene__layer {
+  opacity: 0.35;
+}
+
+.scroll-depth-scene__layer--1 {
+  top: -8%;
+  left: -6%;
+  width: min(42vw, 28rem);
+  height: min(42vw, 28rem);
+  background: color-mix(in oklab, var(--primary) 70%, #9654ff);
+}
+
+.scroll-depth-scene__layer--2 {
+  top: 38%;
+  right: -8%;
+  width: min(48vw, 32rem);
+  height: min(48vw, 32rem);
+  background: color-mix(in oklab, var(--primary-accent) 65%, #7f3dee);
+}
+
+.scroll-depth-scene__layer--3 {
+  bottom: -12%;
+  left: 22%;
+  width: min(56vw, 36rem);
+  height: min(40vw, 26rem);
+  background: color-mix(in oklab, var(--primary) 45%, transparent);
+}
+
+.site-shell #main-content,
+.site-shell > footer {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes glass-border-spin {
+  to {
+    --glass-border-angle: 360deg;
+  }
+}
+
+@keyframes text-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes text-glow-pulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  50% {
+    filter: drop-shadow(0 0 14px color-mix(in oklab, var(--primary) 55%, transparent));
+  }
+}
+
+.glass-border-animated {
+  position: relative;
+  isolation: isolate;
+  border-radius: calc(var(--radius) + 4px);
+  padding: 1px;
+  overflow: hidden;
+  background: color-mix(in oklab, var(--border) 60%, transparent);
+}
+
+.glass-border-animated::before {
+  content: '';
+  position: absolute;
+  inset: -120%;
+  background: conic-gradient(
+    from var(--glass-border-angle),
+    transparent 0deg,
+    var(--primary) 70deg,
+    var(--primary-accent) 140deg,
+    transparent 220deg,
+    var(--primary) 300deg,
+    transparent 360deg
+  );
+  animation: glass-border-spin 5s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-border-animated::before {
+    animation: none;
+    --glass-border-angle: 45deg;
+    opacity: 0.65;
+  }
+}
+
+.glass-border-animated__inner {
+  position: relative;
+  z-index: 1;
+  border-radius: inherit;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-panel {
+  border-radius: calc(var(--radius) + 2px);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid color-mix(in oklab, var(--primary) 22%, var(--border));
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-panel--strong {
+  background: var(--glass-bg-strong);
+}
+
+.glass-section {
+  position: relative;
+}
+
+.text-fx-brand {
+  background: linear-gradient(
+    115deg,
+    var(--foreground) 0%,
+    color-mix(in oklab, var(--primary-accent) 85%, var(--foreground)) 38%,
+    var(--primary) 72%,
+    var(--primary-accent) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-shimmer 8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-fx-brand {
+    animation: none;
+    background-size: 100% auto;
+  }
+}
+
+.text-fx-eyebrow {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: color-mix(in oklab, var(--primary-accent) 80%, var(--muted-foreground));
+}
+
+.text-fx-heading {
+  position: relative;
+  display: inline-block;
+}
+
+.text-fx-heading::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.35rem;
+  width: 3.5rem;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-accent), transparent);
+}
+
+.text-fx-glow {
+  animation: text-glow-pulse 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-fx-glow {
+    animation: none;
+  }
+}
+
+[data-scroll-tilt] {
+  transform-style: preserve-3d;
+  transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg))
+    translateZ(var(--tilt-z, 0px));
+  transition: transform 0.12s ease-out;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-scroll-tilt] {
+    transform: none !important;
+    transition: none;
+  }
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0) scale(0.98);
+  transition:
+    opacity 0.55s ease,
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+.prose-glass h2 {
+  scroll-margin-top: calc(var(--floating-nav-clearance) + 1rem);
+}
+
+.prose-glass h2.text-fx-heading::after {
+  display: block;
+}
+
+.glass-footer-wrap {
+  padding: 0 1.25rem 2.5rem;
+}
+
+.glass-footer-wrap .glass-border-animated__inner {
+  padding: 2.5rem 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .glass-footer-wrap .glass-border-animated__inner {
+    padding: 3rem 2rem;
+  }
+}
+
+:is(a, button)[data-slot='button'][data-variant='primary'],
+:is(a, button).bg-primary {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--primary) 40%, transparent),
+    0 12px 32px -8px color-mix(in oklab, var(--primary) 55%, transparent);
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+:is(a, button)[data-slot='button'][data-variant='primary']:hover,
+:is(a, button).bg-primary:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--primary-accent) 55%, transparent),
+    0 16px 40px -6px color-mix(in oklab, var(--primary) 65%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(a, button)[data-slot='button'][data-variant='primary']:hover,
+  :is(a, button).bg-primary:hover {
+    transform: none;
+  }
+}
+
+.faq-filter-chip.is-active {
+  border-color: var(--primary);
+  color: var(--foreground);
+  background: color-mix(in oklab, var(--primary) 18%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--primary) 35%, transparent);
+}

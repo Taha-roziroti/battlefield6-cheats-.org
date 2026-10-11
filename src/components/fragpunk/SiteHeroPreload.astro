@@ -1,0 +1,10 @@
+---
+import { SITE_HERO_BACKGROUND } from '../../data/fragpunk/media';
+import { defaultWebpSrc, HERO_IMAGE_WIDTHS } from '../../utils/responsiveImage';
+
+const href = defaultWebpSrc(SITE_HERO_BACKGROUND.src, HERO_IMAGE_WIDTHS);
+---
+
+<Fragment slot="head">
+  <link rel="preload" as="image" href={href} type="image/webp" fetchpriority="high" />
+</Fragment>

@@ -1,21 +1,17 @@
-/** Checkout destinations keyed by internal product id (no affiliate codes). */
+/** Affiliate checkout destinations (Zadeyo /go/TAHA). Same-tab via internal /go/* redirects. */
 export const CHECKOUT_URLS = {
-  dota2: 'https://zadeyo.com/products/dota-2',
-  skinChanger: 'https://zadeyo.com/products/skin-changer',
-  hwidSpoofer: 'https://zadeyo.com/products/hwid-spoofer',
-  ugc: 'https://zadeyo.com/products/ugc',
+  fragpunk: 'https://zadeyo.com/go/TAHA?to=%2Fproducts%2Ffragpunk-novaxware',
+  cloudDma: 'https://zadeyo.com/go/TAHA?to=%2Fproducts%2Fcloud-dma',
+  hwidSpoofer: 'https://zadeyo.com/go/TAHA?to=%2Fproducts%2Fhwid-spoofer',
 };
 
-/** Checkout paths → external product URLs (used by Node serve + Astro middleware). */
 export const CHECKOUT_PATH_REDIRECTS = new Map([
-  ['/go/dota-2', CHECKOUT_URLS.dota2],
-  ['/go/dota-2/', CHECKOUT_URLS.dota2],
-  ['/go/skin-changer', CHECKOUT_URLS.skinChanger],
-  ['/go/skin-changer/', CHECKOUT_URLS.skinChanger],
+  ['/go/fragpunk', CHECKOUT_URLS.fragpunk],
+  ['/go/fragpunk/', CHECKOUT_URLS.fragpunk],
+  ['/go/cloud-dma', CHECKOUT_URLS.cloudDma],
+  ['/go/cloud-dma/', CHECKOUT_URLS.cloudDma],
   ['/go/hwid-spoofer', CHECKOUT_URLS.hwidSpoofer],
   ['/go/hwid-spoofer/', CHECKOUT_URLS.hwidSpoofer],
-  ['/go/ugc', CHECKOUT_URLS.ugc],
-  ['/go/ugc/', CHECKOUT_URLS.ugc],
 ]);
 
 export function resolveCheckoutPathRedirect(pathname) {

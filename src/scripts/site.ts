@@ -108,6 +108,7 @@ function bootSite() {
   initInPageScroll();
   initSkipLink();
   initThemeMetaColor();
+  import('./scroll-scene.ts').then(({ setupScrollScene }) => setupScrollScene());
 }
 
 if (document.readyState === 'loading') {

@@ -1,0 +1,42 @@
+---
+import Icon from '../icons/Icon.astro';
+import { AFFILIATE_LINK_REL } from '../../config/affiliate';
+import { checkoutPath, type CheckoutProduct } from '../../config/checkout';
+import { Button } from '@/components/starwind/button';
+
+interface Props {
+  product?: CheckoutProduct;
+  label?: string;
+  class?: string;
+  /** Avoid nested animated borders inside the site hero panel. */
+  frame?: 'glass' | 'plain';
+}
+
+const {
+  product = 'fragpunk',
+  label = 'Check availability',
+  class: className,
+  frame = 'glass',
+} = Astro.props;
+const href = checkoutPath(product);
+---
+
+{
+  frame === 'plain' ? (
+    <div class:list={['not-prose', className]}>
+      <Button as="a" href={href} variant="primary" rel={AFFILIATE_LINK_REL} target="_self">
+        {label}
+        <Icon name="arrowRight" size={17} />
+      </Button>
+    </div>
+  ) : (
+    <div class:list={['glass-border-animated not-prose', className]} data-reveal>
+      <div class="glass-border-animated__inner p-4">
+        <Button as="a" href={href} variant="primary" rel={AFFILIATE_LINK_REL} target="_self">
+          {label}
+          <Icon name="arrowRight" size={17} />
+        </Button>
+      </div>
+    </div>
+  )
+}

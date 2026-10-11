@@ -1,5 +1,5 @@
 ---
-import Breadcrumbs from '../components/Breadcrumbs.astro';
+import SiteHeroBanner from './fragpunk/SiteHeroBanner.astro';
 import Icon from './icons/Icon.astro';
 import { Button } from '@/components/starwind/button';
 import { Prose } from '@/components/starwind/prose';
@@ -15,31 +15,30 @@ interface Props {
 const { title, description, breadcrumbLabel, sections } = Astro.props;
 ---
 
-<article class="py-8 md:py-12">
+<SiteHeroBanner
+  title={title}
+  lead={description}
+  breadcrumbs={[
+    { name: 'Home', path: '/' },
+    { name: breadcrumbLabel, path: Astro.url.pathname },
+  ]}
+/>
+<article class="glass-section py-8 md:py-12">
   <div class="mx-auto max-w-3xl px-5">
-    <div class="text-left">
-    <Breadcrumbs
-      items={[
-        { name: 'Home', path: '/' },
-        { name: breadcrumbLabel, path: Astro.url.pathname },
-      ]}
-    />
-    </div>
-    <header class="mt-4 space-y-4 text-center">
-      <h1 class="text-3xl font-bold normal-case md:text-4xl">{title}</h1>
-      <p class="text-lg leading-relaxed text-muted-foreground">{description}</p>
-    </header>
-
-    <Prose class="mt-10 max-w-none text-left">
+    <div class="glass-border-animated" data-reveal data-scroll-tilt>
+      <div class="glass-border-animated__inner p-6 md:p-8">
+    <Prose class="prose-glass max-w-none text-left">
       {sections.map((section) => (
-        <section class="mt-8">
-          <h2>{section.heading}</h2>
+        <section class="mt-8 first:mt-0">
+          <h2 class="text-fx-heading">{section.heading}</h2>
           {section.paragraphs.map((paragraph) => (
             <p>{paragraph}</p>
           ))}
         </section>
       ))}
     </Prose>
+      </div>
+    </div>
 
     <div class="mt-12 flex flex-wrap justify-center gap-3 border-t border-border pt-8">
       <Button as="a" href={ROUTES.support} variant="primary" size="sm">

@@ -15,6 +15,7 @@ import {
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import JsonLd from '../components/JsonLd.astro';
+import ScrollDepthScene from '../components/ui/ScrollDepthScene.astro';
 
 interface Props {
   title?: string;
@@ -48,7 +49,7 @@ const robotsContent = noindex
 ---
 
 <!doctype html>
-<html lang="en" class="dark fonts-pending">
+<html lang="en-US" class="dark fonts-pending">
   <head>
     <meta charset="UTF-8" />
     <script is:inline>
@@ -69,8 +70,6 @@ const robotsContent = noindex
     <meta name="googlebot" content={robotsContent} />
     <meta name="theme-color" content="#7F3DEE" />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="en" href={canonical} />
-    <link rel="alternate" hreflang="x-default" href={canonical} />
     <link
       rel="alternate"
       type="application/rss+xml"
@@ -79,10 +78,10 @@ const robotsContent = noindex
     />
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
     <link rel="manifest" href="/site.webmanifest" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
     <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <meta property="og:title" content={title} />
@@ -137,7 +136,8 @@ const robotsContent = noindex
     <slot name="head" />
 
   </head>
-  <body class="min-h-screen bg-background text-foreground">
+  <body class="site-shell min-h-screen text-foreground">
+    <ScrollDepthScene />
     <button type="button" class="skip-link" data-skip-to-main>{t.ui.skipLink}</button>
     <Header />
     <main id="main-content">

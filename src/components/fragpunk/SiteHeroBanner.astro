@@ -1,0 +1,74 @@
+---
+import '../../styles/site-hero.css';
+import Breadcrumbs from '../Breadcrumbs.astro';
+import type { BreadcrumbItem } from '../../utils/schema';
+import { SITE_HERO_BACKGROUND } from '../../data/fragpunk/media';
+import {
+  defaultWebpSrc,
+  HERO_IMAGE_WIDTHS,
+  responsiveSrcSet,
+} from '../../utils/responsiveImage';
+
+interface Props {
+  title: string;
+  lead?: string;
+  eyebrow?: string;
+  breadcrumbs?: BreadcrumbItem[];
+  /** Preload + high fetch priority for LCP (homepage). */
+  priority?: boolean;
+  contentClass?: string;
+  class?: string;
+}
+
+const {
+  title,
+  lead,
+  eyebrow,
+  breadcrumbs,
+  priority = false,
+  contentClass,
+  class: className,
+} = Astro.props;
+
+const srcSet = responsiveSrcSet(SITE_HERO_BACKGROUND.src, HERO_IMAGE_WIDTHS);
+const imgSrc = defaultWebpSrc(SITE_HERO_BACKGROUND.src, HERO_IMAGE_WIDTHS);
+const hasActions = Astro.slots.has('default');
+---
+
+<section class:list={['site-hero', className]} aria-labelledby="site-hero-title">
+  <div class="site-hero__media" aria-hidden="true">
+    <picture>
+      <source type="image/webp" srcset={srcSet} sizes="100vw" />
+      <img
+        src={imgSrc}
+        alt=""
+        width={SITE_HERO_BACKGROUND.width}
+        height={SITE_HERO_BACKGROUND.height}
+        class="site-hero__img"
+        loading="eager"
+        fetchpriority={priority ? 'high' : 'auto'}
+        decoding="async"
+      />
+    </picture>
+    <div class="site-hero__scrim"></div>
+  </div>
+  <div class:list={['site-hero__content mx-auto max-w-3xl px-5 py-10 md:py-14 lg:py-16', contentClass]}>
+    <div class="glass-border-animated" data-scroll-tilt>
+      <div class="glass-border-animated__inner glass-panel--strong p-6 md:p-8">
+        {
+          breadcrumbs && breadcrumbs.length > 0 && (
+            <div class="site-hero__breadcrumbs">
+              <Breadcrumbs items={breadcrumbs} />
+            </div>
+          )
+        }
+        {eyebrow && <p class="site-hero__eyebrow text-fx-eyebrow">{eyebrow}</p>}
+        <header class:list={['space-y-4 text-left', breadcrumbs?.length ? 'mt-4 md:mt-6' : 'mt-0']}>
+          <h1 id="site-hero-title" class="site-hero__title text-fx-brand text-fx-glow">{title}</h1>
+          {lead && <p class="site-hero__lead">{lead}</p>}
+        </header>
+        {hasActions && <div class="site-hero__actions"><slot /></div>}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,38 +1,94 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroSection from '../components/HeroSection.astro';
-import FeaturesSection from '../components/FeaturesSection.astro';
-import WhySetupSection from '../components/WhySetupSection.astro';
-import ProductsSection from '../components/ProductsSection.astro';
-import ContentSections from '../components/ContentSections.astro';
-import { t } from '../i18n';
+import CheckoutCta from '../components/fragpunk/CheckoutCta.astro';
+import FragPunkFigure from '../components/fragpunk/FragPunkFigure.astro';
+import FragPunkGallery from '../components/fragpunk/FragPunkGallery.astro';
+import SiteHeroBanner from '../components/fragpunk/SiteHeroBanner.astro';
+import SiteHeroPreload from '../components/fragpunk/SiteHeroPreload.astro';
+import { Prose } from '@/components/starwind/prose';
 import { resolvePageSeo } from '../config/seo';
-import { faqPageSchema, organizationSchema, websiteSchema } from '../utils/schema';
-import { getLandingFaqs } from '../data/faq';
-import { webpSrc } from '../utils/responsiveImage';
+import { homeCopy } from '../data/fragpunk/copy';
+import { FRAGPUNK_MAIN_PLANS } from '../data/fragpunk/pricing';
+import {
+  fragpunkScreenshot,
+  resolveFragpunkOg,
+  resolveFragpunkPageMedia,
+} from '../data/fragpunk/media';
+import {
+  organizationSchema,
+  productSchema,
+  webPageSchema,
+  websiteSchema,
+} from '../utils/schema';
+import { checkoutPath } from '../config/checkout';
 
 const seo = resolvePageSeo('/');
-const homeFaqs = getLandingFaqs();
-const heroLcpImage = webpSrc('/images/gameplay/dota-2-map-hack.png', 512);
+const monthly = FRAGPUNK_MAIN_PLANS[0]!;
+const pageMedia = resolveFragpunkPageMedia('/');
+const og = resolveFragpunkOg('/');
 ---
 
 <BaseLayout
   title={seo.title}
   description={seo.description}
-  jsonLd={[websiteSchema(), organizationSchema(), faqPageSchema(homeFaqs.map((f, i) => ({ num: String(i + 1).padStart(2, '0'), q: f.q, a: f.a.replace(/<[^>]+>/g, '') })))]}
+  ogImage={og.ogImage}
+  ogImageAlt={og.ogImageAlt ?? seo.title}
+  jsonLd={[
+    websiteSchema(),
+    organizationSchema(),
+    webPageSchema({
+      name: 'FragPunk Cheats for PC',
+      description: seo.description,
+      url: '/',
+    }),
+    productSchema({
+      name: 'FragPunk Cheats for PC',
+      description:
+        'FragPunk cheat access with aimbot and ESP modules; confirm current pricing on checkout.',
+      url: '/',
+      offerUrl: checkoutPath('fragpunk'),
+      priceUsd: monthly.priceUsd,
+    }),
+  ]}
 >
-  <link
-    slot="head"
-    rel="preload"
-    as="image"
-    href={heroLcpImage}
-    type="image/webp"
-    media="(min-width: 1024px)"
-    fetchpriority="high"
-  />
-  <HeroSection />
-  <FeaturesSection />
-  <ProductsSection />
-  <WhySetupSection />
-  <ContentSections />
+  <SiteHeroPreload />
+  <SiteHeroBanner title="FragPunk Cheats for PC" lead={homeCopy.lead} priority>
+    <CheckoutCta frame="plain" label="See if checkout is open" />
+  </SiteHeroBanner>
+
+  <section class="glass-section py-10 md:py-12">
+    <div class="mx-auto max-w-3xl px-5">
+      <div class="glass-border-animated" data-reveal data-scroll-tilt>
+        <div class="glass-border-animated__inner p-6 md:p-8">
+      <Prose class="prose-glass max-w-none text-left">
+        {
+          homeCopy.sections.map((section) => (
+            <>
+              <h2 id={section.id} class="text-fx-heading">{section.heading}</h2>
+              {section.paragraphs.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+              {
+                section.id &&
+                  pageMedia.sectionImages[section.id] && (
+                    <FragPunkFigure image={fragpunkScreenshot(pageMedia.sectionImages[section.id]!)} />
+                  )
+              }
+              {
+                section.links?.map((link) => (
+                  <p>
+                    <a href={link.href}>{link.text}</a>
+                  </p>
+                ))
+              }
+            </>
+          ))
+        }
+      </Prose>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FragPunkGallery />
 </BaseLayout>

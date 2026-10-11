@@ -3,7 +3,6 @@ import { t } from '../i18n';
 import { checkoutPath } from '../config/checkout';
 import { AFFILIATE_LINK_REL } from '../config/affiliate';
 import { Button } from '@/components/starwind/button';
-import AnimatedThemeSwitch from './AnimatedThemeSwitch.astro';
 import {
   Sheet,
   SheetContent,
@@ -58,17 +57,13 @@ const purchaseUrl = checkoutPath('fragpunk');
       <div class="hidden items-center sm:flex">
         <SlideRevealButton
           href={purchaseUrl}
-          class="hidden lg:inline-flex"
+          class="hidden sm:inline-flex"
           ariaLabel={t.ui.checkoutAria}
           rel={AFFILIATE_LINK_REL}
           target="_self"
         >
           {t.ui.browseCheats}
         </SlideRevealButton>
-        <div class="nav-action-divider hidden items-center px-3 lg:flex" aria-hidden="true">
-          <span class="block h-9 w-px bg-border"></span>
-        </div>
-        <AnimatedThemeSwitch size="md" ariaLabel={t.ui.themeLight} class="inline-flex" />
       </div>
 
       <Sheet class="lg:hidden">
@@ -106,9 +101,6 @@ const purchaseUrl = checkoutPath('fragpunk');
           >
             {t.ui.browseCheatsMobile}
           </Button>
-          <div class="flex justify-center pt-1">
-            <AnimatedThemeSwitch size="sm" ariaLabel={t.ui.themeLight} />
-          </div>
         </SheetContent>
       </Sheet>
     </div>

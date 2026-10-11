@@ -5,16 +5,25 @@ interface Props {
   back: string;
   href?: string;
   linkLabel?: string;
+  hideTitle?: boolean;
   class?: string;
 }
 
-const { title, front, back, href, linkLabel = 'Learn more', class: className } = Astro.props;
+const {
+  title,
+  front,
+  back,
+  href,
+  linkLabel = 'Learn more',
+  hideTitle = false,
+  class: className,
+} = Astro.props;
 ---
 
 <article class:list={['flip-card', className]} tabindex="0">
   <div class="flip-card__inner">
     <div class="flip-card__face flip-card__face--front">
-      <h3 class="flip-card__title">{title}</h3>
+      {!hideTitle && <h3 class="flip-card__title">{title}</h3>}
       <p class="flip-card__body">{front}</p>
     </div>
     <div class="flip-card__face flip-card__face--back">

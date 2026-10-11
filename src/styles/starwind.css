@@ -161,7 +161,11 @@
     @apply border-border outline-outline/50;
   }
   body {
-    @apply bg-background text-foreground scheme-light dark:scheme-dark font-sans antialiased;
+    @apply bg-background text-foreground scheme-dark font-sans antialiased;
+  }
+
+  html.dark {
+    color-scheme: dark;
   }
   h1,
   h2,

@@ -91,14 +91,7 @@ function initFaqFilters() {
 function initThemeMetaColor() {
   const metaTheme = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
   if (!metaTheme) return;
-
-  const update = () => {
-    metaTheme.content = document.documentElement.classList.contains('dark') ? '#7F3DEE' : '#f5f7fa';
-  };
-
-  update();
-  const observer = new MutationObserver(update);
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+  metaTheme.content = '#7F3DEE';
 }
 
 function bootSite() {

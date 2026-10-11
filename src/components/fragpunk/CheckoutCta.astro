@@ -30,7 +30,7 @@ const href = checkoutPath(product);
       </Button>
     </div>
   ) : (
-    <div class:list={['glass-border-animated not-prose', className]} data-reveal>
+    <div class:list={['glass-border-animated not-prose w-fit max-w-full', className]} data-reveal>
       <div class="glass-border-animated__inner p-4">
         <Button as="a" href={href} variant="primary" rel={AFFILIATE_LINK_REL} target="_self">
           {label}

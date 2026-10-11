@@ -41,7 +41,7 @@ function resolveVariant(index: number, hasImage: boolean): GuideSectionVariant {
 
 <SiteHeroBanner title={h1} lead={lead} breadcrumbs={breadcrumbs} />
 <section class="glass-section py-8 md:py-12">
-  <div class="mx-auto max-w-3xl px-5">
+  <div class="guide-page-shell">
     {heroImage && <FragPunkFigure class="mb-10" image={heroImage} />}
     {
       sections.map((section, index) => {

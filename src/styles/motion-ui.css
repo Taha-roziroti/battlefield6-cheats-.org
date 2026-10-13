@@ -232,8 +232,7 @@ button.flip-card__link {
 }
 
 .guide-page-shell img,
-.carousel-3d-slide img,
-.site-hero__img {
+.carousel-3d-slide img {
   max-width: 100%;
   height: auto;
   image-rendering: auto;

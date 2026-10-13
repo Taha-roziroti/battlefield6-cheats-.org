@@ -34,9 +34,13 @@ const {
 
 const isRaster = /\.(png|jpe?g|webp)$/i.test(src);
 const srcSet = responsiveSrcSet(src, widths);
+const masterIsJpeg = /\.jpe?g$/i.test(src);
+/** JPEG masters stay in dist after prune; PNG masters rely on a single WebP fallback `src`. */
+const rasterFallbackSrc = masterIsJpeg ? src : defaultWebpSrc(src, widths);
 const imgSrc = desktopOnly
   ? 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
-  : defaultWebpSrc(src, widths);
+  : rasterFallbackSrc;
+const imgSrcSet = desktopOnly || masterIsJpeg ? undefined : srcSet;
 const pictureSizes = desktopOnly ? '(min-width: 1024px) 490px, 1px' : sizes;
 const pictureMedia = desktopOnly ? '(min-width: 1024px)' : undefined;
 ---
@@ -47,7 +51,7 @@ const pictureMedia = desktopOnly ? '(min-width: 1024px)' : undefined;
       <source type="image/webp" srcset={srcSet} sizes={pictureSizes} media={pictureMedia} />
       <img
         src={imgSrc}
-        srcset={desktopOnly ? undefined : srcSet}
+        srcset={imgSrcSet}
         alt={alt}
         width={width}
         height={height}

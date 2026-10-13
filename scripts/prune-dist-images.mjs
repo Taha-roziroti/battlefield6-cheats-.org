@@ -15,7 +15,9 @@ function walk(dir) {
       continue;
     }
     if (!/\.png$/i.test(entry.name)) continue;
-    // Keep brand/favicon-sized assets if any land under images; gameplay/blog sources go.
+    // Keep BF6 gameplay PNGs as <img> fallback when WebP is blocked; drop other large sources.
+    const rel = path.relative(distImages, full).replace(/\\/g, '/');
+    if (rel.startsWith('battlefield/gameplay/')) continue;
     const stat = fs.statSync(full);
     if (stat.size < 80_000) continue;
     bytes += stat.size;

@@ -25,8 +25,10 @@
 }
 
 .site-hero__img {
+  display: block;
   height: 100%;
   width: 100%;
+  max-width: none;
   object-fit: cover;
   object-position: 72% 42%;
 }

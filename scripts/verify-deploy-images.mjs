@@ -13,6 +13,10 @@ const REQUIRED = [
   'public/images/battlefield/gameplay/cargo-catch-pistol-640.webp',
   'public/images/battlefield/gameplay/cargo-catch-pistol-1920.webp',
   'public/images/battlefield/gameplay/carrier-deck-pistol-smoke-640.webp',
+  'public/images/battlefield/gameplay/hangar-loot-crate-glow.png',
+  'public/images/battlefield/gameplay/hangar-loot-crate-glow-640.webp',
+  'public/images/battlefield/gameplay/wooden-shack-snow-armor.png',
+  'public/images/battlefield/gameplay/wooden-shack-snow-armor-640.webp',
 ];
 
 const MIN_BYTES = 2048;

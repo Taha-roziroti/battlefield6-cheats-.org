@@ -36,12 +36,14 @@ const {
 const isRaster = /\.(png|jpe?g|webp)$/i.test(src);
 const srcSet = responsiveSrcSet(src, widths);
 const masterIsJpeg = /\.jpe?g$/i.test(src);
-/** JPEG masters stay in dist after prune; PNG masters rely on a single WebP fallback `src`. */
-const rasterFallbackSrc = masterIsJpeg ? rasterMasterUrl(src) : defaultWebpSrc(src, widths);
+const masterIsPng = /\.png$/i.test(src);
+/** Raster master on `<img>` so WebP 404s / cache misses still show gameplay shots (PNGs kept in dist). */
+const rasterFallbackSrc =
+  masterIsJpeg || masterIsPng ? rasterMasterUrl(src) : defaultWebpSrc(src, widths);
 const imgSrc = desktopOnly
   ? 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
   : rasterFallbackSrc;
-const imgSrcSet = desktopOnly || masterIsJpeg ? undefined : srcSet;
+const imgSrcSet = desktopOnly || masterIsJpeg || masterIsPng ? undefined : srcSet;
 const pictureSizes = desktopOnly ? '(min-width: 1024px) 490px, 1px' : sizes;
 const pictureMedia = desktopOnly ? '(min-width: 1024px)' : undefined;
 ---

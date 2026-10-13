@@ -26,7 +26,9 @@ Output is written to **`dist/`** (plain HTML, assets, sitemap).
 
 ### Auto deploy (GitHub Pages)
 
-Pushes to **`main`** run [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml): `npm ci`, `npm run build`, then publish **`dist/`** to GitHub Pages.
+**If the live domain or images do not load, read [DEPLOY.md](./DEPLOY.md) first** (DNS + enable Pages on branch `gh-pages`).
+
+Pushes to **`main`** run [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml): `npm ci`, `npm run build`, then publish **`dist/`** to the **`gh-pages`** branch.
 
 **One-time setup** (repo owner, on GitHub):
 

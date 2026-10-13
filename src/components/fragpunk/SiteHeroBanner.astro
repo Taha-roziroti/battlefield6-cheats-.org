@@ -3,7 +3,7 @@ import '../../styles/site-hero.css';
 import Breadcrumbs from '../Breadcrumbs.astro';
 import ResponsiveImage from '../ResponsiveImage.astro';
 import { SITE_HERO_BACKGROUND } from '../../config/site-hero';
-import { HERO_IMAGE_SIZES, HERO_IMAGE_WIDTHS } from '../../utils/responsiveImage';
+import { HERO_IMAGE_SIZES, HERO_IMAGE_WIDTHS, webpSrc } from '../../utils/responsiveImage';
 import type { BreadcrumbItem } from '../../utils/schema';
 
 interface Props {
@@ -29,6 +29,7 @@ const {
 
 const hasActions = Astro.slots.has('default');
 const hero = SITE_HERO_BACKGROUND;
+const heroBackdrop = webpSrc(hero.src, 1920);
 ---
 
 <section
@@ -37,7 +38,11 @@ const hero = SITE_HERO_BACKGROUND;
 >
   {
     background && (
-      <div class="site-hero__media" aria-hidden="true">
+      <div
+        class="site-hero__media"
+        style={`background-image: url('${heroBackdrop}')`}
+        aria-hidden="true"
+      >
         <ResponsiveImage
           src={hero.src}
           alt=""

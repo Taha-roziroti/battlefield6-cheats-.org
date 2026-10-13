@@ -1,5 +1,14 @@
 const RASTER_EXT = /\.(png|jpe?g|webp)$/i;
 
+/** Root-relative URL that respects Astro `base` (GitHub project pages) in production builds. */
+export function publicAssetUrl(path: string): string {
+  const normalized = path.startsWith('/') ? path : `/${path}`;
+  const base = import.meta.env.BASE_URL || '/';
+  if (base === '/') return normalized;
+  const prefix = base.endsWith('/') ? base.slice(0, -1) : base;
+  return `${prefix}${normalized}`;
+}
+
 /** Full-width hero / site banner (4K masters). */
 export const HERO_IMAGE_WIDTHS = [480, 640, 960, 1280, 1536, 1920, 2560, 3840] as const;
 export const HERO_IMAGE_SIZES = '100vw';
@@ -38,7 +47,7 @@ export function stripRasterExt(src: string): string {
 }
 
 export function webpSrc(src: string, width: number): string {
-  return `${stripRasterExt(src)}-${width}.webp`;
+  return publicAssetUrl(`${stripRasterExt(src)}-${width}.webp`);
 }
 
 export function responsiveSrcSet(
@@ -46,6 +55,10 @@ export function responsiveSrcSet(
   widths: readonly number[] = CONTENT_IMAGE_WIDTHS,
 ): string {
   return widths.map((width) => `${webpSrc(src, width)} ${width}w`).join(', ');
+}
+
+export function rasterMasterUrl(src: string): string {
+  return publicAssetUrl(src);
 }
 
 /** Fallback `src` / preload — balanced for sharpness without always pulling the largest file. */

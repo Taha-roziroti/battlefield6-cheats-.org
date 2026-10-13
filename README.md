@@ -30,7 +30,8 @@ Pushes to **`main`** run [`.github/workflows/deploy.yml`](.github/workflows/depl
 
 **One-time setup** (repo owner, on GitHub):
 
-1. **Settings → Pages → Build and deployment** → Source: **GitHub Actions**.
+1. **Settings → Pages → Build and deployment** → Source: **Deploy from a branch** → Branch **`gh-pages`** → folder **`/`** (root).  
+   (The workflow pushes built `dist/` to `gh-pages` via [peaceiris/actions-gh-pages](https://github.com/peaceiris/actions-gh-pages).)
 2. **Settings → Pages → Custom domain** → `battlefield6-cheats.org` (matches `public/CNAME`).
 3. DNS at your registrar: **A** records to GitHub Pages (`185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`) or **CNAME** `www` → `<user>.github.io` if using the default Pages hostname first.
 

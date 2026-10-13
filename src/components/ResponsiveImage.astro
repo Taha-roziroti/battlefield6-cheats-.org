@@ -3,6 +3,7 @@ import {
   CONTENT_IMAGE_SIZES,
   CONTENT_IMAGE_WIDTHS,
   defaultWebpSrc,
+  rasterMasterUrl,
   responsiveSrcSet,
 } from '../utils/responsiveImage';
 
@@ -36,7 +37,7 @@ const isRaster = /\.(png|jpe?g|webp)$/i.test(src);
 const srcSet = responsiveSrcSet(src, widths);
 const masterIsJpeg = /\.jpe?g$/i.test(src);
 /** JPEG masters stay in dist after prune; PNG masters rely on a single WebP fallback `src`. */
-const rasterFallbackSrc = masterIsJpeg ? src : defaultWebpSrc(src, widths);
+const rasterFallbackSrc = masterIsJpeg ? rasterMasterUrl(src) : defaultWebpSrc(src, widths);
 const imgSrc = desktopOnly
   ? 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
   : rasterFallbackSrc;

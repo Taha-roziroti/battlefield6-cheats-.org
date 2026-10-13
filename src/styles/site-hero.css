@@ -16,6 +16,10 @@
   position: absolute;
   inset: 0;
   z-index: 0;
+  background-color: #0a0d10;
+  background-size: cover;
+  background-position: 72% 42%;
+  background-repeat: no-repeat;
 }
 
 .site-hero__media picture {

@@ -18,6 +18,7 @@
     "images:4k": "node scripts/ai-enhance-masters.mjs && node scripts/optimize-images.mjs",
     "images:4k:sharp": "node scripts/upscale-enhance-masters.mjs && node scripts/optimize-images.mjs",
     "images:ai": "node scripts/ai-enhance-masters.mjs && node scripts/optimize-images.mjs",
+    "images:restore": "node scripts/restore-masters-from-backup.mjs && node scripts/optimize-images.mjs",
     "ingest:bf6-gameplay": "node scripts/ingest-bf6-gameplay.mjs"
   },
   "dependencies": {

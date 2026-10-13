@@ -97,6 +97,17 @@ async function enhanceOne({ exe, cwd }, masterPath, relKey, cache) {
   const aiOutPath = path.join(tmpDir, 'ai.png');
 
   try {
+    try {
+      await enhanceFromAi();
+    } catch (err) {
+      console.warn(String(err?.message ?? err));
+      return;
+    }
+  } finally {
+    fs.rmSync(tmpDir, { recursive: true, force: true });
+  }
+
+  async function enhanceFromAi() {
     await sharp(inputPath, { failOn: 'none' })
       .rotate()
       .resize({ width: prepWidth, kernel: sharp.kernel.lanczos3 })
@@ -105,9 +116,21 @@ async function enhanceOne({ exe, cwd }, masterPath, relKey, cache) {
 
     await runRealEsrgan({ exe, cwd, input: prepPath, output: aiOutPath, scale });
 
+    const aiOutBytes = fs.statSync(aiOutPath).size;
+    if (aiOutBytes < 80_000) {
+      throw new Error(
+        `AI output too small (${aiOutBytes} bytes) for ${path.relative(root, masterPath)} — skipping to avoid corrupt masters.`,
+      );
+    }
+
     let pipeline = sharp(aiOutPath, { failOn: 'none' }).rotate();
     const aiMeta = await pipeline.metadata();
     const aiWidth = aiMeta.width ?? 0;
+    if (aiWidth < 512) {
+      throw new Error(
+        `AI output width ${aiWidth}px is invalid for ${path.relative(root, masterPath)} — skipping.`,
+      );
+    }
     if (aiWidth > TARGET_WIDTH) {
       pipeline = pipeline.resize({ width: TARGET_WIDTH, kernel: sharp.kernel.lanczos3 });
     } else if (aiWidth < TARGET_WIDTH) {
@@ -119,8 +142,6 @@ async function enhanceOne({ exe, cwd }, masterPath, relKey, cache) {
     console.log(
       `AI ${scale}x → ${TARGET_WIDTH}px: ${path.relative(root, masterPath)} (from ${width}px source)`,
     );
-  } finally {
-    fs.rmSync(tmpDir, { recursive: true, force: true });
   }
 }
 

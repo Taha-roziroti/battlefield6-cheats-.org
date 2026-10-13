@@ -1,35 +1,54 @@
-/** Listed on checkout product pages — recheck before publishing updates. */
-export const FRAGPUNK_MAIN_PLANS = [
+/** Listed checkout prices — recheck before publishing updates. */
+export const MAIN_PRODUCT_PLANS = [
   {
     id: 'monthly',
-    name: '31-day access',
+    name: 'Monthly',
     priceUsd: 35,
     term: '31 days',
-    checkout: 'fragpunk' as const,
+    checkout: 'main' as const,
   },
   {
     id: 'lifetime',
-    name: 'Lifetime access',
+    name: 'Lifetime',
     priceUsd: 150,
     term: 'Lifetime',
-    checkout: 'fragpunk' as const,
+    checkout: 'main' as const,
   },
 ] as const;
 
+/** @deprecated Use MAIN_PRODUCT_PLANS */
+export const FRAGPUNK_MAIN_PLANS = MAIN_PRODUCT_PLANS;
+
 export const CLOUD_DMA_PLAN = {
-  name: 'Cloud DMA (lifetime)',
+  name: 'Cloud DMA',
   priceUsd: 50,
   term: 'Lifetime',
   checkout: 'cloudDma' as const,
   note:
-    'Sold apart from the main FragPunk cheat. It is a Hyper-V layer on one PC—not a hardware DMA card you install in a slot.',
+    'Hyper-V infrastructure on one gaming PC—not a second tower, USB DMA bridge, or PCIe card. Sold separately from the main Battlefield 6 cheat license.',
 } as const;
 
-/** HWID Spoofer — confirm displayed price on checkout; listing may show multiple tiers. */
+export const HWID_SPOOFER_PLANS = [
+  {
+    id: 'monthly',
+    name: 'Monthly',
+    priceUsd: 50,
+    term: '31 days',
+    checkout: 'hwidSpoofer' as const,
+  },
+  {
+    id: 'lifetime',
+    name: 'Lifetime',
+    priceUsd: 150,
+    term: 'Lifetime',
+    checkout: 'hwidSpoofer' as const,
+  },
+] as const;
+
 export const HWID_SPOOFER_PLAN = {
   name: 'HWID Spoofer',
   checkout: 'hwidSpoofer' as const,
-  priceNote: 'Pricing is shown on the HWID Spoofer checkout page before you pay.',
+  plans: HWID_SPOOFER_PLANS,
   summary:
-    'Hardware ban recovery with spoofing tools and cleaner included—covers major anti-cheat stacks listed on the product page.',
+    'Hardware spoofer with cleaner included. Battlefield 6 is supported alongside EAC, BattlEye, Ricochet, and Vanguard-protected titles in our compatibility list.',
 } as const;

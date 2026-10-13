@@ -252,8 +252,21 @@ a.nav-link[data-nav-link].is-active:hover {
   color: var(--primary);
 }
 
-a.nav-link[data-nav-link] .icon-app {
+a.nav-link[data-nav-link] .icon-app,
+a.nav-link[data-nav-link] .nav-link__icon {
   color: currentColor;
+}
+
+.site-nav__center .nav-link__icon {
+  width: 0.9375rem;
+  height: 0.9375rem;
+}
+
+@media (min-width: 1280px) {
+  .site-nav__center .nav-link__icon {
+    width: 1rem;
+    height: 1rem;
+  }
 }
 
 html:not(.dark) a.nav-link[data-nav-link]:hover .icon-app,
@@ -430,7 +443,7 @@ html.dark a.nav-link[data-nav-link]:hover .icon-app {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-radius: var(--radius-md);
+  border-radius: 9999px;
   border: 1px solid color-mix(in oklch, var(--primary) 82%, black);
   background-color: var(--primary);
   color: var(--primary-foreground);
@@ -515,10 +528,19 @@ button.slide-reveal-btn {
   appearance: none;
 }
 
+/* Same-tab checkout handoff */
+html.is-checkout-exit {
+  transition: opacity 220ms ease;
+}
+
+html.is-checkout-exit body {
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* Checkout product picker (dialog) */
 .checkout-picker {
   margin: auto;
-  max-width: min(100vw - 2rem, 28rem);
   padding: 0;
   border: none;
   background: transparent;

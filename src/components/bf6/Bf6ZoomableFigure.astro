@@ -1,0 +1,51 @@
+---
+import ResponsiveImage from '../ResponsiveImage.astro';
+import type { Bf6Screenshot } from '../../data/bf6-screenshots';
+import {
+  BF6_ARTICLE_IMAGE_WIDTHS,
+  BF6_SPLIT_IMAGE_SIZES,
+  CONTENT_IMAGE_SIZES,
+  IMAGE_4K_WIDTHS,
+  responsiveSrcSet,
+  webpSrc,
+} from '../../utils/responsiveImage';
+
+interface Props {
+  shot: Bf6Screenshot;
+  class?: string;
+  /** Use half-column `sizes` in article two-column layouts. */
+  splitColumn?: boolean;
+}
+
+const { shot, class: className, splitColumn = false } = Astro.props;
+const imageSizes = splitColumn ? BF6_SPLIT_IMAGE_SIZES : CONTENT_IMAGE_SIZES;
+const imageWidths = splitColumn ? BF6_ARTICLE_IMAGE_WIDTHS : IMAGE_4K_WIDTHS;
+
+const fullSrc = webpSrc(shot.src, 1920);
+const srcSet = responsiveSrcSet(shot.src, imageWidths);
+const lightboxSrcSet = responsiveSrcSet(shot.src, IMAGE_4K_WIDTHS);
+---
+
+<figure class:list={['bf6-screenshots__figure', className]}>
+  <button
+    type="button"
+    class="bf6-zoomable"
+    data-lightbox-open
+    data-lightbox-src={fullSrc}
+    data-lightbox-srcset={lightboxSrcSet}
+    data-lightbox-alt={shot.alt}
+    aria-label={`Enlarge: ${shot.alt}`}
+  >
+    <ResponsiveImage
+      src={shot.src}
+      alt={shot.alt}
+      width={shot.width}
+      height={shot.height}
+      widths={imageWidths}
+      sizes={imageSizes}
+      loading="lazy"
+      class="bf6-screenshots__img"
+    />
+    <span class="bf6-zoomable__hint">Click to enlarge · zoom inside viewer</span>
+  </button>
+</figure>

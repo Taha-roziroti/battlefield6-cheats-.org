@@ -1,13 +1,23 @@
-import { FRAGPUNK_ROUTES } from '../../utils/path';
+import { SITE_ROUTES } from '../../utils/path';
 
-export const FRAGPUNK_NAV = [
-  { href: FRAGPUNK_ROUTES.home, label: 'Overview', ariaLabel: 'FragPunk cheats overview' },
-  { href: FRAGPUNK_ROUTES.aimbot, label: 'Aimbot', ariaLabel: 'FragPunk aimbot features' },
-  { href: FRAGPUNK_ROUTES.esp, label: 'ESP', ariaLabel: 'FragPunk ESP features' },
-  { href: FRAGPUNK_ROUTES.pricing, label: 'Pricing', ariaLabel: 'FragPunk cheats price and plans' },
-  { href: FRAGPUNK_ROUTES.review, label: 'Review', ariaLabel: 'FragPunk cheats review' },
-  { href: FRAGPUNK_ROUTES.cloudDma, label: 'Cloud DMA', ariaLabel: 'FragPunk Cloud DMA requirements' },
-  { href: FRAGPUNK_ROUTES.hwidSpoofer, label: 'HWID Spoofer', ariaLabel: 'HWID Spoofer for ban recovery' },
-  { href: FRAGPUNK_ROUTES.faq, label: 'FAQ', ariaLabel: 'Frequently asked questions' },
-  { href: FRAGPUNK_ROUTES.support, label: 'Support', ariaLabel: 'Contact support' },
+export const SITE_NAV = [
+  { href: SITE_ROUTES.home, label: 'Overview', ariaLabel: 'Battlefield 6 cheats overview' },
+  { href: SITE_ROUTES.aimbot, label: 'Aimbot', ariaLabel: 'Battlefield 6 aimbot features' },
+  { href: SITE_ROUTES.esp, label: 'ESP', ariaLabel: 'Battlefield 6 ESP features' },
+  {
+    href: SITE_ROUTES.requirements,
+    label: 'Requirements',
+    ariaLabel: 'Battlefield 6 cheat requirements',
+  },
+  { href: SITE_ROUTES.cloudDma, label: 'Cloud DMA', ariaLabel: 'Cloud DMA for Battlefield 6' },
+  {
+    href: SITE_ROUTES.hwidSpoofer,
+    label: 'HWID Spoofer',
+    ariaLabel: 'Battlefield 6 HWID spoofer',
+  },
+  { href: SITE_ROUTES.faq, label: 'FAQ', ariaLabel: 'Frequently asked questions' },
+  { href: SITE_ROUTES.support, label: 'Support', ariaLabel: 'Contact support' },
 ] as const;
+
+/** @deprecated Use SITE_NAV */
+export const FRAGPUNK_NAV = SITE_NAV;

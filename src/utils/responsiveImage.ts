@@ -1,14 +1,24 @@
 const RASTER_EXT = /\.(png|jpe?g|webp)$/i;
 
-/** Full-width hero / site banner (up to 1920w masters). */
-export const HERO_IMAGE_WIDTHS = [960, 1280, 1536, 1920] as const;
+/** Full-width hero / site banner (4K masters). */
+export const HERO_IMAGE_WIDTHS = [480, 640, 960, 1280, 1536, 1920, 2560, 3840] as const;
 export const HERO_IMAGE_SIZES = '100vw';
-export const HERO_LCP_WIDTH = 1280;
+export const HERO_LCP_WIDTH = 1920;
+
+/** In-page screenshots (4K masters). */
+export const IMAGE_4K_WIDTHS = [480, 640, 960, 1280, 1536, 1920, 2560, 3840] as const;
 
 /** In-page screenshots and carousel slides (~72rem column, 2× retina). */
-export const CONTENT_IMAGE_WIDTHS = [640, 960, 1280, 1536, 1920] as const;
+export const CONTENT_IMAGE_WIDTHS = IMAGE_4K_WIDTHS;
 export const CONTENT_IMAGE_SIZES =
   '(min-width: 1280px) min(1024px, 72vw), (min-width: 768px) 90vw, 100vw';
+
+/** BF6 split-column shots — full 4K srcset (masters are 3840px wide). */
+export const BF6_ARTICLE_IMAGE_WIDTHS = IMAGE_4K_WIDTHS;
+
+/** Display cap ~20–22rem; matches CSS max-width on `.bf6-split__media`. */
+export const BF6_SPLIT_IMAGE_SIZES =
+  '(min-width: 640px) 30vw, (min-width: 1280px) 17rem, min(92vw, 18rem)';
 
 /** ~half of guide-page-shell in split layouts. */
 export const SPLIT_IMAGE_SIZES =
@@ -40,11 +50,11 @@ export function responsiveSrcSet(
 
 /** Fallback `src` / preload — balanced for sharpness without always pulling the largest file. */
 export function defaultWebpSrc(src: string, widths: readonly number[]): string {
-  const preferred = [1280, 960, 1536, 640, 1920];
+  const preferred = [640, 960, 1280, 480, 1536, 1920];
   for (const w of preferred) {
-    if (widths.includes(w)) return webpSrc(src, w);
+    if ((widths as readonly number[]).includes(w)) return webpSrc(src, w);
   }
-  return webpSrc(src, widths[widths.length - 1] ?? 1280);
+  return webpSrc(src, widths[widths.length - 1] ?? 640);
 }
 
 export function heroLcpWebpSrc(src: string): string {

@@ -28,7 +28,8 @@ export function websiteSchema() {
     name: BRAND_NAME,
     url: `${SITE_ORIGIN}/`,
     inLanguage: 'en-US',
-    description: 'FragPunk cheats on PC—features, prices, and Cloud DMA explained in plain language.',
+    description:
+      'Battlefield 6 cheats on Windows PC—features, listed pricing, and requirements explained in plain language.',
   };
 }
 
@@ -68,6 +69,34 @@ export function collectionPageSchema(input: { name: string; description: string;
       '@type': 'WebSite',
       name: BRAND_NAME,
       url: `${SITE_ORIGIN}/`,
+    },
+  };
+}
+
+export function techArticleSchema(input: { name: string; description: string; url: string }) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: input.name,
+    name: input.name,
+    description: input.description,
+    url: canonicalUrl(input.url),
+    inLanguage: 'en-US',
+    author: {
+      '@type': 'Organization',
+      name: BRAND_NAME,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: BRAND_NAME,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_ORIGIN}/logo.svg`,
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': canonicalUrl(input.url),
     },
   };
 }

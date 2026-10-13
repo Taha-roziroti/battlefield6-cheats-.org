@@ -1,0 +1,35 @@
+/* Shared page column — hero, article, and chrome align to one rail */
+
+:root {
+  --content-rail-max: 58rem;
+  --content-gap: 1.25rem;
+  --content-gap-col: 1.5rem;
+  --content-section-y: clamp(1.75rem, 4vw, 2.25rem);
+  --content-block-gap: var(--content-gap);
+  --type-h2: clamp(1.28rem, 2.2vw, 1.5rem);
+  --type-h3: 1rem;
+  --type-body: 0.9375rem;
+  --type-body-sm: 0.8125rem;
+  --type-leading: 1.6;
+  --type-leading-tight: 1.35;
+}
+
+.content-rail {
+  width: 100%;
+  max-width: var(--content-rail-max);
+  margin-inline: auto;
+  padding-inline: var(--page-padding-inline);
+}
+
+.content-rail--flush {
+  padding-inline: 0;
+}
+
+/* Legacy section wrappers — same rail as articles and hero */
+.guide-page-shell {
+  width: 100%;
+  max-width: var(--content-rail-max);
+  margin-inline: auto;
+  padding-inline: var(--page-padding-inline);
+  text-align: left;
+}

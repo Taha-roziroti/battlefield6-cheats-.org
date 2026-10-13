@@ -1,0 +1,178 @@
+---
+import Bf6GlassPanel from './Bf6GlassPanel.astro';
+import Bf6MediaColumn from './Bf6MediaColumn.astro';
+import type { Bf6Block } from '../../utils/bf6-mdx';
+import type { Bf6PageKey } from '../../data/bf6-pages';
+import { renderInlineMarkdown } from '../../utils/bf6-mdx';
+import { excerptText, firstSentence } from '../../utils/bf6-hero';
+import { formatSectionCopy } from '../../utils/bf6-copy';
+import { shotForH3, shotForSection } from '../../data/bf6-section-media';
+import Bf6PricingCards from './Bf6PricingCards.astro';
+
+const PRICING_SECTION_ID = 'listed-plans-and-pricing';
+
+interface Props {
+  blocks: Bf6Block[];
+  pageKey: Bf6PageKey;
+}
+
+const { blocks, pageKey } = Astro.props;
+
+type SectionGroup =
+  | { kind: 'section'; heading: Bf6Block & { type: 'h2' }; body: Bf6Block[] }
+  | { kind: 'faq'; block: Bf6Block & { type: 'faq' } };
+
+const groups: SectionGroup[] = [];
+let current: SectionGroup | null = null;
+
+for (const block of blocks) {
+  if (block.type === 'faq') {
+    if (current) groups.push(current);
+    current = null;
+    groups.push({ kind: 'faq', block });
+    continue;
+  }
+  if (block.type === 'h2') {
+    if (current) groups.push(current);
+    current = { kind: 'section', heading: block, body: [] };
+    continue;
+  }
+  if (current?.kind === 'section') {
+    current.body.push(block);
+  }
+}
+if (current) groups.push(current);
+
+function sectionParagraphs(body: Bf6Block[]): string[] {
+  return body.filter((b): b is Bf6Block & { type: 'p' } => b.type === 'p').map((b) => b.text);
+}
+
+function h3Blocks(body: Bf6Block[]) {
+  const items: { h3: Bf6Block & { type: 'h3' }; text: string }[] = [];
+  for (let i = 0; i < body.length; i++) {
+    const block = body[i];
+    if (block.type !== 'h3') continue;
+    const next = body[i + 1];
+    const text = next?.type === 'p' ? next.text : '';
+    items.push({ h3: block, text });
+    i += next?.type === 'p' ? 1 : 0;
+  }
+  return items;
+}
+
+let mediaRowIndex = 0;
+
+function nextSplitRow() {
+  const index = mediaRowIndex;
+  mediaRowIndex += 1;
+  const flip = index % 2 === 1;
+  const glassCopy = index % 2 === 1;
+  const glassMedia = !glassCopy;
+  return { flip, glassCopy, glassMedia };
+}
+---
+
+<div class="bf6-article-body">
+  {
+    groups.map((group) => {
+      if (group.kind === 'faq') {
+        return (
+          <section class="bf6-section scroll-mt-24" id="frequently-asked-questions">
+            <div class="bf6-section__flow">
+              <h2 class="bf6-section__title text-fx-heading" data-heading-line>{group.block.heading}</h2>
+              <dl class="bf6-faq-list">
+                {group.block.items.map((item, faqIndex) => (
+                  <div class:list={['bf6-faq-item', faqIndex === 0 && 'bf6-faq-item--highlight']}>
+                    <dt class="bf6-faq-item__q">{item.q}</dt>
+                    <dd class="bf6-faq-item__a" set:html={renderInlineMarkdown(firstSentence(item.a))} />
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </section>
+        );
+      }
+
+      const isPricingSection = group.heading.id === PRICING_SECTION_ID;
+      const shot = isPricingSection ? undefined : shotForSection(pageKey, group.heading.id);
+      const paras = sectionParagraphs(group.body);
+      const sectionCopy = formatSectionCopy(paras);
+      const h3s = h3Blocks(group.body);
+      const showSectionRow = Boolean(shot && sectionCopy.html);
+      const sectionRow = showSectionRow ? nextSplitRow() : null;
+
+      return (
+        <section class="bf6-section scroll-mt-24" id={group.heading.id}>
+          <div class="bf6-section__flow">
+            <h2 class="bf6-section__title text-fx-heading" data-heading-line>{group.heading.text}</h2>
+
+            {isPricingSection && <Bf6PricingCards />}
+
+            {showSectionRow && shot && sectionRow && (
+              <article class:list={['bf6-row', sectionRow.flip && 'bf6-row--flip']}>
+                <div class:list={['bf6-row__cell', 'bf6-row__copy', !sectionRow.glassCopy && 'bf6-prose']}>
+                  {sectionRow.glassCopy ? (
+                    <Bf6GlassPanel alignStart={sectionCopy.isList}>
+                      <div class="bf6-copy" set:html={sectionCopy.html} />
+                    </Bf6GlassPanel>
+                  ) : (
+                    <div class="bf6-copy" set:html={sectionCopy.html} />
+                  )}
+                </div>
+                <div class="bf6-row__cell bf6-row__media">
+                  <Bf6MediaColumn shot={shot} framed={sectionRow.glassMedia} />
+                </div>
+              </article>
+            )}
+
+            {sectionCopy.html && !shot && !isPricingSection && (
+              <div class="bf6-prose bf6-prose--block">
+                <div class="bf6-copy" set:html={sectionCopy.html} />
+              </div>
+            )}
+
+            {h3s.length > 0 && (
+              <div class="bf6-rows">
+                {h3s.map(({ h3, text }) => {
+                  const h3Shot = shotForH3(pageKey, h3.id);
+                  const bodyCopy = excerptText(text, 320);
+
+                  if (h3Shot) {
+                    const row = nextSplitRow();
+                    return (
+                      <article class:list={['bf6-row', row.flip && 'bf6-row--flip']}>
+                        <div class:list={['bf6-row__cell', 'bf6-row__copy', !row.glassCopy && 'bf6-prose']}>
+                          {row.glassCopy ? (
+                            <Bf6GlassPanel>
+                              <h3 class="bf6-row__title">{h3.text}</h3>
+                              <p class="bf6-body" set:html={renderInlineMarkdown(bodyCopy)} />
+                            </Bf6GlassPanel>
+                          ) : (
+                            <>
+                              <h3 class="bf6-row__title">{h3.text}</h3>
+                              <p class="bf6-body" set:html={renderInlineMarkdown(bodyCopy)} />
+                            </>
+                          )}
+                        </div>
+                        <div class="bf6-row__cell bf6-row__media">
+                          <Bf6MediaColumn shot={h3Shot} framed={row.glassMedia} />
+                        </div>
+                      </article>
+                    );
+                  }
+
+                  return (
+                    <div class="bf6-prose bf6-prose--h3">
+                      <h3 class="bf6-row__title">{h3.text}</h3>
+                      <p class="bf6-body" set:html={renderInlineMarkdown(bodyCopy)} />
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </section>
+      );
+    })
+  }
+</div>

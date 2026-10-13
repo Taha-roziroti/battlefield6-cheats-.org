@@ -14,7 +14,11 @@
     "seo:audit": "node scripts/seo-audit.mjs",
     "start": "node scripts/serve.mjs",
     "astro": "astro",
-    "optimize:images": "node scripts/optimize-images.mjs"
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "images:4k": "node scripts/ai-enhance-masters.mjs && node scripts/optimize-images.mjs",
+    "images:4k:sharp": "node scripts/upscale-enhance-masters.mjs && node scripts/optimize-images.mjs",
+    "images:ai": "node scripts/ai-enhance-masters.mjs && node scripts/optimize-images.mjs",
+    "ingest:bf6-gameplay": "node scripts/ingest-bf6-gameplay.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",

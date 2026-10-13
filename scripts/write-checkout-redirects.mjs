@@ -28,7 +28,7 @@ function writeInstantRedirect(pathname, targetUrl) {
   const safeUrl = escapeHtml(targetUrl);
   const jsUrl = escapeJsString(targetUrl);
 
-  const html = `<!DOCTYPE html><html lang="en-US"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><script>location.replace("${jsUrl}");</script><meta http-equiv="refresh" content="0;url=${safeUrl}"><link rel="canonical" href="${safeUrl}"></head><body></body></html>`;
+  const html = `<!DOCTYPE html><html lang="en-US" class="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Secure checkout</title><style>html,body{margin:0;min-height:100%;background:#0a0d10;color:#c4cad4;font-family:system-ui,-apple-system,Segoe UI,sans-serif}body{display:flex;align-items:center;justify-content:center;padding:1.5rem;text-align:center}.msg{font-size:.9375rem;opacity:.92;animation:checkoutPulse 1.1s ease-in-out infinite}@keyframes checkoutPulse{50%{opacity:.5}}</style><script>setTimeout(function(){location.replace("${jsUrl}");},180);</script><meta http-equiv="refresh" content="1;url=${safeUrl}"></head><body><p class="msg">Opening secure checkout…</p></body></html>`;
 
   fs.writeFileSync(path.join(outDir, 'index.html'), html, 'utf8');
 }

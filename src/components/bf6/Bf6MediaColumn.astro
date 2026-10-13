@@ -1,0 +1,25 @@
+---
+import Bf6GlassPanel from './Bf6GlassPanel.astro';
+import Bf6ZoomableFigure from './Bf6ZoomableFigure.astro';
+import type { Bf6Screenshot } from '../../data/bf6-screenshots';
+
+interface Props {
+  shot: Bf6Screenshot;
+  /** When false, screenshot only (no glass card). */
+  framed?: boolean;
+}
+
+const { shot, framed = true } = Astro.props;
+---
+
+{
+  framed ? (
+    <Bf6GlassPanel media>
+      <Bf6ZoomableFigure shot={shot} splitColumn />
+    </Bf6GlassPanel>
+  ) : (
+    <div class="bf6-media-plain">
+      <Bf6ZoomableFigure shot={shot} splitColumn />
+    </div>
+  )
+}

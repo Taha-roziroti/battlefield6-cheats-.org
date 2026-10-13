@@ -1,0 +1,73 @@
+---
+import '../../styles/bf6-pricing-cards.css';
+import { BF6_PRICING_LIFETIME_ROW, BF6_PRICING_MONTHLY_ROW } from '../../data/bf6-pricing-cards';
+---
+
+<div class="bf6-pricing">
+  <p class="bf6-pricing__lead">
+    Pick a term and product. Every card opens secure checkout for that plan—main cheat, HWID Spoofer, and
+    Cloud DMA bill separately.
+  </p>
+
+  <div class="bf6-pricing__group">
+    <h3 class="bf6-pricing__row-title">31-day access</h3>
+    <div class="bf6-pricing__grid">
+      {
+        BF6_PRICING_MONTHLY_ROW.map((card) => (
+          <a class="bf6-price-card glass-border-animated" href={card.href}>
+            <div class="glass-border-animated__inner bf6-price-card__inner">
+              <p class="bf6-price-card__product">{card.product}</p>
+              <p class="bf6-price-card__term">{card.termLabel}</p>
+              {card.priceUsd !== null ? (
+                <p class="bf6-price-card__price">
+                  <span class="bf6-price-card__currency">$</span>
+                  {card.priceUsd}
+                </p>
+              ) : (
+                <p class="bf6-price-card__price bf6-price-card__price--note">{card.priceNote}</p>
+              )}
+              <ul class="bf6-price-card__list">
+                {card.highlights.map((line) => (
+                  <li>{line}</li>
+                ))}
+              </ul>
+              {card.compareNote && <p class="bf6-price-card__compare">{card.compareNote}</p>}
+              <span class="bf6-price-card__cta">Continue to checkout</span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="bf6-pricing__group">
+    <h3 class="bf6-pricing__row-title">Lifetime access</h3>
+    <div class="bf6-pricing__grid">
+      {
+        BF6_PRICING_LIFETIME_ROW.map((card) => (
+          <a class="bf6-price-card glass-border-animated" href={card.href}>
+            <div class="glass-border-animated__inner bf6-price-card__inner">
+              <p class="bf6-price-card__product">{card.product}</p>
+              <p class="bf6-price-card__term">{card.termLabel}</p>
+              {card.priceUsd !== null ? (
+                <p class="bf6-price-card__price">
+                  <span class="bf6-price-card__currency">$</span>
+                  {card.priceUsd}
+                </p>
+              ) : (
+                <p class="bf6-price-card__price bf6-price-card__price--note">{card.priceNote}</p>
+              )}
+              <ul class="bf6-price-card__list">
+                {card.highlights.map((line) => (
+                  <li>{line}</li>
+                ))}
+              </ul>
+              {card.compareNote && <p class="bf6-price-card__compare">{card.compareNote}</p>}
+              <span class="bf6-price-card__cta">Continue to checkout</span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</div>

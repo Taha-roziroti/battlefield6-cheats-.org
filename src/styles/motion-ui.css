@@ -1,13 +1,5 @@
 /* 3D carousel, flip cards, content layout variants */
 
-.guide-page-shell {
-  width: 100%;
-  max-width: 72rem;
-  margin-inline: auto;
-  padding-inline: 1.25rem;
-  text-align: left;
-}
-
 .guide-page-shell .glass-border-animated,
 .guide-page-shell .flip-card,
 .guide-page-shell .content-block--glass {

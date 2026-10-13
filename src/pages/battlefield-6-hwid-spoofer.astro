@@ -1,0 +1,13 @@
+---
+import Bf6ArticlePage from '../components/bf6/Bf6ArticlePage.astro';
+import { getBf6Page } from '../data/bf6-pages';
+import { buildBf6JsonLd } from '../utils/bf6-schema';
+
+const page = getBf6Page('hwid-spoofer');
+const breadcrumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'HWID Spoofer', path: '/battlefield-6-hwid-spoofer/' },
+];
+---
+
+<Bf6ArticlePage page={page} pageKey="hwid-spoofer" breadcrumbs={breadcrumbs} jsonLd={buildBf6JsonLd(page, breadcrumbs)} />

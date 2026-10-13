@@ -1,0 +1,24 @@
+---
+import '../styles/image-lightbox.css';
+---
+
+<dialog id="image-lightbox" class="image-lightbox" aria-labelledby="image-lightbox-caption">
+  <div class="image-lightbox__toolbar">
+    <div class="image-lightbox__zoom-group" role="group" aria-label="Zoom">
+      <button type="button" class="image-lightbox__zoom-btn" data-lightbox-zoom-out aria-label="Zoom out">
+        −
+      </button>
+      <span class="image-lightbox__zoom-label" data-lightbox-zoom-label>100%</span>
+      <button type="button" class="image-lightbox__zoom-btn" data-lightbox-zoom-in aria-label="Zoom in">
+        +
+      </button>
+    </div>
+    <button type="button" class="image-lightbox__close-btn" data-lightbox-close>Close</button>
+  </div>
+  <div class="image-lightbox__viewport" data-lightbox-viewport>
+    <div class="image-lightbox__stage" data-lightbox-stage>
+      <img class="image-lightbox__img" data-lightbox-img alt="" decoding="async" />
+    </div>
+  </div>
+  <p id="image-lightbox-caption" class="image-lightbox__caption" data-lightbox-caption></p>
+</dialog>

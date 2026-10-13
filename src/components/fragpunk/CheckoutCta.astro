@@ -1,6 +1,5 @@
 ---
 import Icon from '../icons/Icon.astro';
-import { AFFILIATE_LINK_REL } from '../../config/affiliate';
 import { checkoutPath, type CheckoutProduct } from '../../config/checkout';
 import { Button } from '@/components/starwind/button';
 
@@ -15,7 +14,7 @@ interface Props {
 }
 
 const {
-  product = 'fragpunk',
+  product = 'main',
   label = 'Check availability',
   class: className,
   frame = 'glass',
@@ -34,7 +33,7 @@ const directHref = checkoutPath(product);
           <Icon name="arrowRight" size={17} />
         </Button>
       ) : (
-        <Button as="a" href={directHref} variant="primary" rel={AFFILIATE_LINK_REL} target="_self">
+        <Button as="a" href={directHref} variant="primary" target="_self">
           {label}
           <Icon name="arrowRight" size={17} />
         </Button>
@@ -49,7 +48,7 @@ const directHref = checkoutPath(product);
             <Icon name="arrowRight" size={17} />
           </Button>
         ) : (
-          <Button as="a" href={directHref} variant="primary" rel={AFFILIATE_LINK_REL} target="_self">
+          <Button as="a" href={directHref} variant="primary" target="_self">
             {label}
             <Icon name="arrowRight" size={17} />
           </Button>

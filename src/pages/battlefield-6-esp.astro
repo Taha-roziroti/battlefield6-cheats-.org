@@ -1,0 +1,13 @@
+---
+import Bf6ArticlePage from '../components/bf6/Bf6ArticlePage.astro';
+import { getBf6Page } from '../data/bf6-pages';
+import { buildBf6JsonLd } from '../utils/bf6-schema';
+
+const page = getBf6Page('esp');
+const breadcrumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'ESP', path: '/battlefield-6-esp/' },
+];
+---
+
+<Bf6ArticlePage page={page} pageKey="esp" breadcrumbs={breadcrumbs} jsonLd={buildBf6JsonLd(page, breadcrumbs)} />

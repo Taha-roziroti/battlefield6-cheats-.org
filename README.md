@@ -1,6 +1,6 @@
 # fragpunk-cheat.org
 
-Static Astro site for FragPunk cheat guides, pricing notes, and checkout links to the seller.
+Static Astro site for Battlefield 6 cheat guides, pricing, and secure checkout.
 
 ## Requirements
 

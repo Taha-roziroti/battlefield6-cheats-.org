@@ -1,4 +1,4 @@
-/* Glassmorphism + animated brand borders + scroll-driven motion (FragPunk Cheats) */
+/* Glassmorphism + animated brand borders + scroll-driven motion */
 
 @property --glass-border-angle {
   syntax: '<angle>';
@@ -7,14 +7,18 @@
 }
 
 :root {
-  /* Opaque card fills — only the animated border ring moves, not the fill */
+  /* Static grey glass fill — never animated; purple is border-only */
   --glass-card-fill: #0c0f13;
   --glass-card-fill-strong: #101418;
   --glass-card-fill-accent: #12101c;
+  --glass-static-surface: color-mix(in oklab, #1a1e24 84%, transparent);
+  --glass-static-edge: color-mix(in oklab, #7a828c 22%, #2c3138 78%);
   --glass-bg: var(--glass-card-fill);
   --glass-bg-strong: var(--glass-card-fill-strong);
-  --glass-border: color-mix(in oklab, var(--primary) 35%, transparent);
-  --glass-shadow: 0 18px 48px -24px color-mix(in oklab, var(--primary) 35%, transparent);
+  --glass-border: color-mix(in oklab, #8b939d 30%, #3a4048 70%);
+  --glass-shadow: 0 14px 36px -22px color-mix(in oklab, #000 72%, transparent);
+  --glass-card-radius: calc(var(--radius) + 4px);
+  --glass-card-ring: 1.5px;
 }
 
 .dark {
@@ -23,62 +27,29 @@
   --glass-card-fill-accent: #12101c;
   --glass-bg: var(--glass-card-fill);
   --glass-bg-strong: var(--glass-card-fill-strong);
-  --glass-border: color-mix(in oklab, var(--primary) 55%, transparent);
-  --glass-shadow: 0 22px 56px -20px color-mix(in oklab, #000 70%, transparent);
+  --glass-static-surface: color-mix(in oklab, #161a20 86%, transparent);
+  --glass-static-edge: color-mix(in oklab, #727a85 24%, #262b32 76%);
+  --glass-border: color-mix(in oklab, #7d858f 28%, #343a42 72%);
+  --glass-shadow: 0 16px 40px -20px color-mix(in oklab, #000 78%, transparent);
 }
 
 .site-shell {
   position: relative;
   min-height: 100vh;
   background-color: #0a0d10;
-  background-image:
-    radial-gradient(1100px 520px at 8% -8%, color-mix(in oklab, var(--primary) 14%, transparent), transparent 58%),
-    radial-gradient(880px 480px at 92% 18%, color-mix(in oklab, var(--primary-accent) 9%, transparent), transparent 52%);
-  background-attachment: fixed;
-  background-repeat: no-repeat;
 }
 
 .scroll-depth-scene {
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
+  display: none;
 }
 
-.scroll-depth-scene__layer {
-  position: absolute;
+.site-nav {
+  background: color-mix(in oklab, #0a0d10 78%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in oklab, var(--primary) 22%, var(--border));
   border-radius: 999px;
-  filter: blur(72px);
-  opacity: 0.32;
-}
-
-.dark .scroll-depth-scene__layer {
-  opacity: 0.35;
-}
-
-.scroll-depth-scene__layer--1 {
-  top: -8%;
-  left: -6%;
-  width: min(42vw, 28rem);
-  height: min(42vw, 28rem);
-  background: color-mix(in oklab, var(--primary) 70%, #9654ff);
-}
-
-.scroll-depth-scene__layer--2 {
-  top: 38%;
-  right: -8%;
-  width: min(48vw, 32rem);
-  height: min(48vw, 32rem);
-  background: color-mix(in oklab, var(--primary-accent) 65%, #7f3dee);
-}
-
-.scroll-depth-scene__layer--3 {
-  bottom: -12%;
-  left: 22%;
-  width: min(56vw, 36rem);
-  height: min(40vw, 26rem);
-  background: color-mix(in oklab, var(--primary) 45%, transparent);
+  box-shadow: 0 12px 40px -18px color-mix(in oklab, #000 65%, transparent);
 }
 
 .site-shell #main-content,
@@ -115,54 +86,73 @@
 .glass-border-animated {
   position: relative;
   isolation: isolate;
-  border-radius: calc(var(--radius) + 4px);
-  padding: 1px;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  border-radius: var(--glass-card-radius);
   background: transparent;
 }
 
+/* Purple ring locked to the card outline (no oversized spin disk) */
 .glass-border-animated::before {
   content: '';
   position: absolute;
   z-index: 0;
-  inset: -120%;
+  inset: 0;
+  border-radius: inherit;
+  padding: var(--glass-card-ring);
   pointer-events: none;
   background: conic-gradient(
     from var(--glass-border-angle),
     transparent 0deg,
-    var(--primary) 70deg,
-    var(--primary-accent) 140deg,
-    transparent 220deg,
-    var(--primary) 300deg,
+    transparent 105deg,
+    var(--primary) 145deg,
+    var(--primary-accent) 185deg,
+    transparent 225deg,
     transparent 360deg
   );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
   animation: glass-border-spin 16s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .glass-border-animated::before {
     animation: none;
-    --glass-border-angle: 45deg;
-    opacity: 0.65;
+    --glass-border-angle: 40deg;
+    opacity: 0.75;
   }
 }
 
 .glass-border-animated__inner {
   position: relative;
   z-index: 1;
-  border-radius: calc(var(--radius) + 3px);
-  background: var(--glass-card-fill);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  box-shadow: var(--glass-shadow);
+  width: calc(100% - (2 * var(--glass-card-ring)));
+  margin: var(--glass-card-ring);
+  box-sizing: border-box;
+  border-radius: calc(var(--glass-card-radius) - var(--glass-card-ring));
+  background: var(--glass-static-surface);
+  backdrop-filter: blur(18px) saturate(1.04);
+  -webkit-backdrop-filter: blur(18px) saturate(1.04);
+  border: 1px solid var(--glass-static-edge);
+  box-shadow:
+    var(--glass-shadow),
+    inset 0 1px 0 color-mix(in oklab, #fff 5%, transparent);
 }
 
 .glass-panel {
   border-radius: calc(var(--radius) + 2px);
-  background: var(--glass-card-fill);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border: 1px solid color-mix(in oklab, var(--primary) 22%, var(--border));
+  background: var(--glass-static-surface);
+  backdrop-filter: blur(18px) saturate(1.04);
+  -webkit-backdrop-filter: blur(18px) saturate(1.04);
+  border: 1px solid var(--glass-static-edge);
   box-shadow: var(--glass-shadow);
 }
 
@@ -206,18 +196,24 @@
 
 .text-fx-heading {
   position: relative;
-  display: inline-block;
+  display: block;
+  max-width: 100%;
 }
 
 .text-fx-heading::after {
   content: '';
   position: absolute;
   left: 0;
-  bottom: -0.35rem;
-  width: 3.5rem;
+  bottom: -0.45rem;
+  width: min(11rem, 48%);
   height: 3px;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--primary), var(--primary-accent), transparent);
+  background: linear-gradient(
+    90deg,
+    var(--primary) 0%,
+    var(--primary-accent) 55%,
+    transparent 100%
+  );
 }
 
 .text-fx-glow {
@@ -275,7 +271,7 @@
 }
 
 .glass-footer-wrap {
-  padding: 0 1.25rem 2.5rem;
+  padding-bottom: clamp(1.75rem, 4vw, 2.5rem);
 }
 
 .glass-footer-wrap .glass-border-animated__inner {

@@ -1,5 +1,9 @@
 # build output
 dist/
+public/images/_masters-backup/
+.tools/
+*.enhance.tmp
+*.ai.tmp
 # generated types
 .astro/
 

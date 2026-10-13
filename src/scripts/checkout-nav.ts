@@ -1,5 +1,8 @@
 import { CHECKOUT, CHECKOUT_SLUGS, type CheckoutProduct } from '../config/checkout';
 
+const CHECKOUT_EXIT_CLASS = 'is-checkout-exit';
+const CHECKOUT_EXIT_MS = 220;
+
 function normalizeGoPath(pathname: string): string {
   let path = pathname.split('?')[0]?.split('#')[0] ?? '/';
   if (!path.startsWith('/')) path = `/${path}`;
@@ -13,6 +16,21 @@ export function checkoutDestinationForPath(pathname: string): string | null {
     if (normalized === `/go/${slug}/`) return CHECKOUT[product];
   }
   return null;
+}
+
+export function navigateToCheckout(destination: string): void {
+  const root = document.documentElement;
+  if (root.classList.contains(CHECKOUT_EXIT_CLASS)) return;
+
+  const picker = document.getElementById('checkout-picker');
+  if (picker instanceof HTMLDialogElement && picker.open) {
+    picker.close();
+  }
+
+  root.classList.add(CHECKOUT_EXIT_CLASS);
+  window.setTimeout(() => {
+    window.location.assign(destination);
+  }, CHECKOUT_EXIT_MS);
 }
 
 export function initCheckoutLinkNavigation(): void {
@@ -37,8 +55,6 @@ export function initCheckoutLinkNavigation(): void {
       const destination = checkoutDestinationForPath(path);
       if (!destination) return;
 
-      event.preventDefault();
-
       const newTab =
         event.button === 1 ||
         event.metaKey ||
@@ -47,11 +63,13 @@ export function initCheckoutLinkNavigation(): void {
         anchor.target === '_blank';
 
       if (newTab) {
+        event.preventDefault();
         window.open(destination, '_blank', 'noopener,noreferrer');
         return;
       }
 
-      window.location.assign(destination);
+      event.preventDefault();
+      navigateToCheckout(destination);
     },
     true,
   );

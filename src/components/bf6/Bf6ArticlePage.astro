@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeroBanner from '../fragpunk/SiteHeroBanner.astro';
+import Bf6ArticleBody from './Bf6ArticleBody.astro';
+import type { Bf6PageKey } from '../../data/bf6-pages';
+import type { Bf6ParsedPage } from '../../utils/bf6-mdx';
+import { resolveHeroLead } from '../../utils/bf6-hero';
+import type { BreadcrumbItem } from '../../utils/schema';
+
+interface Props {
+  page: Bf6ParsedPage;
+  pageKey: Bf6PageKey;
+  breadcrumbs: BreadcrumbItem[];
+  jsonLd: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const { page, pageKey, breadcrumbs, jsonLd } = Astro.props;
+
+const lead = resolveHeroLead(page);
+---
+
+<BaseLayout
+  title={page.meta.title}
+  description={page.meta.description}
+  ogImageAlt={page.meta.imageAlt || page.meta.title}
+  jsonLd={jsonLd}
+>
+  <article>
+    <SiteHeroBanner title={page.h1} lead={lead} breadcrumbs={breadcrumbs} />
+    <section class="glass-section bf6-article-shell" aria-label="Article">
+      <div class="guide-page-shell">
+        <Bf6ArticleBody blocks={page.blocks} pageKey={pageKey} />
+      </div>
+    </section>
+  </article>
+</BaseLayout>

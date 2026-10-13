@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { FRAGPUNK_FAQS } from '../data/fragpunk/faq';
+import { SITE_FAQS } from '../data/fragpunk/faq';
 import { resolvePageSeo } from '../config/seo';
 import { breadcrumbSchema, webPageSchema } from '../utils/schema';
 import SiteHeroBanner from '../components/fragpunk/SiteHeroBanner.astro';
@@ -18,7 +18,7 @@ const breadcrumbs = [
   description={seo.description}
   jsonLd={[
     webPageSchema({
-      name: 'FragPunk Cheats FAQ',
+      name: 'Battlefield 6 Cheats FAQ',
       description: seo.description,
       url: '/faq/',
     }),
@@ -27,9 +27,9 @@ const breadcrumbs = [
 >
   <SiteHeroBanner
     eyebrow="Help center"
-    title="FragPunk cheats FAQ"
-    lead="Short answers on money, Cloud DMA, and what we actually know (versus what we read on the product page)."
+    title="Battlefield 6 cheats FAQ"
+    lead="Short answers on pricing, Cloud DMA, requirements, and what the current product listings describe."
     breadcrumbs={breadcrumbs}
   />
-  <SiteFaqSection items={FRAGPUNK_FAQS} variant="full" titleTag="h2" titleId="faq-topic-heading" />
+  <SiteFaqSection items={SITE_FAQS} variant="full" titleTag="h2" titleId="faq-topic-heading" />
 </BaseLayout>

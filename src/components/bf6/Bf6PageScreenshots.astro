@@ -1,0 +1,33 @@
+---
+import Bf6ZoomableFigure from './Bf6ZoomableFigure.astro';
+import { screenshotsForPage } from '../../data/bf6-screenshots';
+import type { Bf6PageKey } from '../../data/bf6-pages';
+
+interface Props {
+  page: Bf6PageKey;
+}
+
+const { page } = Astro.props;
+const shots = screenshotsForPage(page);
+if (shots.length === 0) return null;
+
+const isHome = page === 'home';
+---
+
+<section class="bf6-screenshots" aria-label="Battlefield 6 gameplay captures">
+  <ul
+    class:list={[
+      'bf6-screenshots__grid',
+      shots.length > 1 && 'bf6-screenshots__grid--multi',
+      isHome && 'home-gallery',
+    ]}
+  >
+    {
+      shots.map((shot) => (
+        <li>
+          <Bf6ZoomableFigure shot={shot} />
+        </li>
+      ))
+    }
+  </ul>
+</section>

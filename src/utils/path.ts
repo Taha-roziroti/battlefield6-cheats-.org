@@ -8,14 +8,13 @@ export function withTrailingSlash(path: string): string {
   return hash ? `${normalized}#${hash}` : normalized;
 }
 
-export const FRAGPUNK_ROUTES = {
+export const SITE_ROUTES = {
   home: '/',
-  aimbot: '/fragpunk-aimbot/',
-  esp: '/fragpunk-esp/',
-  pricing: '/fragpunk-cheats-pricing/',
-  review: '/fragpunk-cheats-review/',
-  cloudDma: '/fragpunk-cloud-dma/',
-  hwidSpoofer: '/fragpunk-hwid-spoofer/',
+  aimbot: '/battlefield-6-aimbot/',
+  esp: '/battlefield-6-esp/',
+  requirements: '/battlefield-6-cheat-requirements/',
+  cloudDma: '/cloud-dma/',
+  hwidSpoofer: '/battlefield-6-hwid-spoofer/',
   faq: '/faq/',
   support: '/support/',
   about: '/about/',
@@ -23,9 +22,9 @@ export const FRAGPUNK_ROUTES = {
   terms: '/terms/',
 } as const;
 
-export const ROUTES = FRAGPUNK_ROUTES;
+export const ROUTES = SITE_ROUTES;
 
-/** Legacy Dota URLs → homepage (also mirrored in astro.config redirects). */
+/** Legacy URLs → current routes (also mirrored in astro.config redirects). */
 export const LEGACY_PATH_MAP: Record<string, string> = {
   '/cheats': '/',
   '/cheats/': '/',
@@ -35,16 +34,28 @@ export const LEGACY_PATH_MAP: Record<string, string> = {
   '/cheats/pro/': '/',
   '/cheats/elite': '/',
   '/cheats/elite/': '/',
-  '/cheats/compare': '/fragpunk-cheats-review/',
-  '/cheats/compare/': '/fragpunk-cheats-review/',
+  '/cheats/compare': '/',
+  '/cheats/compare/': '/',
   '/contact': '/support/',
   '/contact/': '/support/',
   '/products/dota-2-cheats': '/',
   '/products/dota-2-cheats/': '/',
-  '/blog': '/fragpunk-cheats-review/',
-  '/blog/': '/fragpunk-cheats-review/',
+  '/blog': '/',
+  '/blog/': '/',
   '/forum': '/',
   '/forum/': '/',
+  '/fragpunk-aimbot': SITE_ROUTES.aimbot,
+  '/fragpunk-aimbot/': SITE_ROUTES.aimbot,
+  '/fragpunk-esp': SITE_ROUTES.esp,
+  '/fragpunk-esp/': SITE_ROUTES.esp,
+  '/fragpunk-cloud-dma': SITE_ROUTES.cloudDma,
+  '/fragpunk-cloud-dma/': SITE_ROUTES.cloudDma,
+  '/fragpunk-hwid-spoofer': SITE_ROUTES.hwidSpoofer,
+  '/fragpunk-hwid-spoofer/': SITE_ROUTES.hwidSpoofer,
+  '/fragpunk-cheats-pricing': SITE_ROUTES.home,
+  '/fragpunk-cheats-pricing/': SITE_ROUTES.home,
+  '/fragpunk-cheats-review': SITE_ROUTES.home,
+  '/fragpunk-cheats-review/': SITE_ROUTES.home,
 };
 
 export function normalizeInternalPath(href: string): string {
@@ -67,7 +78,7 @@ export function blogPostPath(slug: string): string {
 }
 
 export function productPath(_slug: string): string {
-  return FRAGPUNK_ROUTES.pricing;
+  return SITE_ROUTES.home;
 }
 
 export function cheatPath(slug: string): string {

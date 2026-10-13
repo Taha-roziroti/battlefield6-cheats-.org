@@ -10,21 +10,21 @@ import { ROUTES } from '../utils/path';
 
 <BaseLayout
   title={`Page not found | ${t.site.name}`}
-  description="The page you requested could not be found on fragpunk-cheat.org."
+  description={`The page you requested could not be found on ${t.site.domain}.`}
   noindex={true}
 >
   <SiteHeroBanner
     eyebrow="404"
     title="Page not found"
-    lead="That URL does not exist or may have moved. Head back to the homepage or open pricing for current plans."
+    lead="That URL does not exist or may have moved. Head back to the homepage for features and listed plans."
   >
     <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
       <Button type="button" variant="primary" data-checkout-chooser>
-        Buy FragPunk
+        View checkout
         <Icon name="arrowRight" size={17} />
       </Button>
       <Button as="a" href={ROUTES.home} variant="outline">Back to home</Button>
-      <Button as="a" href={ROUTES.pricing} variant="outline">View pricing</Button>
+      <Button as="a" href="/#plans" variant="outline">View plans</Button>
       <Button as="a" href={ROUTES.faq} variant="outline">Read FAQ</Button>
     </div>
   </SiteHeroBanner>

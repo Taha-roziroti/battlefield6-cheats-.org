@@ -57,7 +57,7 @@ const filters = filterTopics ?? (['all', 'plans', 'esp', 'scripts', 'safety', 'p
 
 <section
   id={sectionId}
-  class:list={['py-16 md:py-24', className]}
+  class:list={['py-10 md:py-16 lg:py-20', className]}
   aria-labelledby={titleId}
   data-faq-section={showFilters ? '' : undefined}
 >
@@ -110,9 +110,9 @@ const filters = filterTopics ?? (['all', 'plans', 'esp', 'scripts', 'safety', 'p
         <div data-faq-topic={faq.topic}>
           <AccordionItem value={`faq-${i}`}>
             <AccordionTrigger class="text-left">
-              <span class="flex items-center gap-2">
-                <Icon name={faq.icon} size={16} class="shrink-0" />
-                <span>{faq.q}</span>
+              <span class="flex min-w-0 items-start gap-2 sm:items-center">
+                <Icon name={faq.icon} size={16} class="mt-0.5 shrink-0 sm:mt-0" />
+                <span class="min-w-0 flex-1 text-pretty">{faq.q}</span>
               </span>
             </AccordionTrigger>
             <AccordionContent>

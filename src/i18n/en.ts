@@ -1,21 +1,21 @@
 import type { Translations } from './types';
 import { PRIMARY_CHECKOUT_PATH } from '../config/checkout';
 import { SITE_DOMAIN } from '../config/site';
-import { FRAGPUNK_NAV } from '../data/fragpunk/nav';
-import { FRAGPUNK_ROUTES } from '../utils/path';
+import { SITE_NAV } from '../data/fragpunk/nav';
+import { SITE_ROUTES } from '../utils/path';
 
-const productBase = FRAGPUNK_ROUTES.pricing;
+const productBase = SITE_ROUTES.home;
 
 export const en: Translations = {
   site: {
-    name: 'FragPunk Cheats',
+    name: 'Battlefield 6 Cheats',
     domain: SITE_DOMAIN,
-    title: 'FragPunk Cheats for PC | Features & Pricing',
+    title: 'Battlefield 6 Cheats: Features & Settings',
     description:
-      'Compare FragPunk cheat features, listed pricing, and PC requirements before you check availability.',
+      'Explore Battlefield 6 cheat features, customizable aim controls, ESP options, and Windows requirements. Review the available configurations.',
     discord: PRIMARY_CHECKOUT_PATH,
   },
-  nav: FRAGPUNK_NAV.map((link) => ({
+  nav: SITE_NAV.map((link) => ({
     href: link.href,
     label: link.label,
     ariaLabel: link.ariaLabel,
@@ -525,7 +525,7 @@ export const en: Translations = {
   },
   support: {
     eyebrow: 'Support',
-    title: 'FragPunk Cheats support',
+    title: 'Battlefield 6 Cheats support',
     subtitle: 'Stuck on checkout, Cloud DMA, HWID recovery, or loader setup? Reach out.',
     channels: [
       {
@@ -554,7 +554,7 @@ export const en: Translations = {
         title: 'HWID recovery',
         desc: 'Hardware-banned PC? Read the HWID Spoofer guide before you buy the main plan again.',
         linkLabel: 'HWID Spoofer',
-        href: FRAGPUNK_ROUTES.hwidSpoofer,
+        href: SITE_ROUTES.hwidSpoofer,
       },
     ],
     ticketTitle: 'Help us help you',
@@ -602,13 +602,14 @@ export const en: Translations = {
     ],
   },
   footer: {
-    tagline: 'FragPunk cheats on PC—features, prices, and Cloud DMA explained without the sales fog.',
+    tagline: 'Battlefield 6 cheats on Windows PC—features, listed pricing, and requirements in plain language.',
     explore: 'Explore',
     exploreLinks: [
-      { href: '/', label: 'Overview', ariaLabel: 'FragPunk overview' },
-      { href: '/fragpunk-cheats-review/', label: 'Review', ariaLabel: 'FragPunk review' },
-      { href: '/fragpunk-cheats-pricing/', label: 'Pricing', ariaLabel: 'Pricing' },
-      { href: FRAGPUNK_ROUTES.hwidSpoofer, label: 'HWID Spoofer', ariaLabel: 'HWID Spoofer' },
+      { href: '/', label: 'Overview', ariaLabel: 'Battlefield 6 overview' },
+      { href: SITE_ROUTES.aimbot, label: 'Aimbot', ariaLabel: 'Battlefield 6 aimbot' },
+      { href: SITE_ROUTES.esp, label: 'ESP', ariaLabel: 'Battlefield 6 ESP' },
+      { href: SITE_ROUTES.requirements, label: 'Requirements', ariaLabel: 'Cheat requirements' },
+      { href: SITE_ROUTES.hwidSpoofer, label: 'HWID Spoofer', ariaLabel: 'HWID Spoofer' },
       { href: '/faq/', label: 'FAQ', ariaLabel: 'FAQ' },
     ],
     support: 'Support',
@@ -619,13 +620,13 @@ export const en: Translations = {
   },
   legalPages: {
     about: {
-      title: 'About FragPunk Cheats',
-      description: 'Who runs this site and how we write about FragPunk cheats on PC.',
+      title: 'About Battlefield 6 Cheats',
+      description: 'Who runs this site and how we write about Battlefield 6 cheats on PC.',
       sections: [
         {
           heading: 'Who we are',
           paragraphs: [
-            'We publish buyer-focused guides for FragPunk cheats—aimbot, ESP, pricing, and the Cloud DMA curveball—so you can read once and decide with eyes open.',
+            'We publish buyer-focused guides for Battlefield 6 cheats—aimbot, ESP, pricing, and the Cloud DMA curveball—so you can read once and decide with eyes open.',
             'Game names and trademarks belong to their owners; we use them only to describe what we sell and support.',
           ],
         },
@@ -675,7 +676,7 @@ export const en: Translations = {
     },
     terms: {
       title: 'Terms & Conditions',
-      description: `Rules for using ${SITE_DOMAIN}, checkout, and FragPunk cheat access.`,
+      description: `Rules for using ${SITE_DOMAIN}, checkout, and Battlefield 6 cheat access.`,
       sections: [
         {
           heading: 'Agreement',
@@ -686,7 +687,7 @@ export const en: Translations = {
         {
           heading: 'What you purchase',
           paragraphs: [
-            'FragPunk cheat access, Cloud DMA, and HWID Spoofer are sold through checkout on this site.',
+            'Battlefield 6 cheat access, Cloud DMA, and HWID Spoofer are sold through checkout on this site.',
             'Feature lists at purchase time describe what you get. We ship maintenance updates for active plans when the game patches.',
           ],
         },
@@ -732,7 +733,7 @@ export const en: Translations = {
       ],
     },
     support: {
-      title: 'FragPunk Cheats Support',
+      title: 'Battlefield 6 Cheats Support',
       description: 'Contact us for checkout, loader, license, and site questions.',
     },
   },
@@ -740,18 +741,18 @@ export const en: Translations = {
     skipLink: 'Skip to main content',
     browseCheats: 'Buy now',
     browseCheatsMobile: 'Buy',
-    homeAria: 'FragPunk Cheats home',
-    checkoutAria: 'Buy FragPunk cheat access',
+    homeAria: 'Battlefield 6 Cheats home',
+    checkoutAria: 'Buy Battlefield 6 cheat access',
     checkoutPicker: {
       eyebrow: 'Checkout',
       title: 'Choose what to buy',
-      subtitle: 'Pick a product — secure checkout opens in this tab.',
-      mainTitle: 'FragPunk main plan',
+      subtitle: 'Pick a product — checkout continues on this page.',
+      mainTitle: 'Battlefield 6 main plan',
       mainDetail: '{monthly} / {term} or {lifetime} lifetime · aimbot + ESP',
       cloudTitle: 'Cloud DMA',
       cloudDetail: '{price} lifetime · Hyper-V add-on for your PC',
       hwidTitle: 'HWID Spoofer',
-      hwidDetail: 'Hardware ban recovery · cleaner included',
+      hwidDetail: '$50 / 31 days or $150 lifetime · hardware spoofer + cleaner',
       cancel: 'Not now',
       close: 'Close checkout picker',
     },

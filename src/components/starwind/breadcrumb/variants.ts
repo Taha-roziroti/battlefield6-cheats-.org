@@ -17,7 +17,7 @@ export const breadcrumbList = tv({
 });
 
 export const breadcrumbPage = tv({
-  base: "text-foreground font-normal",
+  base: "font-medium text-primary",
 });
 
 export const breadcrumbSeparator = tv({

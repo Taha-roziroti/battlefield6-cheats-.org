@@ -1,23 +1,20 @@
 ---
 import '../../styles/site-hero.css';
 import Breadcrumbs from '../Breadcrumbs.astro';
+import ResponsiveImage from '../ResponsiveImage.astro';
+import { SITE_HERO_BACKGROUND } from '../../config/site-hero';
+import { HERO_IMAGE_SIZES, HERO_IMAGE_WIDTHS } from '../../utils/responsiveImage';
 import type { BreadcrumbItem } from '../../utils/schema';
-import { SITE_HERO_BACKGROUND } from '../../data/fragpunk/media';
-import {
-  defaultWebpSrc,
-  HERO_IMAGE_WIDTHS,
-  responsiveSrcSet,
-} from '../../utils/responsiveImage';
 
 interface Props {
   title: string;
   lead?: string;
   eyebrow?: string;
   breadcrumbs?: BreadcrumbItem[];
-  /** Preload + high fetch priority for LCP (homepage). */
-  priority?: boolean;
   contentClass?: string;
   class?: string;
+  /** Decorative background art behind hero copy (default on). */
+  background?: boolean;
 }
 
 const {
@@ -25,34 +22,44 @@ const {
   lead,
   eyebrow,
   breadcrumbs,
-  priority = false,
   contentClass,
   class: className,
+  background = true,
 } = Astro.props;
 
-const srcSet = responsiveSrcSet(SITE_HERO_BACKGROUND.src, HERO_IMAGE_WIDTHS);
-const imgSrc = defaultWebpSrc(SITE_HERO_BACKGROUND.src, HERO_IMAGE_WIDTHS);
 const hasActions = Astro.slots.has('default');
+const hero = SITE_HERO_BACKGROUND;
 ---
 
-<section class:list={['site-hero', className]} aria-labelledby="site-hero-title">
-  <div class="site-hero__media" aria-hidden="true">
-    <picture>
-      <source type="image/webp" srcset={srcSet} sizes="100vw" />
-      <img
-        src={imgSrc}
-        alt=""
-        width={SITE_HERO_BACKGROUND.width}
-        height={SITE_HERO_BACKGROUND.height}
-        class="site-hero__img"
-        loading="eager"
-        fetchpriority={priority ? 'high' : 'auto'}
-        decoding="async"
-      />
-    </picture>
-    <div class="site-hero__scrim"></div>
-  </div>
-  <div class:list={['site-hero__content mx-auto max-w-6xl px-5 py-10 md:py-14 lg:py-16', contentClass]}>
+<section
+  class:list={['site-hero', !background && 'site-hero--plain', className]}
+  aria-labelledby="site-hero-title"
+>
+  {
+    background && (
+      <div class="site-hero__media" aria-hidden="true">
+        <ResponsiveImage
+          src={hero.src}
+          alt=""
+          width={hero.width}
+          height={hero.height}
+          widths={HERO_IMAGE_WIDTHS}
+          sizes={HERO_IMAGE_SIZES}
+          loading="eager"
+          fetchPriority="high"
+          class="site-hero__img"
+        />
+        <div class="site-hero__veil" />
+        <div class="site-hero__scrim" />
+      </div>
+    )
+  }
+  <div
+    class:list={[
+      'site-hero__content content-rail py-8 sm:py-10 md:py-12 lg:py-14',
+      contentClass,
+    ]}
+  >
     <div class="site-hero__copy">
       {
         breadcrumbs && breadcrumbs.length > 0 && (

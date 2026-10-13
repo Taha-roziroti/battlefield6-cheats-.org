@@ -1,0 +1,66 @@
+{
+  "scoped-rifle-container-cave": {
+    "width": 3840,
+    "height": 2160
+  },
+  "scope-tunnel-security-kill": {
+    "width": 3840,
+    "height": 2160
+  },
+  "tunnel-checkpoint-pistol": {
+    "width": 3840,
+    "height": 2160
+  },
+  "silo-assault-rifle-muzzle": {
+    "width": 3840,
+    "height": 2160
+  },
+  "hangar-bay-damage-overlay": {
+    "width": 3840,
+    "height": 2160
+  },
+  "corridor-assault-rifle": {
+    "width": 3840,
+    "height": 2160
+  },
+  "carrier-deck-pistol-smoke": {
+    "width": 3840,
+    "height": 2160
+  },
+  "smoky-field-pistol": {
+    "width": 3840,
+    "height": 2160
+  },
+  "facility-armor-prompt": {
+    "width": 3840,
+    "height": 2160
+  },
+  "stairwell-armor-downed": {
+    "width": 3840,
+    "height": 2160
+  },
+  "hangar-loot-crate-glow": {
+    "width": 3840,
+    "height": 2160
+  },
+  "hangar-deck-ads-sight": {
+    "width": 3840,
+    "height": 2160
+  },
+  "wooden-shack-snow-armor": {
+    "width": 3840,
+    "height": 2160
+  },
+  "container-yard-puddles": {
+    "width": 3840,
+    "height": 2160
+  },
+  "cargo-catch-pistol": {
+    "width": 3840,
+    "height": 2160
+  },
+  "port-smoke-containers": {
+    "width": 3840,
+    "height": 2160
+  }
+}

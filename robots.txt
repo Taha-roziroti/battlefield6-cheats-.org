@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Disallow: /go/
+
+Sitemap: https://battlefield6-cheats.org/sitemap.xml

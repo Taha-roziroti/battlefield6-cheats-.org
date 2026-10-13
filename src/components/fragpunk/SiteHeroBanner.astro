@@ -1,9 +1,13 @@
 ---
 import '../../styles/site-hero.css';
 import Breadcrumbs from '../Breadcrumbs.astro';
-import ResponsiveImage from '../ResponsiveImage.astro';
 import { SITE_HERO_BACKGROUND } from '../../config/site-hero';
-import { HERO_IMAGE_SIZES, HERO_IMAGE_WIDTHS, webpSrc } from '../../utils/responsiveImage';
+import {
+  HERO_IMAGE_SIZES,
+  HERO_IMAGE_WIDTHS,
+  responsiveSrcSet,
+  webpSrc,
+} from '../../utils/responsiveImage';
 import type { BreadcrumbItem } from '../../utils/schema';
 
 interface Props {
@@ -29,7 +33,8 @@ const {
 
 const hasActions = Astro.slots.has('default');
 const hero = SITE_HERO_BACKGROUND;
-const heroBackdrop = webpSrc(hero.src, 1920);
+const heroLcp = webpSrc(hero.src, 1920);
+const heroSrcSet = responsiveSrcSet(hero.src, HERO_IMAGE_WIDTHS);
 ---
 
 <section
@@ -40,19 +45,20 @@ const heroBackdrop = webpSrc(hero.src, 1920);
     background && (
       <div
         class="site-hero__media"
-        style={`background-image: url('${heroBackdrop}')`}
+        style={`background-image: url('${heroLcp}')`}
         aria-hidden="true"
       >
-        <ResponsiveImage
-          src={hero.src}
-          alt=""
+        <img
+          src={heroLcp}
+          srcset={heroSrcSet}
+          sizes={HERO_IMAGE_SIZES}
           width={hero.width}
           height={hero.height}
-          widths={HERO_IMAGE_WIDTHS}
-          sizes={HERO_IMAGE_SIZES}
-          loading="eager"
-          fetchPriority="high"
+          alt=""
           class="site-hero__img"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
         />
         <div class="site-hero__veil" />
         <div class="site-hero__scrim" />

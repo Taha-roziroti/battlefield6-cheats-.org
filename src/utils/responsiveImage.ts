@@ -1,12 +1,19 @@
+import { ASSET_VERSION } from '../generated/asset-version';
+
 const RASTER_EXT = /\.(png|jpe?g|webp)$/i;
 
 /** Root-relative URL that respects Astro `base` (GitHub project pages) in production builds. */
 export function publicAssetUrl(path: string): string {
   const normalized = path.startsWith('/') ? path : `/${path}`;
   const base = import.meta.env.BASE_URL || '/';
-  if (base === '/') return normalized;
-  const prefix = base.endsWith('/') ? base.slice(0, -1) : base;
-  return `${prefix}${normalized}`;
+  let url = normalized;
+  if (base !== '/') {
+    const prefix = base.endsWith('/') ? base.slice(0, -1) : base;
+    url = `${prefix}${normalized}`;
+  }
+  if (import.meta.env.DEV || ASSET_VERSION === 'dev') return url;
+  const sep = url.includes('?') ? '&' : '?';
+  return `${url}${sep}v=${ASSET_VERSION}`;
 }
 
 /** Full-width hero / site banner (4K masters). */

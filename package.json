@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/generate-brand-icons.mjs && node scripts/prebuild-images.mjs && node scripts/verify-deploy-images.mjs && astro build && node scripts/write-checkout-redirects.mjs && node scripts/prune-dist-images.mjs && node scripts/write-deploy-meta.mjs && node scripts/finalize-sitemap.mjs && node scripts/indexnow.mjs",
+    "build": "node scripts/generate-asset-version.mjs && node scripts/generate-brand-icons.mjs && node scripts/prebuild-images.mjs && node scripts/verify-deploy-images.mjs && astro build && node scripts/write-checkout-redirects.mjs && node scripts/prune-dist-images.mjs && node scripts/write-deploy-meta.mjs && node scripts/finalize-sitemap.mjs && node scripts/indexnow.mjs",
     "generate:icons": "node scripts/generate-brand-icons.mjs",
     "preview": "astro preview --host 0.0.0.0",
     "check": "astro check",

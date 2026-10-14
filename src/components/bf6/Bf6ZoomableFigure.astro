@@ -38,6 +38,7 @@ const lightboxSrcSet = responsiveSrcSet(shot.src, lightboxWidths);
     data-lightbox-open
     data-lightbox-src={fullSrc}
     data-lightbox-srcset={lightboxSrcSet}
+    data-lightbox-sizes={imageSizes}
     data-lightbox-alt={shot.alt}
     aria-label={`Enlarge: ${shot.alt}`}
   >
@@ -48,7 +49,8 @@ const lightboxSrcSet = responsiveSrcSet(shot.src, lightboxWidths);
       height={shot.height}
       widths={imageWidths}
       sizes={imageSizes}
-      loading="eager"
+      loading="lazy"
+      fetchPriority="low"
       decoding="async"
       plainWebp
       class="bf6-screenshots__img"

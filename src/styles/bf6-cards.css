@@ -54,6 +54,12 @@
   gap: var(--content-block-gap);
 }
 
+.bf6-section__spotlight {
+  width: 100%;
+  max-width: min(22rem, 100%);
+  margin-inline: auto;
+}
+
 @media (min-width: 640px) {
   .bf6-section__flow {
     display: grid;
@@ -61,6 +67,13 @@
     column-gap: var(--content-gap-col);
     row-gap: var(--content-block-gap);
     align-items: stretch;
+  }
+
+  .bf6-section__spotlight {
+    grid-column: 1 / -1;
+    max-width: min(24rem, 42%);
+    margin-inline: 0 0;
+    justify-self: end;
   }
 
   .bf6-section__title {
@@ -98,7 +111,11 @@
 }
 
 .bf6-rows {
-  display: contents;
+  display: flex;
+  flex-direction: column;
+  gap: var(--content-gap);
+  grid-column: 1 / -1;
+  min-width: 0;
 }
 
 .bf6-row {

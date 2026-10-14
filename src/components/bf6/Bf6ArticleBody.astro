@@ -108,6 +108,12 @@ function nextSplitRow() {
 
             {isPricingSection && <Bf6PricingCards />}
 
+            {shot && !sectionCopy.html && !isPricingSection && (
+              <div class="bf6-section__spotlight">
+                <Bf6MediaColumn shot={shot} framed />
+              </div>
+            )}
+
             {showSectionRow && shot && sectionRow && (
               <article class:list={['bf6-row', sectionRow.flip && 'bf6-row--flip']}>
                 <div class:list={['bf6-row__cell', 'bf6-row__copy', !sectionRow.glassCopy && 'bf6-prose']}>

@@ -42,7 +42,7 @@ export function widthsUpToMaster(
 
 /** Display cap ~20–22rem; matches CSS max-width on `.bf6-split__media`. */
 export const BF6_SPLIT_IMAGE_SIZES =
-  '(min-width: 640px) 30vw, (min-width: 1280px) 17rem, min(92vw, 18rem)';
+  '(min-width: 1280px) 17rem, (min-width: 640px) 30vw, min(92vw, 18rem)';
 
 /** ~half of guide-page-shell in split layouts. */
 export const SPLIT_IMAGE_SIZES =

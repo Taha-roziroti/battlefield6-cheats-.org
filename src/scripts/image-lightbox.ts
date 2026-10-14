@@ -33,6 +33,46 @@ function applyTransform(stage: HTMLElement, state: State) {
   stage.style.transform = `translate(${state.translateX}px, ${state.translateY}px) scale(${state.scale})`;
 }
 
+/** Apply the same URLs the lightbox uses so inline frames paint reliably. */
+function hydrateInlineThumbnail(trigger: HTMLElement) {
+  const thumb = trigger.querySelector('img');
+  if (!(thumb instanceof HTMLImageElement)) return;
+
+  const src = trigger.getAttribute('data-lightbox-src');
+  const srcset = trigger.getAttribute('data-lightbox-srcset');
+  const sizes = trigger.getAttribute('data-lightbox-sizes');
+  if (!src) return;
+
+  if (srcset) thumb.srcset = srcset;
+  if (sizes) thumb.sizes = sizes;
+  thumb.src = src;
+}
+
+function initInlineThumbnails() {
+  const triggers = document.querySelectorAll<HTMLElement>('[data-lightbox-open]');
+  if (!triggers.length) return;
+
+  const hydrateVisible = (trigger: HTMLElement) => hydrateInlineThumbnail(trigger);
+
+  if (typeof IntersectionObserver === 'undefined') {
+    triggers.forEach(hydrateVisible);
+    return;
+  }
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        hydrateVisible(entry.target as HTMLElement);
+        io.unobserve(entry.target);
+      });
+    },
+    { rootMargin: '240px 0px', threshold: 0.01 },
+  );
+
+  triggers.forEach((trigger) => io.observe(trigger));
+}
+
 export function initImageLightbox() {
   const dialog = document.getElementById(DIALOG_ID);
   if (!(dialog instanceof HTMLDialogElement)) return;
@@ -80,6 +120,8 @@ export function initImageLightbox() {
 
     if (!dialog.open) dialog.showModal();
   };
+
+  initInlineThumbnails();
 
   document.querySelectorAll<HTMLElement>('[data-lightbox-open]').forEach((trigger) => {
     trigger.addEventListener('click', () => openWith(trigger));

@@ -22,3 +22,30 @@ import '../styles/image-lightbox.css';
   </div>
   <p id="image-lightbox-caption" class="image-lightbox__caption" data-lightbox-caption></p>
 </dialog>
+
+<script is:inline>
+  (function () {
+    function paintThumbnails() {
+      document.querySelectorAll('[data-lightbox-open]').forEach(function (trigger) {
+        var src = trigger.getAttribute('data-lightbox-src');
+        var srcset = trigger.getAttribute('data-lightbox-srcset');
+        var sizes = trigger.getAttribute('data-lightbox-sizes');
+        var img = trigger.querySelector('img');
+        if (img && src) {
+          if (srcset) img.setAttribute('srcset', srcset);
+          if (sizes) img.setAttribute('sizes', sizes);
+          img.setAttribute('src', src);
+        }
+        var poster = trigger.querySelector('[data-bf6-poster]');
+        if (poster && src) {
+          poster.style.setProperty('--bf6-thumb', 'url("' + src + '")');
+        }
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', paintThumbnails);
+    } else {
+      paintThumbnails();
+    }
+  })();
+</script>

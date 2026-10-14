@@ -48,29 +48,15 @@ function hydrateInlineThumbnail(trigger: HTMLElement) {
   thumb.src = src;
 }
 
-function initInlineThumbnails() {
-  const triggers = document.querySelectorAll<HTMLElement>('[data-lightbox-open]');
-  if (!triggers.length) return;
-
-  const hydrateVisible = (trigger: HTMLElement) => hydrateInlineThumbnail(trigger);
-
-  if (typeof IntersectionObserver === 'undefined') {
-    triggers.forEach(hydrateVisible);
-    return;
-  }
-
-  const io = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        hydrateVisible(entry.target as HTMLElement);
-        io.unobserve(entry.target);
-      });
-    },
-    { rootMargin: '240px 0px', threshold: 0.01 },
-  );
-
-  triggers.forEach((trigger) => io.observe(trigger));
+export function initInlineThumbnails() {
+  document.querySelectorAll<HTMLElement>('[data-lightbox-open]').forEach((trigger) => {
+    hydrateInlineThumbnail(trigger);
+    const poster = trigger.querySelector<HTMLElement>('[data-bf6-poster]');
+    const src = trigger.getAttribute('data-lightbox-src');
+    if (poster && src) {
+      poster.style.setProperty('--bf6-thumb', `url("${src}")`);
+    }
+  });
 }
 
 export function initImageLightbox() {
@@ -120,8 +106,6 @@ export function initImageLightbox() {
 
     if (!dialog.open) dialog.showModal();
   };
-
-  initInlineThumbnails();
 
   document.querySelectorAll<HTMLElement>('[data-lightbox-open]').forEach((trigger) => {
     trigger.addEventListener('click', () => openWith(trigger));

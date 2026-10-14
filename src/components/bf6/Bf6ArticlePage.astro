@@ -25,7 +25,12 @@ const lead = resolveHeroLead(page);
   ogImageAlt={page.meta.imageAlt || page.meta.title}
   jsonLd={jsonLd}
 >
-  <article>
+  {
+    pageKey === 'home' && (
+      <meta slot="head" http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+    )
+  }
+  <article class:list={[pageKey === 'home' && 'bf6-page--home']}>
     <SiteHeroBanner title={page.h1} lead={lead} breadcrumbs={breadcrumbs} />
     <section class="glass-section bf6-article-shell" aria-label="Article">
       <div class="guide-page-shell">

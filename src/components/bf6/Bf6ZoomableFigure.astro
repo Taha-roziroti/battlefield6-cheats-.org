@@ -1,5 +1,4 @@
 ---
-import ResponsiveImage from '../ResponsiveImage.astro';
 import type { Bf6Screenshot } from '../../data/bf6-screenshots';
 import {
   BF6_ARTICLE_IMAGE_WIDTHS,
@@ -25,9 +24,11 @@ const imageWidths = widthsUpToMaster(shot.width, baseWidths);
 const lightboxWidths = widthsUpToMaster(shot.width, IMAGE_4K_WIDTHS);
 const fullWidth = imageWidths[imageWidths.length - 1] ?? 640;
 
+const thumbSrc = webpSrc(shot.src, 640);
 const fullSrc = webpSrc(shot.src, fullWidth);
 const srcSet = responsiveSrcSet(shot.src, imageWidths);
 const lightboxSrcSet = responsiveSrcSet(shot.src, lightboxWidths);
+const mediaStyle = `--bf6-aspect: ${shot.width} / ${shot.height}; --bf6-thumb: url("${thumbSrc}")`;
 ---
 
 <figure class:list={['bf6-screenshots__figure', className]}>
@@ -42,19 +43,19 @@ const lightboxSrcSet = responsiveSrcSet(shot.src, lightboxWidths);
     data-lightbox-alt={shot.alt}
     aria-label={`Enlarge: ${shot.alt}`}
   >
-    <ResponsiveImage
-      src={shot.src}
-      alt={shot.alt}
-      width={shot.width}
-      height={shot.height}
-      widths={imageWidths}
-      sizes={imageSizes}
-      loading="lazy"
-      fetchPriority="low"
-      decoding="async"
-      plainWebp
-      class="bf6-screenshots__img"
-    />
+    <div class="bf6-zoomable__media" data-bf6-poster style={mediaStyle}>
+      <img
+        src={thumbSrc}
+        srcset={srcSet}
+        sizes={imageSizes}
+        alt={shot.alt}
+        width={shot.width}
+        height={shot.height}
+        loading="eager"
+        decoding="async"
+        class="bf6-screenshots__img"
+      />
+    </div>
     <span class="bf6-zoomable__hint">Click to enlarge · zoom inside viewer</span>
   </div>
 </figure>

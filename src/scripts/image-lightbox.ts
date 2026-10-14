@@ -83,6 +83,11 @@ export function initImageLightbox() {
 
   document.querySelectorAll<HTMLElement>('[data-lightbox-open]').forEach((trigger) => {
     trigger.addEventListener('click', () => openWith(trigger));
+    trigger.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      openWith(trigger);
+    });
   });
 
   dialog.querySelectorAll<HTMLElement>('[data-lightbox-close]').forEach((btn) => {

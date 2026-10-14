@@ -31,9 +31,10 @@ const lightboxSrcSet = responsiveSrcSet(shot.src, lightboxWidths);
 ---
 
 <figure class:list={['bf6-screenshots__figure', className]}>
-  <button
-    type="button"
+  <div
     class="bf6-zoomable"
+    role="button"
+    tabindex="0"
     data-lightbox-open
     data-lightbox-src={fullSrc}
     data-lightbox-srcset={lightboxSrcSet}
@@ -47,9 +48,11 @@ const lightboxSrcSet = responsiveSrcSet(shot.src, lightboxWidths);
       height={shot.height}
       widths={imageWidths}
       sizes={imageSizes}
-      loading="lazy"
+      loading="eager"
+      decoding="async"
+      plainWebp
       class="bf6-screenshots__img"
     />
     <span class="bf6-zoomable__hint">Click to enlarge · zoom inside viewer</span>
-  </button>
+  </div>
 </figure>

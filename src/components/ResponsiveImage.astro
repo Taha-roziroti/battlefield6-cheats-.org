@@ -18,6 +18,8 @@ interface Props {
   widths?: readonly number[];
   class?: string;
   desktopOnly?: boolean;
+  /** Skip `<picture>`; use WebP `src`/`srcset` on `<img>` (matches lightbox delivery). */
+  plainWebp?: boolean;
 }
 
 const {
@@ -31,6 +33,7 @@ const {
   widths = CONTENT_IMAGE_WIDTHS,
   class: className,
   desktopOnly = false,
+  plainWebp = false,
 } = Astro.props;
 
 const isRaster = /\.(png|jpe?g|webp)$/i.test(src);
@@ -47,7 +50,7 @@ const pictureMedia = desktopOnly ? '(min-width: 1024px)' : undefined;
 ---
 
 {
-  isRaster ? (
+  isRaster && !plainWebp ? (
     <picture>
       <source type="image/webp" srcset={srcSet} sizes={pictureSizes} media={pictureMedia} />
       <img
@@ -63,6 +66,19 @@ const pictureMedia = desktopOnly ? '(min-width: 1024px)' : undefined;
         class={className}
       />
     </picture>
+  ) : isRaster ? (
+    <img
+      src={imgSrc}
+      srcset={imgSrcSet}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={loading}
+      decoding="async"
+      fetchpriority={fetchPriority}
+      sizes={pictureSizes}
+      class={className}
+    />
   ) : (
     <img
       src={src}

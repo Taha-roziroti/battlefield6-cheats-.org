@@ -113,6 +113,14 @@
   overflow: hidden;
 }
 
+.bf6-zoomable picture,
+.bf6-zoomable .bf6-screenshots__img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
 .bf6-zoomable:focus-visible {
   outline: 3px solid color-mix(in oklab, var(--primary) 55%, transparent);
   outline-offset: 2px;

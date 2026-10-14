@@ -25,6 +25,7 @@ import {
   responsiveSrcSet,
   HERO_IMAGE_SIZES,
   HERO_IMAGE_WIDTHS,
+  widthsUpToMaster,
 } from '../utils/responsiveImage';
 
 interface Props {
@@ -149,7 +150,10 @@ const robotsContent = noindex
       as="image"
       type="image/webp"
       href={heroLcpWebpSrc(SITE_HERO_BACKGROUND.src)}
-      imagesrcset={responsiveSrcSet(SITE_HERO_BACKGROUND.src, HERO_IMAGE_WIDTHS)}
+      imagesrcset={responsiveSrcSet(
+        SITE_HERO_BACKGROUND.src,
+        widthsUpToMaster(SITE_HERO_BACKGROUND.width, HERO_IMAGE_WIDTHS),
+      )}
       imagesizes={HERO_IMAGE_SIZES}
       fetchpriority="high"
     />

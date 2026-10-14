@@ -19,7 +19,8 @@ export function publicAssetUrl(path: string): string {
 /** Full-width hero / site banner (4K masters). */
 export const HERO_IMAGE_WIDTHS = [480, 640, 960, 1280, 1536, 1920, 2560, 3840] as const;
 export const HERO_IMAGE_SIZES = '100vw';
-export const HERO_LCP_WIDTH = 1920;
+/** LCP preload width — matches max hero WebP for current 1024px master. */
+export const HERO_LCP_WIDTH = 960;
 
 /** In-page screenshots (4K masters). */
 export const IMAGE_4K_WIDTHS = [480, 640, 960, 1280, 1536, 1920, 2560, 3840] as const;

@@ -5,8 +5,10 @@ import { SITE_HERO_BACKGROUND } from '../../config/site-hero';
 import {
   HERO_IMAGE_SIZES,
   HERO_IMAGE_WIDTHS,
+  HERO_LCP_WIDTH,
   responsiveSrcSet,
   webpSrc,
+  widthsUpToMaster,
 } from '../../utils/responsiveImage';
 import type { BreadcrumbItem } from '../../utils/schema';
 
@@ -33,8 +35,9 @@ const {
 
 const hasActions = Astro.slots.has('default');
 const hero = SITE_HERO_BACKGROUND;
-const heroLcp = webpSrc(hero.src, 1920);
-const heroSrcSet = responsiveSrcSet(hero.src, HERO_IMAGE_WIDTHS);
+const heroWidths = widthsUpToMaster(hero.width, HERO_IMAGE_WIDTHS);
+const heroLcp = webpSrc(hero.src, HERO_LCP_WIDTH);
+const heroSrcSet = responsiveSrcSet(hero.src, heroWidths);
 ---
 
 <section

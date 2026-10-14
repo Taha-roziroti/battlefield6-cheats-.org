@@ -1,4 +1,5 @@
 import type { Bf6PageKey } from './bf6-pages';
+import gameplayDimensions from '../../public/images/battlefield/gameplay/dimensions.json';
 
 const GAMEPLAY_BASE = '/images/battlefield/gameplay';
 
@@ -11,117 +12,109 @@ export interface Bf6Screenshot {
   alt: string;
 }
 
+type Dim = { width: number; height: number };
+
+function size(id: string): Dim {
+  const d = (gameplayDimensions as Record<string, Dim>)[id];
+  if (!d) throw new Error(`Missing dimensions.json entry: ${id}`);
+  return d;
+}
+
 const shots: Record<string, Bf6Screenshot> = {
   'carrier-deck-pistol-smoke': {
     id: 'carrier-deck-pistol-smoke',
     src: `${GAMEPLAY_BASE}/carrier-deck-pistol-smoke.png`,
-    width: 3840,
-    height: 2160,
+    ...size('carrier-deck-pistol-smoke'),
     alt: 'Battlefield 6 first-person view on an aircraft carrier deck with helicopters, smoke, and a pistol in hand.',
   },
   'port-smoke-containers': {
     id: 'port-smoke-containers',
     src: `${GAMEPLAY_BASE}/port-smoke-containers.png`,
-    width: 3840,
-    height: 2160,
+    ...size('port-smoke-containers'),
     alt: 'Battlefield 6 port map with stacked shipping containers, distant smoke plumes, and a bright overcast sky.',
   },
   'silo-assault-rifle-muzzle': {
     id: 'silo-assault-rifle-muzzle',
     src: `${GAMEPLAY_BASE}/silo-assault-rifle-muzzle.png`,
-    width: 3840,
-    height: 2160,
+    ...size('silo-assault-rifle-muzzle'),
     alt: 'Battlefield 6 snow-covered industrial yard with a white fuel silo while firing an assault rifle at a metal wall.',
   },
   'wooden-shack-snow-armor': {
     id: 'wooden-shack-snow-armor',
     src: `${GAMEPLAY_BASE}/wooden-shack-snow-armor.png`,
-    width: 3840,
-    height: 2160,
+    ...size('wooden-shack-snow-armor'),
     alt: 'Battlefield 6 interior of a wooden shack opening onto a snowy lane with an on-screen armor pickup prompt.',
   },
   'hangar-loot-crate-glow': {
     id: 'hangar-loot-crate-glow',
     src: `${GAMEPLAY_BASE}/hangar-loot-crate-glow.png`,
-    width: 3840,
-    height: 2160,
+    ...size('hangar-loot-crate-glow'),
     alt: 'Battlefield 6 ship interior with a glowing orange loot crate and red-lit stairwell doors.',
   },
   'scope-tunnel-security-kill': {
     id: 'scope-tunnel-security-kill',
     src: `${GAMEPLAY_BASE}/scope-tunnel-security-kill.png`,
-    width: 3840,
-    height: 2160,
+    ...size('scope-tunnel-security-kill'),
     alt: 'Battlefield 6 scoped rifle view down a concrete tunnel toward a security checkpoint sign.',
   },
   'hangar-deck-ads-sight': {
     id: 'hangar-deck-ads-sight',
     src: `${GAMEPLAY_BASE}/hangar-deck-ads-sight.png`,
-    width: 3840,
-    height: 2160,
+    ...size('hangar-deck-ads-sight'),
     alt: 'Battlefield 6 red-dot sight aimed along a hangar deck corridor marked with stencil signage.',
   },
   'scoped-rifle-container-cave': {
     id: 'scoped-rifle-container-cave',
     src: `${GAMEPLAY_BASE}/scoped-rifle-container-cave.png`,
-    width: 3840,
-    height: 2160,
+    ...size('scoped-rifle-container-cave'),
     alt: 'Battlefield 6 cave tunnel scene with a scoped assault rifle pointed at a red shipping container.',
   },
   'hangar-bay-damage-overlay': {
     id: 'hangar-bay-damage-overlay',
     src: `${GAMEPLAY_BASE}/hangar-bay-damage-overlay.png`,
-    width: 3840,
-    height: 2160,
+    ...size('hangar-bay-damage-overlay'),
     alt: 'Battlefield 6 industrial hangar with a green command container, squad HUD, and damage vignette on screen.',
   },
   'corridor-assault-rifle': {
     id: 'corridor-assault-rifle',
     src: `${GAMEPLAY_BASE}/corridor-assault-rifle.png`,
-    width: 3840,
-    height: 2160,
+    ...size('corridor-assault-rifle'),
     alt: 'Battlefield 6 tight metal corridor with fluorescent lights and an assault rifle at the ready.',
   },
   'stairwell-armor-downed': {
     id: 'stairwell-armor-downed',
     src: `${GAMEPLAY_BASE}/stairwell-armor-downed.png`,
-    width: 3840,
-    height: 2160,
+    ...size('stairwell-armor-downed'),
     alt: 'Battlefield 6 dim stairwell leading to a bright exterior bay with armor and revive prompts visible.',
   },
   'facility-armor-prompt': {
     id: 'facility-armor-prompt',
     src: `${GAMEPLAY_BASE}/facility-armor-prompt.png`,
-    width: 3840,
-    height: 2160,
+    ...size('facility-armor-prompt'),
     alt: 'Battlefield 6 underground facility room with server racks and an equip-armor interaction prompt.',
   },
   'tunnel-checkpoint-pistol': {
     id: 'tunnel-checkpoint-pistol',
     src: `${GAMEPLAY_BASE}/tunnel-checkpoint-pistol.png`,
-    width: 3840,
-    height: 2160,
+    ...size('tunnel-checkpoint-pistol'),
     alt: 'Battlefield 6 rocky tunnel security lane with a stop sign and pistol aimed toward the checkpoint.',
   },
   'cargo-catch-pistol': {
     id: 'cargo-catch-pistol',
     src: `${GAMEPLAY_BASE}/cargo-catch-pistol.png`,
-    width: 3840,
-    height: 2160,
+    ...size('cargo-catch-pistol'),
     alt: 'Battlefield 6 shipping-container alley with a catch-the-cargo objective and pistol crosshair.',
   },
   'container-yard-puddles': {
     id: 'container-yard-puddles',
     src: `${GAMEPLAY_BASE}/container-yard-puddles.png`,
-    width: 3840,
-    height: 2160,
+    ...size('container-yard-puddles'),
     alt: 'Battlefield 6 muddy container yard with reflective puddles between orange cargo boxes.',
   },
   'smoky-field-pistol': {
     id: 'smoky-field-pistol',
     src: `${GAMEPLAY_BASE}/smoky-field-pistol.png`,
-    width: 3840,
-    height: 2160,
+    ...size('smoky-field-pistol'),
     alt: 'Battlefield 6 open battlefield obscured by smoke while holding a pistol near burning debris.',
   },
 };

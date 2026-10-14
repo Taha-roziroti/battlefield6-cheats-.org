@@ -1,5 +1,6 @@
 /**
- * One-time / manual ingest: copy provided gameplay PNGs, upscale masters to 4K width, emit WebP variants.
+ * Ingest gameplay frames from Cursor assets (BF6_*_4K.webp or Indiana *_663x373_*.png).
+ * Writes PNG masters at native resolution and WebP variants (no AI / no forced 4K upscale).
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -18,7 +19,6 @@ const assetsDir = [
 ].find((dir) => dir && fs.existsSync(dir));
 
 const OUTPUT_DIR = path.join(root, 'public', 'images', 'battlefield', 'gameplay');
-const TARGET_WIDTH = 3840;
 const WEBP_WIDTHS = [480, 640, 960, 1280, 1536, 1920, 2560, 3840];
 
 /** Source asset suffix → canonical basename (no ext). */
@@ -42,45 +42,79 @@ const FILES = [
 ];
 
 function findAsset(marker) {
-  if (!assetsDir || !fs.existsSync(assetsDir)) return null;
-  const match = fs.readdirSync(assetsDir).find((name) => name.includes(`_${marker}_`));
-  return match ? path.join(assetsDir, match) : null;
+  if (!assetsDir) return null;
+  const files = fs.readdirSync(assetsDir);
+  const bf6 = files.find((name) => name.includes(`BF6_${marker}_4K`));
+  if (bf6) return path.join(assetsDir, bf6);
+  const indiana = files.find(
+    (name) => name.includes(`_${marker}_`) && /\.(png|jpe?g|webp)$/i.test(name),
+  );
+  return indiana ? path.join(assetsDir, indiana) : null;
 }
 
 async function processOne(inputPath, baseName) {
   const masterPng = path.join(OUTPUT_DIR, `${baseName}.png`);
-  const staging = path.join(OUTPUT_DIR, `.staging-${baseName}.png`);
+  const staging = path.join(OUTPUT_DIR, `.ingest-${baseName}.bin`);
   fs.copyFileSync(inputPath, staging);
-  const pipeline = sharp(staging).resize({ width: TARGET_WIDTH, withoutEnlargement: false });
+  const pipeline = sharp(staging, { failOn: 'none' }).rotate();
   const meta = await pipeline.metadata();
-  await pipeline.png({ compressionLevel: 9 }).toFile(masterPng);
+  const masterWidth = meta.width ?? 0;
+  const masterHeight = meta.height ?? 0;
+  if (!masterWidth || !masterHeight) {
+    throw new Error(`No dimensions: ${inputPath}`);
+  }
 
-  const masterWidth = meta.width && meta.width >= TARGET_WIDTH ? meta.width : TARGET_WIDTH;
+  await pipeline.clone().png({ compressionLevel: 9 }).toFile(masterPng);
+
   const widths = WEBP_WIDTHS.filter((w) => w <= masterWidth);
+  const allowed = new Set(widths.map((w) => `${baseName}-${w}.webp`));
+  const prefix = `${baseName}-`;
 
   for (const width of widths) {
     const out = path.join(OUTPUT_DIR, `${baseName}-${width}.webp`);
     await sharp(masterPng)
       .resize({ width, withoutEnlargement: true })
-      .webp({ quality: 88, effort: 4, smartSubsample: true })
+      .webp({ quality: 90, effort: 5, smartSubsample: true })
       .toFile(out);
+    console.log(`Wrote ${path.relative(root, out)}`);
+  }
+
+  for (const existing of fs.readdirSync(OUTPUT_DIR)) {
+    if (!existing.startsWith(prefix) || !existing.endsWith('.webp')) continue;
+    const widthPart = existing.slice(prefix.length, -'.webp'.length);
+    if (!/^\d+$/.test(widthPart)) continue;
+    if (allowed.has(existing)) continue;
+    fs.unlinkSync(path.join(OUTPUT_DIR, existing));
+    console.log(`Removed stale ${existing}`);
   }
 
   fs.unlinkSync(staging);
-  console.log(`OK ${baseName} (${meta.width ?? '?'}→${TARGET_WIDTH})`);
-  return { width: TARGET_WIDTH, height: Math.round((meta.height ?? 373) * (TARGET_WIDTH / (meta.width ?? 663))) };
+  console.log(`OK ${baseName} (${masterWidth}×${masterHeight})`);
+  return { width: masterWidth, height: masterHeight };
+}
+
+if (!assetsDir) {
+  console.error('No assets directory found.');
+  process.exit(1);
 }
 
 fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
 const dimensions = {};
+let missing = 0;
 for (const [marker, baseName] of FILES) {
   const input = findAsset(marker);
   if (!input) {
-    console.warn(`Missing asset for ${marker}`);
+    console.warn(`Missing asset for ${marker} (${baseName})`);
+    missing += 1;
     continue;
   }
   dimensions[baseName] = await processOne(input, baseName);
+}
+
+if (missing > 0) {
+  console.error(`ingest-bf6-gameplay: ${missing} asset(s) missing.`);
+  process.exit(1);
 }
 
 fs.writeFileSync(

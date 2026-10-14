@@ -11,7 +11,7 @@ const REQUIRED = [
   'public/images/battlefield/site-hero-background-1920.webp',
   'public/images/battlefield/site-hero-background.jpg',
   'public/images/battlefield/gameplay/cargo-catch-pistol-640.webp',
-  'public/images/battlefield/gameplay/cargo-catch-pistol-1920.webp',
+  'public/images/battlefield/gameplay/cargo-catch-pistol-960.webp',
   'public/images/battlefield/gameplay/carrier-deck-pistol-smoke-640.webp',
   'public/images/battlefield/gameplay/hangar-loot-crate-glow.png',
   'public/images/battlefield/gameplay/hangar-loot-crate-glow-640.webp',

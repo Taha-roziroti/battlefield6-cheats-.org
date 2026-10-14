@@ -8,6 +8,7 @@ import {
   IMAGE_4K_WIDTHS,
   responsiveSrcSet,
   webpSrc,
+  widthsUpToMaster,
 } from '../../utils/responsiveImage';
 
 interface Props {
@@ -19,11 +20,14 @@ interface Props {
 
 const { shot, class: className, splitColumn = false } = Astro.props;
 const imageSizes = splitColumn ? BF6_SPLIT_IMAGE_SIZES : CONTENT_IMAGE_SIZES;
-const imageWidths = splitColumn ? BF6_ARTICLE_IMAGE_WIDTHS : IMAGE_4K_WIDTHS;
+const baseWidths = splitColumn ? BF6_ARTICLE_IMAGE_WIDTHS : IMAGE_4K_WIDTHS;
+const imageWidths = widthsUpToMaster(shot.width, baseWidths);
+const lightboxWidths = widthsUpToMaster(shot.width, IMAGE_4K_WIDTHS);
+const fullWidth = imageWidths[imageWidths.length - 1] ?? 640;
 
-const fullSrc = webpSrc(shot.src, 1920);
+const fullSrc = webpSrc(shot.src, fullWidth);
 const srcSet = responsiveSrcSet(shot.src, imageWidths);
-const lightboxSrcSet = responsiveSrcSet(shot.src, IMAGE_4K_WIDTHS);
+const lightboxSrcSet = responsiveSrcSet(shot.src, lightboxWidths);
 ---
 
 <figure class:list={['bf6-screenshots__figure', className]}>

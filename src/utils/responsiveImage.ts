@@ -29,8 +29,15 @@ export const CONTENT_IMAGE_WIDTHS = IMAGE_4K_WIDTHS;
 export const CONTENT_IMAGE_SIZES =
   '(min-width: 1280px) min(1024px, 72vw), (min-width: 768px) 90vw, 100vw';
 
-/** BF6 split-column shots — full 4K srcset (masters are 3840px wide). */
+/** BF6 gameplay masters (typically ≤1024px); filter with `widthsUpToMaster()`. */
 export const BF6_ARTICLE_IMAGE_WIDTHS = IMAGE_4K_WIDTHS;
+
+export function widthsUpToMaster(
+  masterWidth: number,
+  widths: readonly number[] = IMAGE_4K_WIDTHS,
+): number[] {
+  return widths.filter((w) => w <= masterWidth);
+}
 
 /** Display cap ~20–22rem; matches CSS max-width on `.bf6-split__media`. */
 export const BF6_SPLIT_IMAGE_SIZES =
